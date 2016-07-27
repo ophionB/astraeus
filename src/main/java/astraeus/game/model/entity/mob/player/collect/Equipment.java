@@ -44,10 +44,10 @@ public final class Equipment extends ItemContainer {
 	public static final class EquipmentDefinition {
 
 		// TODO make this immutable
-		public static final Map<Integer, EquipmentDefinition> equipment_definitions = new HashMap<>();
+		public static final Map<Integer, EquipmentDefinition> definitions = new HashMap<>();		
 
 		public static EquipmentDefinition get(int id) {
-			return equipment_definitions.get(id);
+			return definitions.get(id);
 		}
 
 		private final int id;
@@ -79,6 +79,10 @@ public final class Equipment extends ItemContainer {
 			this.fullHat = fullHat;
 			this.fullMask = fullMask;
 			this.bonuses = bonuses;
+		}
+		
+		public static Map<Integer, EquipmentDefinition> getDefinitions() {
+			return definitions;
 		}
 
 		public int[] getBonuses() {
@@ -202,7 +206,7 @@ public final class Equipment extends ItemContainer {
         	return false;
         }
         
-        if (!canEquip(item.getId())) {
+        if (!Equipment.canEquip(player, item.getId())) {
         	return false;
         }
         
@@ -282,8 +286,8 @@ public final class Equipment extends ItemContainer {
         return true;
     }
     
-    public boolean canEquip(int id) {
-		final EquipmentDefinition req = EquipmentDefinition.equipment_definitions.get(id);
+    public static boolean canEquip(Player player, int id) {
+		final EquipmentDefinition req = EquipmentDefinition.definitions.get(id);
 		
 		if (req != null) {
 			for (final SkillRequirement r : req.getRequirements()) {

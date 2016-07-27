@@ -16,7 +16,13 @@ public final class GameServiceSequencer extends GameService {
 		
 		World.world.getTasks().process();
 		
+		long start = System.currentTimeMillis();
+		
 		synchronizer.synchronize();
+		
+		long end = System.currentTimeMillis();
+		
+		System.out.println("cycle: " + (end - start) + " ms");				
 		
 		World.world.dequeueLogout();
 

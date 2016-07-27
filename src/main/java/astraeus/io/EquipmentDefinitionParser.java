@@ -22,7 +22,7 @@ public final class EquipmentDefinitionParser extends GsonObjectParser<EquipmentD
 
 	@Override
 	public void onRead(EquipmentDefinition[] array) throws IOException {
-		Arrays.stream(array).forEach($it -> EquipmentDefinition.equipment_definitions.put($it.getId(), $it));		
+		Arrays.stream(array).forEach($it -> EquipmentDefinition.getDefinitions().put($it.getId(), $it));		
 	}
 
 }

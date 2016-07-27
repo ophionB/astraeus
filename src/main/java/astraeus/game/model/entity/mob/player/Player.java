@@ -528,6 +528,10 @@ public class Player extends Mob {
 	 * 		The packet to queue.
 	 */
 	public void queuePacket(final Sendable out) {
+		if (this instanceof StressBot) {
+			return;
+		}
+		
 		this.session.queue(out);
 	}
 

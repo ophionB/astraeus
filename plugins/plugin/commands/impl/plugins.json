@@ -68,5 +68,15 @@
     "Vult-R"
   ],
   "version": 1.0
+},
+{
+  "name": "Hit Command",
+  "description": "The command hitting players.",
+  "group": "command",
+  "base": "plugin.commands.impl.HitCommand",
+  "authors": [
+    "Vult-R"
+  ],
+  "version": 1.0
 }
 ]

@@ -701,11 +701,11 @@ public class Player extends Mob {
 			}
 		}
 
-//		addHit(hit);
-//		
-//		if (damage > 0) {
-//			getCombat().getDamageQueue().addDamage(attacker == null ? this : attacker, damage);
-//		}
+		addHit(hit);
+		
+		if (damage > 0) {
+			getCombat().getDamageQueue().addDamage(attacker == null ? this : attacker, damage);
+		}
 
 		decrementHealth(damage);
 

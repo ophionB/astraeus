@@ -4,6 +4,7 @@ import astraeus.game.model.entity.mob.Mob;
 import astraeus.game.model.entity.mob.combat.attack.Attack;
 import astraeus.game.model.entity.mob.combat.attack.AttackBuilder;
 import astraeus.game.model.entity.mob.combat.attack.AttackType;
+import astraeus.game.model.entity.mob.combat.dmg.DamageQueue;
 import astraeus.game.model.entity.mob.combat.type.CombatClass;
 import astraeus.game.model.entity.mob.combat.type.CombatType;
 import astraeus.util.Stopwatch;
@@ -15,6 +16,8 @@ public class CombatFields {
 	private Mob attackedBy;	
 	private Mob lastAttacked;
 	private Mob entity;
+	
+	private final DamageQueue damageQueue = new DamageQueue();
 	
 	private CombatTimer combatTimer = new CombatTimer();
 	
@@ -135,6 +138,9 @@ public class CombatFields {
 	public void setCombatTimer(CombatTimer combatTimer) {
 		this.combatTimer = combatTimer;
 	}
-
+	
+	public DamageQueue getDamageQueue() {
+		return damageQueue;
+	}
 	
 }

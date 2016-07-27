@@ -118,76 +118,82 @@ public final class UpdateNpcPacket implements Sendable {
       /**
        * Updates the state of a mob.
        * 
-       * @param mob The mob to update the state for.
+       * @param npc The mob to update the state for.
        * 
        * @param builder The buffer that the data will be written to.
        */
-      public static void appendUpdates(Npc mob, GamePacketBuilder builder) {
+      public static void appendUpdates(Npc npc, GamePacketBuilder builder) {
 
             int updateMask = 0x0;
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.ANIMATION)) {
+            if (npc.getUpdateFlags().contains(UpdateFlag.ANIMATION)) {
                   updateMask |= 0x10;
             }
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.DOUBLE_HIT)) {
-                  updateMask |= 0x8;
-            }
-
-            if (mob.getUpdateFlags().contains(UpdateFlag.GRAPHICS)) {
+            if (npc.getUpdateFlags().contains(UpdateFlag.GRAPHICS)) {
                   updateMask |= 0x80;
             }
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.ENTITY_INTERACTION)) {
+            if (npc.getUpdateFlags().contains(UpdateFlag.ENTITY_INTERACTION)) {
                   updateMask |= 0x20;
             }
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.FORCED_CHAT)
-                        && mob.getForcedChat().length() > 0) {
+            if (npc.getUpdateFlags().contains(UpdateFlag.FORCED_CHAT)
+                        && npc.getForcedChat().length() > 0) {
                   updateMask |= 0x1;
             }
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.SINGLE_HIT)) {
-                  updateMask |= 0x40;
-            }
+    		if (npc.getUpdateFlags().contains(UpdateFlag.HIT)) {    			
+    			if (npc.getHitQueue().size() >= 1) {
+    				updateMask |= 0x40;
+    			}
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.TRANSFORM)) {
+    			if (npc.getHitQueue().size() > 1) {
+    				updateMask |= 0x8;
+    			}
+    		}
+
+            if (npc.getUpdateFlags().contains(UpdateFlag.TRANSFORM)) {
                   updateMask |= 0x2;
             }
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.FACE_COORDINATE)) {
+            if (npc.getUpdateFlags().contains(UpdateFlag.FACE_COORDINATE)) {
                   updateMask |= 0x4;
             }
 
             builder.write(updateMask);
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.ANIMATION)) {
-                  append(new NpcAnimationUpdateBlock(), mob, builder);
+            if (npc.getUpdateFlags().contains(UpdateFlag.ANIMATION)) {
+                  append(new NpcAnimationUpdateBlock(), npc, builder);
             }
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.DOUBLE_HIT)) {
-                  append(new NpcDoubleHitUpdateBlock(), mob, builder);
+            if (npc.getUpdateFlags().contains(UpdateFlag.GRAPHICS)) {
+                  append(new NpcGraphicsUpdateBlock(), npc, builder);
             }
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.GRAPHICS)) {
-                  append(new NpcGraphicsUpdateBlock(), mob, builder);
+            if (npc.getUpdateFlags().contains(UpdateFlag.ENTITY_INTERACTION)) {
+                  append(new NpcInteractionUpdateBlock(), npc, builder);
             }
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.ENTITY_INTERACTION)) {
-                  append(new NpcInteractionUpdateBlock(), mob, builder);
+            if (npc.getUpdateFlags().contains(UpdateFlag.FORCED_CHAT)
+                        && npc.getForcedChat().length() > 0) {
+                  append(new NpcForceChatUpdateBlock(), npc, builder);
             }
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.FORCED_CHAT)
-                        && mob.getForcedChat().length() > 0) {
-                  append(new NpcForceChatUpdateBlock(), mob, builder);
-            }
+    		if (npc.getUpdateFlags().contains(UpdateFlag.HIT) && !npc.getHitQueue().isEmpty()) {
+    			if (npc.getHitQueue().peek() != null) {
+    				append(new NpcSingleHitUpdateBlock(npc.getHitQueue().poll()), npc, builder);
+    			}
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.SINGLE_HIT)) {
-                  append(new NpcSingleHitUpdateBlock(), mob, builder);
-            }
+    			if (npc.getHitQueue().peek() != null) {
+    				append(new NpcDoubleHitUpdateBlock(npc.getHitQueue().poll()), npc, builder);
+    			}
+    		}
+    		
+    		npc.getHitQueue().clear();
 
-            if (mob.getUpdateFlags().contains(UpdateFlag.FACE_COORDINATE)) {
-                  append(new NpcFaceCoordinateUpdateBlock(), mob, builder);
+            if (npc.getUpdateFlags().contains(UpdateFlag.FACE_COORDINATE)) {
+                  append(new NpcFaceCoordinateUpdateBlock(), npc, builder);
             }
       }
 

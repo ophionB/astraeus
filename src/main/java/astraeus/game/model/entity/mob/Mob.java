@@ -63,6 +63,8 @@ public abstract class Mob extends Entity {
 	private final Combat combat = new Combat(this);
 	
 	private Optional<Task> currentAction = Optional.empty();
+	
+	private final Deque<Hit> hitQueue = new ArrayDeque<>();
 
 	private int antipoisonTimer = 0;
 	private int id;
@@ -162,6 +164,25 @@ public abstract class Mob extends Entity {
 	public abstract boolean canAttack(Mob defender, CombatType type);
 	
 	public abstract void buildAttack(CombatType type);
+	
+	public abstract void setAttack();
+	
+	public abstract void setCombatAnimations();
+	
+	public abstract int getCombatDelay();
+	
+	public final void addHit(Hit hit) {
+		if (getCurrentHealth() - hit.getDamage() <= 0) {
+			hit.setDamage(getCurrentHealth());
+		}
+		
+		hitQueue.add(hit);
+		getUpdateFlags().add(UpdateFlag.HIT);
+	}
+	
+	public Queue<Hit> getHitQueue() {
+		return hitQueue;
+	}
 	
 	public MobAnimation getMobAnimations() {
 		return mobAnimation;

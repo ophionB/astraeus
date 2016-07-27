@@ -292,4 +292,22 @@ public class Npc extends Mob {
 		
 	}
 
+	@Override
+	public void setAttack() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setCombatAnimations() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getCombatDelay() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

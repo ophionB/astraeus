@@ -13,8 +13,7 @@ public enum UpdateFlag {
     FORCED_CHAT,
     ENTITY_INTERACTION,
     FACE_COORDINATE,
-    SINGLE_HIT,
-    DOUBLE_HIT,
+    HIT,
     TRANSFORM,
     FORCE_MOVEMENT
 }

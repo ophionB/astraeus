@@ -140,7 +140,7 @@ public final class UpdatePlayerPacket implements Sendable {
                   boolean forceAppearence, boolean noChat) {
             if (!player.isUpdateRequired() && !forceAppearence) {
                   return;
-            }
+            }            
 
             int mask = 0x0;
 
@@ -177,13 +177,15 @@ public final class UpdatePlayerPacket implements Sendable {
                   mask |= 0x2;
             }
 
-            if (player.getUpdateFlags().contains(UpdateFlag.SINGLE_HIT)) {
-                  mask |= 0x20;
-            }
-
-            if (player.getUpdateFlags().contains(UpdateFlag.DOUBLE_HIT)) {
-                  mask |= 0x200;
-            }
+    		if (player.getUpdateFlags().contains(UpdateFlag.HIT) && !player.getHitQueue().isEmpty()) {
+    			if (player.getHitQueue().size() >= 1) {
+    				mask |= 0x20;
+    			}
+    			
+    			if (player.getHitQueue().size() > 1) {
+    				mask |= 0x200;
+    			}
+    		}
 
             if (player.getUpdateFlags().contains(UpdateFlag.FORCE_MOVEMENT)) {
                   mask |= 0x400;
@@ -226,13 +228,17 @@ public final class UpdatePlayerPacket implements Sendable {
                   append(new PlayerFaceCoordinateUpdateBlock(), player, builder);
             }
 
-            if (player.getUpdateFlags().contains(UpdateFlag.SINGLE_HIT)) {
-                  append(new PlayerSingleHitUpdateBlock(), player, builder);
-            }
-
-            if (player.getUpdateFlags().contains(UpdateFlag.DOUBLE_HIT)) {
-                  append(new PlayerDoubleHitUpdateBlock(), player, builder);
-            }
+    		if (player.getUpdateFlags().contains(UpdateFlag.HIT) && !player.getHitQueue().isEmpty()) {
+    			if (player.getHitQueue().peek() != null) {
+    				append(new PlayerSingleHitUpdateBlock(player.getHitQueue().poll()), player, builder);
+    			}
+    			
+    			if (player.getHitQueue().peek() != null) {
+    				append(new PlayerDoubleHitUpdateBlock(player.getHitQueue().poll()), player, builder);
+    			}
+    		}
+    		
+    		player.getHitQueue().clear();
 
             if (player.getUpdateFlags().contains(UpdateFlag.FORCE_MOVEMENT)) {
                   append(new PlayerForceMovementUpdateBlock(), player, builder);

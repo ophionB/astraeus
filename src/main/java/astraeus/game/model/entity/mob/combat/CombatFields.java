@@ -16,6 +16,8 @@ public class CombatFields {
 	private Mob lastAttacked;
 	private Mob entity;
 	
+	private CombatTimer combatTimer = new CombatTimer();
+	
 	private boolean inCombat;
 	private boolean firstHit = false;
 	
@@ -125,5 +127,14 @@ public class CombatFields {
 	public void setAttack(AttackBuilder builder) {
 		this.attack = new Attack(builder);
 	}
+	
+	public CombatTimer getCombatTimer() {
+		return combatTimer;
+	}
+	
+	public void setCombatTimer(CombatTimer combatTimer) {
+		this.combatTimer = combatTimer;
+	}
+
 	
 }

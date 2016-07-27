@@ -1,8 +1,10 @@
 package astraeus.game.model.entity.mob.npc.updating.mask;
 
+import astraeus.game.model.entity.mob.combat.dmg.Hit;
 import astraeus.game.model.entity.mob.npc.Npc;
 import astraeus.game.model.entity.mob.npc.updating.NpcUpdateBlock;
 import astraeus.game.model.entity.mob.update.UpdateFlag;
+import astraeus.net.codec.ByteModification;
 import astraeus.net.codec.game.GamePacketBuilder;
 
 /**
@@ -12,16 +14,21 @@ import astraeus.net.codec.game.GamePacketBuilder;
  */
 public class NpcSingleHitUpdateBlock extends NpcUpdateBlock {
 
-    /**
-     * Creates a new {@link NpcSingleHitUpdateBlock}.
-     */
-    public NpcSingleHitUpdateBlock() {
-	super(0x40, UpdateFlag.SINGLE_HIT);
-    }
+	private final Hit hit;
 
-    @Override
-    public void encode(Npc entity, GamePacketBuilder builder) {
+	public NpcSingleHitUpdateBlock(Hit hit) {
+		super(0x40, UpdateFlag.HIT);
+		this.hit = hit;
+	}
 
+	@Override
+	public void encode(Npc npc, GamePacketBuilder builder) {		
+		builder
+		.write(hit.getDamage(), ByteModification.NEGATION)
+		.write(hit.getType().getId(), ByteModification.SUBTRACTION)
+		.write(hit.getDamageType().getId())
+		.write(npc.getCurrentHealth(), ByteModification.SUBTRACTION)
+		.write(npc.getMaximumHealth(), ByteModification.NEGATION);
     }
 
 }

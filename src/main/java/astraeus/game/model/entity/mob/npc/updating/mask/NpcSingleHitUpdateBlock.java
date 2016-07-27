@@ -26,7 +26,7 @@ public class NpcSingleHitUpdateBlock extends NpcUpdateBlock {
 		builder
 		.write(hit.getDamage(), ByteModification.NEGATION)
 		.write(hit.getType().getId(), ByteModification.SUBTRACTION)
-		.write(hit.getDamageType().getId())
+		//.write(hit.getDamageType().getId()) // custom
 		.write(npc.getCurrentHealth(), ByteModification.SUBTRACTION)
 		.write(npc.getMaximumHealth(), ByteModification.NEGATION);
     }

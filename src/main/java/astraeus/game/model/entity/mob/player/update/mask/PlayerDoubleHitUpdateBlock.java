@@ -31,7 +31,7 @@ public class PlayerDoubleHitUpdateBlock extends PlayerUpdateBlock {
 		builder
 		.write(hit.getDamage())
 		.write(hit.getType().getId(), ByteModification.SUBTRACTION)
-		.write(hit.getDamageType().getId())
+		//.write(hit.getDamageType().getId()) // custom
 		.write(entity.getSkills().getLevel(Skill.HITPOINTS))
 		.write(entity.getSkills().getMaxLevel(Skill.HITPOINTS), ByteModification.NEGATION);
 	}

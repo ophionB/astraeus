@@ -31,7 +31,7 @@ public class PlayerSingleHitUpdateBlock extends PlayerUpdateBlock {
 		builder
 		.write(hit.getDamage())
 		.write(hit.getType().getId(), ByteModification.ADDITION)
-		.write(hit.getDamageType().getId())
+		//.write(hit.getDamageType().getId()) // custom
 		.write(entity.getSkills().getLevel(Skill.HITPOINTS), ByteModification.NEGATION)
 		.write(entity.getSkills().getMaxLevel(Skill.HITPOINTS));
     }

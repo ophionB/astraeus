@@ -20,7 +20,7 @@ public final class NpcDoubleHitUpdateBlock extends NpcUpdateBlock {
 		builder
 		.write(hit.getDamage(), ByteModification.ADDITION)
 		.write(hit.getType().getId(), ByteModification.NEGATION)
-		.write(hit.getDamageType().getId())
+		//.write(hit.getDamageType().getId()) // custom
 		.write(npc.getCurrentHealth(), ByteModification.ADDITION)
 		.write(npc.getMaximumHealth());
 	}

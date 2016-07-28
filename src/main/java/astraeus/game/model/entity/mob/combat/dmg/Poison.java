@@ -1,21 +1,14 @@
 package astraeus.game.model.entity.mob.combat.dmg;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import astraeus.game.model.entity.item.ItemDefinition;
-import astraeus.game.model.entity.mob.Mob;
-import astraeus.game.model.entity.mob.player.Player;
-import astraeus.net.packet.out.ServerMessagePacket;
-import astraeus.net.packet.out.SetPoisonPacket;
 import astraeus.util.RandomUtils;
 
 /**
  * Represents a detriment that can damage entities for a period of time.
  * 
- * @author SeVen
+ * @author Vult-R
  */
-public class Poison {
+public final class Poison {
 
 	public static enum PoisonType {
 		
@@ -108,122 +101,6 @@ public class Poison {
 		 */
 		public int[] getHits() {
 			return hits;
-		}
-	}
-
-	/**
-	 * Deals damage to an entity in the form of poison.
-	 * 
-	 * @param entity
-	 *            The entity to deal damage to.
-	 * 
-	 * @param poisonType
-	 *            The type of poison to deal.
-	 *
-	 * @param damageTypes
-	 */
-	public static void appendPoison(Mob attacker, Mob entity, PoisonType poisonType, DamageTypes damageTypes) {
-		if (entity.isPoisoned()) {
-			return;
-		}
-		
-		boolean can = false;
-		
-		int random = RandomUtils.random(1, 35);
-		
-		if (random > 15) {
-			can = true;
-		}
-		
-		if (!can) {
-			return;
-		}
-
-		if (entity.isPlayer()) {
-			Player player = entity.getPlayer();
-
-			if (player.getLastPoisoned().elapsed() < player.getImmunity()) {
-				return;
-			}
-		}
-
-		entity.setPoisoned(true);
-		entity.setPoisonType(damageTypes);
-
-		if (entity.isPlayer()) {
-			entity.getPlayer().queuePacket(new SetPoisonPacket(poisonType));
-		}
-
-		Timer timer = new Timer();
-
-		timer.scheduleAtFixedRate(new TimerTask() {
-
-			private int seconds = 0;
-
-			private int damage = damageTypes.getDamage();
-
-			private int antiTimer = entity.getAntipoisonTimer();
-
-			@Override
-			public void run() {
-				if (entity == null || !entity.isRegistered()) {
-					this.cancel();
-					return;
-				}
-
-				if (entity.getAntipoisonTimer() > 0) {
-					entity.setAntipoisonTimer(--antiTimer);
-				}
-
-				if (entity.isPlayer()) {
-					if (!entity.getPlayer().isPoisoned()) {
-						remove(attacker, entity, false);
-						this.cancel();
-						return;
-					}
-				}
-
-				if (entity.getAntipoisonTimer() <= 0) {
-
-					if (seconds >= 15) {
-
-						damage--;
-
-						if (damage <= 0) {
-							remove(attacker, entity, false);
-							this.cancel();
-							return;
-						}
-
-						entity.hit(attacker, new Hit(damage, poisonType == PoisonType.REGULAR ? HitType.POISON : HitType.VENOM, DamageType.NONE));
-
-						seconds = 0;
-					}
-
-				}
-
-				if (entity.isDead() || entity.getCurrentHealth() <= 0) {
-					remove(attacker, entity, true);
-					this.cancel();
-					return;
-				}
-				seconds++;
-			}
-
-		}, 0, 1000);
-
-		if (entity.isPlayer()) {
-			entity.getPlayer().queuePacket(new ServerMessagePacket("You have been poisoned."));
-		}
-	}
-
-	public static void remove(Mob attacker, Mob entity, boolean death) {
-		if (entity.isPlayer()) {
-
-			Player player = entity.getPlayer();
-
-			player.queuePacket(new SetPoisonPacket(PoisonType.NONE));
-			player.setPoisoned(false);
 		}
 	}
 

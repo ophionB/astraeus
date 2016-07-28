@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import astraeus.game.model.Graphic;
 import astraeus.game.model.entity.mob.Mob;
-import astraeus.game.model.entity.mob.combat.type.CombatType;
+import astraeus.game.model.entity.mob.combat.CombatType;
 import astraeus.game.model.entity.mob.player.Player;
 import astraeus.game.model.sound.Sound;
 import astraeus.net.packet.out.PlaySoundPacket;

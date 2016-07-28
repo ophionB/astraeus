@@ -29,7 +29,7 @@ class HitCommand() : Command() {
             } else if (damage >= 99) {
                 damage = 99;
             }
-            player.hit(player, Hit(damage, HitType.values()[type], DamageType.NONE))
+            player.dealDamage(Hit(damage, HitType.values()[type], DamageType.NONE))
             return true
         } else if (parser.hasNext(1)) {
 
@@ -41,7 +41,7 @@ class HitCommand() : Command() {
                 damage = 99;
             }
 
-            player.hit(player, Hit(damage, HitType.NORMAL, DamageType.NONE))
+            player.dealDamage(Hit(damage, HitType.NORMAL, DamageType.NONE))
             return true
         }
         return false

@@ -1,27 +1,34 @@
 package astraeus.game.model.entity.mob.combat.formula;
 
 import astraeus.game.model.entity.mob.Mob;
+import astraeus.game.model.entity.mob.combat.Combat;
 import astraeus.game.model.entity.mob.combat.attack.AttackType;
 import astraeus.game.model.entity.mob.player.Prayer.PrayerType;
 import astraeus.game.model.entity.mob.player.skill.Skill;
 
 public abstract class Formula {
+	
+	protected final Combat combat;
+	
+	public Formula(Combat combat) {
+		this.combat = combat;
+	}
 
-	public abstract int calculateMaxHit(Mob attacker);
+	public abstract int calculateMaxHit();
 
 	public abstract boolean isAccurate(Mob attacker, Mob defender);
 
-	public static int getAttackRoll(int level, int bonus, AttackType type) {
+	public int getAttackRoll(int level, int bonus, AttackType type) {
 		final int effectiveLevel = level + type.getAccuracyIncrease() + 8;
 		return (int) Math.ceil(effectiveLevel * (1 + bonus / 64.0) / 4.0);
 	}
 
-	public static int getDefenceRoll(int level, int bonus, AttackType type) {
+	public int getDefenceRoll(int level, int bonus, AttackType type) {
 		final int effectiveLevel = level + type.getDefensiveIncrease() + 8;
 		return (int) Math.ceil(effectiveLevel * (1 + bonus / 64.0) / 4.0);
 	}
 
-	public static final int getEffectiveAttack(Mob entity) {
+	public final int getEffectiveAttack(Mob entity) {
 		double level = entity.getSkills().getLevel(Skill.ATTACK);
 
 		if (entity.isPlayer()) {
@@ -41,7 +48,7 @@ public abstract class Formula {
 		return (int) level;
 	}
 
-	public static final int getEffectiveDefence(Mob entity) {
+	public final int getEffectiveDefence(Mob entity) {
 		double level = entity.getSkills().getLevel(Skill.DEFENCE);
 
 		if (entity.isPlayer()) {
@@ -61,7 +68,7 @@ public abstract class Formula {
 		return (int) level;
 	}
 
-	public static final int getEffectiveMagic(Mob entity) {
+	public final int getEffectiveMagic(Mob entity) {
 		double level = entity.getSkills().getLevel(Skill.MAGIC);
 
 		if (entity.isPlayer()) {
@@ -77,7 +84,7 @@ public abstract class Formula {
 		return (int) level;
 	}
 
-	public static final int getEffectiveRanged(Mob entity) {
+	public final int getEffectiveRanged(Mob entity) {
 		double level = entity.getSkills().getLevel(Skill.RANGED);
 
 		if (entity.isPlayer()) {
@@ -93,7 +100,7 @@ public abstract class Formula {
 		return (int) level;
 	}
 
-	public static final int getEffectiveStrength(Mob entity) {
+	public final int getEffectiveStrength(Mob entity) {
 		double level = entity.getSkills().getLevel(Skill.STRENGTH);
 
 		if (entity.isPlayer()) {
@@ -112,5 +119,5 @@ public abstract class Formula {
 
 		return (int) level;
 	}
-
+	
 }

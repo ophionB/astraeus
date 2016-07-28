@@ -1,6 +1,6 @@
 package astraeus.game.model.entity.mob.combat.dmg;
 
-import astraeus.game.model.entity.mob.combat.type.CombatType;
+import astraeus.game.model.entity.mob.combat.CombatType;
 
 /**
  * Represents the enumerated types of damages that can be performed.

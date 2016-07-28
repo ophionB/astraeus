@@ -139,7 +139,6 @@ public final class StressBot extends Player {
 		getInventory().refresh();
 		getEquipment().refresh();
 		getEquipment().refresh();
-		getSpecial().updateText();
 		getSkills().calculateLevels();
 		
 		createAttributes();

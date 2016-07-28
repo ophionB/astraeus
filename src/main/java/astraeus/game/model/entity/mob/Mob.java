@@ -7,7 +7,6 @@ import astraeus.game.model.entity.item.Item;
 import astraeus.game.model.entity.mob.combat.Combat;
 import astraeus.game.model.entity.mob.combat.dmg.Hit;
 import astraeus.game.model.entity.mob.combat.dmg.Poison.DamageTypes;
-import astraeus.game.model.entity.mob.combat.type.CombatType;
 import astraeus.game.model.entity.mob.npc.Npc;
 import astraeus.game.model.entity.mob.player.ForceMovement;
 import astraeus.game.model.entity.mob.player.Player;
@@ -60,11 +59,11 @@ public abstract class Mob extends Entity {
 
 	private transient Mob interactingEntity;
 	
-	private final Combat combat = new Combat(this);
-	
 	private Optional<Task> currentAction = Optional.empty();
 	
 	private final Deque<Hit> hitQueue = new ArrayDeque<>();
+	
+	private final Combat combat = new Combat(this);
 
 	private int antipoisonTimer = 0;
 	private int id;
@@ -152,26 +151,9 @@ public abstract class Mob extends Entity {
 	public abstract void onMovement();
 	
 	/**
-	 * The method called when this mob is hit.
+	 * Deals damage to this entity
 	 */
-	public abstract void hit(Mob attacker, Hit hit);
-	
-	/**
-	 * The method called when the attacking entity hits this entity.
-	 */
-	public abstract void onDamage(Mob attacker, Hit hit);
-	
-	public abstract boolean canAttack(Mob defender, CombatType type);
-	
-	public abstract void buildAttack(CombatType type);
-	
-	public abstract void setAttack();
-	
-	public abstract void setCombatAnimations();
-	
-	public abstract int getCombatDelay();
-	
-	public final void addHit(Hit hit) {
+	public final void dealDamage(Hit hit) {
 		if (getCurrentHealth() - hit.getDamage() <= 0) {
 			hit.setDamage(getCurrentHealth());
 		}
@@ -186,10 +168,6 @@ public abstract class Mob extends Entity {
 	
 	public MobAnimation getMobAnimations() {
 		return mobAnimation;
-	}
-	
-	public Combat getCombat() {
-		return combat;
 	}
 	
 	public void startAction(Task currentAction) {
@@ -585,6 +563,10 @@ public abstract class Mob extends Entity {
 
 	public int[] getBonuses() {
 		return bonuses;
+	}
+	
+	public Combat getCombat() {
+		return combat;
 	}
 
 	@Override

@@ -35,6 +35,9 @@ public final class AttackNpcPacket implements Receivable {
               player.queuePacket(new ServerMessagePacket("This npc is already dead..."));
               return;
         }
+        
+        player.getCombat().attack(npc);
+        
 	}
 
 }

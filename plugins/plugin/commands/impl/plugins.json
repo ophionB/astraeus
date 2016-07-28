@@ -78,5 +78,15 @@
     "Vult-R"
   ],
   "version": 1.0
+},
+{
+  "name": "Max Hit Command",
+  "description": "The command showing the max hit of a player.",
+  "group": "command",
+  "base": "plugin.commands.impl.MaxHitCommand",
+  "authors": [
+    "Vult-R"
+  ],
+  "version": 1.0
 }
 ]

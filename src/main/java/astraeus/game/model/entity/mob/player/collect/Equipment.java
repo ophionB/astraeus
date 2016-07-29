@@ -3,6 +3,7 @@ package astraeus.game.model.entity.mob.player.collect;
 import astraeus.game.model.entity.item.Item;
 import astraeus.game.model.entity.item.ItemContainer;
 import astraeus.game.model.entity.item.ItemContainerPolicy;
+import astraeus.game.model.entity.mob.MobAnimation;
 import astraeus.game.model.entity.mob.combat.def.AttackType;
 import astraeus.game.model.entity.mob.combat.def.WeaponDefinition;
 import astraeus.game.model.entity.mob.combat.def.WeaponType;
@@ -369,6 +370,9 @@ public final class Equipment extends ItemContainer {
         player.queuePacket(new SetSideBarWidgetPacket(0, weapon.getId()));
         player.queuePacket(new SetWidgetStringPacket("Unarmed", weapon.getType().getNameLine()));            
         player.setWeapon(WeaponType.UNARMED);
+        player.getMobAnimation().setRun(MobAnimation.PLAYER_RUN);
+        player.getMobAnimation().setWalk(MobAnimation.PLAYER_WALK);
+        player.getMobAnimation().setStand(MobAnimation.PLAYER_STAND);
         return;
     } else if (weapon.getType() == WeaponType.CROSSBOW) {
         player.queuePacket(new SetWidgetStringPacket("Weapon: ", weapon.getType().getNameLine() - 1));
@@ -379,6 +383,10 @@ public final class Equipment extends ItemContainer {
     player.queuePacket(new SetSideBarWidgetPacket(0, weapon.getType().getId()));
     player.queuePacket(new SetWidgetStringPacket(item.definition().getName(), weapon.getType().getNameLine()));
     player.setWeapon(weapon.getType());
+    
+    player.getMobAnimation().setRun(weapon.getCombatAnimation().getRun());
+    player.getMobAnimation().setWalk(weapon.getCombatAnimation().getWalk());
+    player.getMobAnimation().setStand(weapon.getCombatAnimation().getStand());
 
     for (AttackType type : weapon.getType().getAttackTypes()) {
         if (type.getStyle() == player.getFightType().getStyle()) {

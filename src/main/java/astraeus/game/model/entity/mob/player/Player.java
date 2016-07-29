@@ -6,6 +6,7 @@ import astraeus.game.model.entity.EntityType;
 import astraeus.game.model.entity.item.Item;
 import astraeus.game.model.entity.mob.Mob;
 import astraeus.game.model.entity.mob.Movement;
+import astraeus.game.model.entity.mob.combat.CombatPrayer;
 import astraeus.game.model.entity.mob.combat.def.AttackType;
 import astraeus.game.model.entity.mob.combat.def.WeaponType;
 import astraeus.game.model.entity.mob.combat.dmg.Hit;
@@ -61,7 +62,7 @@ public class Player extends Mob {
 	private final Equipment equipment = new Equipment(this);
 	private final Bank bank = new Bank(this);
 	private final WidgetSet widgets = new WidgetSet(this);
-	private final Prayer prayer = new Prayer(this);
+	private final CombatPrayer prayer = new CombatPrayer(this);
 	private DialogueFactory dialogueFactory = new DialogueFactory(this);
 	private Optional<Dialogue> dialogue = Optional.empty();
 	private Optional<OptionDialogue> optionDialogue;
@@ -659,7 +660,7 @@ public class Player extends Mob {
     	this.combatLevel = combatLevel;
     }
 
-	public Prayer getPrayer() {
+	public CombatPrayer getPrayer() {
 		return prayer;
 	}	
 

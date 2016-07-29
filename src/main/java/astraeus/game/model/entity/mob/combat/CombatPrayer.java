@@ -1,5 +1,6 @@
-package astraeus.game.model.entity.mob.player;
+package astraeus.game.model.entity.mob.combat;
 
+import astraeus.game.model.entity.mob.player.Player;
 import astraeus.game.model.entity.mob.player.collect.Equipment;
 import astraeus.game.model.entity.mob.player.skill.Skill;
 import astraeus.game.model.entity.mob.update.UpdateFlag;
@@ -21,7 +22,7 @@ import java.util.stream.Stream;
  *
  * @author Vult-R
  */
-public final class Prayer {
+public final class CombatPrayer {
 	
 	/**
 	 * The immutable map of buttons mapped to their prayers.
@@ -273,12 +274,12 @@ public final class Prayer {
     private final int[] drain = new int[PrayerType.values().length];
 
     /**
-     * Creates a new {@link Prayer}.
+     * Creates a new {@link CombatPrayer}.
      *
      * @param player
      *      The player who owns these prayers.
      */
-    public Prayer(Player player) {
+    public CombatPrayer(Player player) {
         this.player = player;
     }
 
@@ -344,7 +345,7 @@ public final class Prayer {
     public void drain() {    	
         int amount = 0;
         
-        for (final PrayerType prayer : Prayer.VALUES.values()) {
+        for (final PrayerType prayer : CombatPrayer.VALUES.values()) {
             if (active(prayer)) {
                 if (++drain[prayer.getId()] >= getAffectedDrainRate(prayer)) {
                     amount++;
@@ -441,14 +442,14 @@ public final class Prayer {
      * Disables all prayer buttons.
      */
     public void disable() {
-        Prayer.VALUES.forEach((b, p) -> {if (active(p)) toggle(p, false);});
+        CombatPrayer.VALUES.forEach((b, p) -> {if (active(p)) toggle(p, false);});
     }
     
     /**
      * Determines if a button is a prayer button.
      */
     public static boolean isPrayerButton(int buttonId) {        
-        return Prayer.VALUES.containsKey(buttonId);        
+        return CombatPrayer.VALUES.containsKey(buttonId);        
     }
 
 }

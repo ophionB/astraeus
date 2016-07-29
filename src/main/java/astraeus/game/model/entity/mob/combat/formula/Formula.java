@@ -2,8 +2,8 @@ package astraeus.game.model.entity.mob.combat.formula;
 
 import astraeus.game.model.entity.mob.Mob;
 import astraeus.game.model.entity.mob.combat.Combat;
+import astraeus.game.model.entity.mob.combat.CombatPrayer.PrayerType;
 import astraeus.game.model.entity.mob.combat.attack.AttackType;
-import astraeus.game.model.entity.mob.player.Prayer.PrayerType;
 import astraeus.game.model.entity.mob.player.skill.Skill;
 
 public abstract class Formula {

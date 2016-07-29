@@ -68,7 +68,7 @@ public class Player extends Mob {
 	
 	private WeaponType weaponType = WeaponType.UNARMED;
 	
-	private AttackType fightType = AttackType.UNARMED_PUNCH;
+	private AttackType attackType = AttackType.UNARMED_PUNCH;
 	
 	private boolean insertItem;
 
@@ -663,12 +663,12 @@ public class Player extends Mob {
 		return prayer;
 	}	
 
-	public AttackType getFightType() {
-		return fightType;
+	public AttackType getAttackType() {
+		return attackType;
 	}
 
-	public void setFightType(AttackType fightType) {
-		this.fightType = fightType;
+	public void setAttackType(AttackType attackType) {
+		this.attackType = attackType;
 	}
 
 	public WeaponType getWeapon() {

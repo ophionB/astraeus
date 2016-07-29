@@ -351,9 +351,9 @@ public final class Equipment extends ItemContainer {
         player.setWeapon(WeaponType.UNARMED);
 
         for (AttackType type : player.getWeapon().getAttackTypes()) {
-            if (type.getStyle() == player.getFightType().getStyle()) {
-                player.setFightType(type);
-                player.queuePacket(new SetWidgetConfigPacket(player.getFightType().getParent(), player.getFightType().getChild()));
+            if (type.getStyle() == player.getAttackType().getStyle()) {
+                player.setAttackType(type);
+                player.queuePacket(new SetWidgetConfigPacket(player.getAttackType().getParent(), player.getAttackType().getChild()));
                 return;
             }
         }
@@ -363,6 +363,9 @@ public final class Equipment extends ItemContainer {
     WeaponDefinition weapon = WeaponDefinition.definitions.get(item.getId());
     
     if (weapon == null) {
+        player.getMobAnimation().setRun(MobAnimation.PLAYER_RUN);
+        player.getMobAnimation().setWalk(MobAnimation.PLAYER_WALK);
+        player.getMobAnimation().setStand(MobAnimation.PLAYER_STAND);
     	return;
     }
     
@@ -389,15 +392,15 @@ public final class Equipment extends ItemContainer {
     player.getMobAnimation().setStand(weapon.getCombatAnimation().getStand());
 
     for (AttackType type : weapon.getType().getAttackTypes()) {
-        if (type.getStyle() == player.getFightType().getStyle()) {
-            player.setFightType(type);
-            player.queuePacket(new SetWidgetConfigPacket(player.getFightType().getParent(), player.getFightType().getChild()));
+        if (type.getStyle() == player.getAttackType().getStyle()) {
+            player.setAttackType(type);
+            player.queuePacket(new SetWidgetConfigPacket(player.getAttackType().getParent(), player.getAttackType().getChild()));
             return;
         }
     }
     
-    player.setFightType(player.getWeapon().getAttackTypes()[0]);
-    player.queuePacket(new SetWidgetConfigPacket(player.getFightType().getParent(), player.getFightType().getChild()));
+    player.setAttackType(player.getWeapon().getAttackTypes()[0]);
+    player.queuePacket(new SetWidgetConfigPacket(player.getAttackType().getParent(), player.getAttackType().getChild()));
 }
 
 	public static boolean isFullHat(int itemId) {

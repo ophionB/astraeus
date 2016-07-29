@@ -23,6 +23,11 @@ public final class AnimationCommand extends Command {
 		
 		return false;
 	}
+	
+	@Override
+	public boolean test(CommandEvent event) {
+		return event.getName().equalsIgnoreCase("anim");
+	}
 
 	@Override
 	public PlayerRights getRights() {

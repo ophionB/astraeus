@@ -118,5 +118,55 @@
     "Vult-R"
   ],
   "version": 1.0
+},
+{
+  "name": "Whip AttackType Widget Buttons",
+  "description": "The buttons for handling the whip attack type.",
+  "group": "button",
+  "base": "plugin.buttons.WhipAttackTypeWidgetButtons",
+  "authors": [
+    "Vult-R"
+  ],
+  "version": 1.0
+},
+{
+  "name": "Unarmed AttackType Buttons",
+  "description": "The buttons for handling unarmed attack type.",
+  "group": "button",
+  "base": "plugin.buttons.UnarmedAttackTypeButtons",
+  "authors": [
+    "Vult-R"
+  ],
+  "version": 1.0
+},
+{
+  "name": "Sword AttackType Buttons",
+  "description": "The buttons for handling sword attack type.",
+  "group": "button",
+  "base": "plugin.buttons.SwordAttackTypeButtons",
+  "authors": [
+    "Vult-R"
+  ],
+  "version": 1.0
+},
+{
+  "name": "War Hammer AttackType Buttons",
+  "description": "The buttons for handling war hammer attack type.",
+  "group": "button",
+  "base": "plugin.buttons.WarHammerAttackTypeButtons",
+  "authors": [
+    "Vult-R"
+  ],
+  "version": 1.0
+},
+{
+  "name": "Battle Axe Attack Type Buttons",
+  "description": "The buttons for handling battleaxe attack type.",
+  "group": "button",
+  "base": "plugin.buttons.BattleAxeAttackTypeButtons",
+  "authors": [
+    "Vult-R"
+  ],
+  "version": 1.0
 }
 ]

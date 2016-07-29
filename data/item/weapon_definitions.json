@@ -1,0 +1,19 @@
+[
+  {
+    "id": 4151,
+    "name": "Abyssal whip",
+    "weaponType": "WHIP",
+    "combatType": "MELEE",
+    "twoHanded": false,
+    "blockAnimation": 1659,
+    "standAnimation": 808,
+    "walkAnimation": 1660,
+    "runAnimation": 1661,
+    "attackSpeed": 4,
+    "animations": [
+      1658,
+      1658,
+      1658
+    ]
+  }
+]

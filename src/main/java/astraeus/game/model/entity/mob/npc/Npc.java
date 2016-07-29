@@ -5,6 +5,7 @@ import astraeus.game.model.Direction;
 import astraeus.game.model.Position;
 import astraeus.game.model.entity.EntityType;
 import astraeus.game.model.entity.mob.Mob;
+import astraeus.game.model.entity.mob.combat.dmg.Hit;
 import astraeus.game.model.entity.mob.update.UpdateFlag;
 import astraeus.game.model.location.Area;
 import astraeus.util.Stopwatch;
@@ -17,7 +18,7 @@ public class Npc extends Mob {
 
       private Position createdLocation;
 
-      private int maximumHealth;
+      private int maximumHealth = 100;
 
       private int currentHealth = 100;
 
@@ -129,7 +130,7 @@ public class Npc extends Mob {
             
             tick();
             
-			if (!isRandomWalk() && getInteractingEntity() == null && tick % 5 == 4) {
+			if (!isRandomWalk() && getInteractingEntity() == null && getTick() % 5 == 4) {
 				Npcs.resetFacingDirection(this);
 			}
 
@@ -137,7 +138,7 @@ public class Npc extends Mob {
 				resetEntityInteraction();
 			}
 
-			if (isRandomWalk() && getInteractingEntity() == null && tick % 5 == 4) {
+			if (isRandomWalk() && getInteractingEntity() == null && getTick() % 5 == 4) {
 				Npcs.handleRandomWalk(this);
 			}
       }
@@ -265,6 +266,19 @@ public class Npc extends Mob {
 	@Override
 	public void onTick() {
 		
+	}
+
+	@Override
+	public void dealDamage(Hit hit) {
+		if (getCurrentHealth() - hit.getDamage() <= 0) {
+			hit.setDamage(getCurrentHealth());
+			this.setCurrentHealth(100);
+		}
+		
+		setCurrentHealth(getCurrentHealth() - hit.getDamage());
+		
+		hitQueue.add(hit);
+		getUpdateFlags().add(UpdateFlag.HIT);			
 	}
 
 }

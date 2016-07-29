@@ -18,8 +18,9 @@ public final class MobAnimation {
 	private int walk;
 	private int turn180;
 	private int turn90CW;
-	private int turn90CCW;
+	private int turn90CCW;	
 	private int run;
+	
 	private int attack;
 	private int block;
 	private int death;

@@ -16,6 +16,7 @@ import astraeus.game.model.entity.mob.player.skill.SkillSet;
 import astraeus.game.model.entity.mob.update.UpdateFlag;
 import astraeus.game.model.entity.object.GameObject;
 import astraeus.game.task.Task;
+import astraeus.service.GameServiceSequencer;
 import astraeus.util.Stopwatch;
 
 import java.util.*;
@@ -39,6 +40,8 @@ public abstract class Mob extends Entity {
 
 	protected AttributeMap attr = new AttributeMap();	
 	
+	protected final Combat combat = new Combat(this);
+	
 	private SkillSet skills = new SkillSet(this);
 
 	private Position lastPosition = new Position(0, 0, 0);	
@@ -53,17 +56,13 @@ public abstract class Mob extends Entity {
 
 	private ForceMovement forceMovement;
 
-	private MobAnimation mobAnimation = new MobAnimation();
-
 	private final int[] bonuses = new int[Equipment.BONUS_NAMES.length];
 
 	private transient Mob interactingEntity;
 	
 	private Optional<Task> currentAction = Optional.empty();
 	
-	private final Deque<Hit> hitQueue = new ArrayDeque<>();
-	
-	private final Combat combat = new Combat(this);
+	protected final Deque<Hit> hitQueue = new ArrayDeque<>();
 
 	private int antipoisonTimer = 0;
 	private int id;
@@ -80,6 +79,8 @@ public abstract class Mob extends Entity {
 	private int runningDirection = -1;
 	
 	private Stopwatch lastPoisoned = new Stopwatch();
+	
+	private final MobAnimation mobAnimation = new MobAnimation();
 
 	private boolean registered;
 	private boolean poisoned;
@@ -93,8 +94,6 @@ public abstract class Mob extends Entity {
 	
 	private int immunity;
 	
-	protected int tick;
-
 	public Mob(Position position) {
 		this.position = position;
 	}
@@ -107,20 +106,22 @@ public abstract class Mob extends Entity {
 	public abstract void onTick();
 
 	public abstract int getCurrentHealth();
+	
+	public static int tick = GameServiceSequencer.tick;
 
 	/**
 	 * The method that increments tick to time actions
 	 */
-	protected void tick() {		
-		tick++;
+	protected void tick() {	
 		
+		tick = GameServiceSequencer.tick;
+	
 		onTick();
 		
-		boolean reset = tick % 1000 == 100;
-		
-		if (reset) {
+		if (tick >= 1000) {
 			tick = 0;
 		}
+
 	}
 
 	public abstract int getHashCode();
@@ -150,19 +151,9 @@ public abstract class Mob extends Entity {
 	 */
 	public abstract void onMovement();
 	
-	/**
-	 * Deals damage to this entity
-	 */
-	public final void dealDamage(Hit hit) {
-		if (getCurrentHealth() - hit.getDamage() <= 0) {
-			hit.setDamage(getCurrentHealth());
-		}
-		
-		hitQueue.add(hit);
-		getUpdateFlags().add(UpdateFlag.HIT);
-	}
-	
-	public Queue<Hit> getHitQueue() {
+	public abstract void dealDamage(Hit hit);
+
+		public Queue<Hit> getHitQueue() {
 		return hitQueue;
 	}
 	
@@ -563,10 +554,14 @@ public abstract class Mob extends Entity {
 
 	public int[] getBonuses() {
 		return bonuses;
-	}
-	
+	}	
+
 	public Combat getCombat() {
 		return combat;
+	}
+	
+	public int getTick() {
+		return tick;
 	}
 
 	@Override

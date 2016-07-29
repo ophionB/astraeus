@@ -33,6 +33,8 @@ public class MovementPacket implements Receivable {
 			player.setInteractingEntity(null);
 		}
 		
+		player.getCombat().setInCombat(false);		
+		
 		player.getCurrentAction().ifPresent(it -> player.stopAction());	
 		
 		player.getDialogue().ifPresent(it -> player.getDialogueFactory().clear());

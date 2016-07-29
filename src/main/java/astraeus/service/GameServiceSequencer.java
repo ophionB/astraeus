@@ -8,6 +8,8 @@ import astraeus.game.model.World;
  * @author Vult-R
  */
 public final class GameServiceSequencer extends GameService {
+	
+	public static int tick = 0;
 
 	@Override
 	public void runGameLoop() {
@@ -27,6 +29,8 @@ public final class GameServiceSequencer extends GameService {
 		//System.out.println("cycle: " + (end - start) + " ms");				
 		
 		World.world.dequeueLogout();
+		
+		GameServiceSequencer.tick++;
 
 	}
 

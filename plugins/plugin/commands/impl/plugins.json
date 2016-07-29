@@ -88,5 +88,15 @@
     "Vult-R"
   ],
   "version": 1.0
+},
+{
+  "name": "Animation Command",
+  "description": "The command that displays an animation.",
+  "group": "command",
+  "base": "plugin.commands.impl.AnimationCommand",
+  "authors": [
+    "Vult-R"
+  ],
+  "version": 1.0
 }
 ]

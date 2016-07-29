@@ -6,6 +6,7 @@ import astraeus.game.model.entity.EntityType;
 import astraeus.game.model.entity.item.Item;
 import astraeus.game.model.entity.mob.Mob;
 import astraeus.game.model.entity.mob.Movement;
+import astraeus.game.model.entity.mob.combat.dmg.Hit;
 import astraeus.game.model.entity.mob.npc.Npc;
 import astraeus.game.model.entity.mob.player.attr.AttributeKey;
 import astraeus.game.model.entity.mob.player.collect.Bank;
@@ -154,6 +155,11 @@ public class Player extends Mob {
 
 	@Override
 	public void onTick() {
+		
+		if (combat.getCombatDelay().elapsed() >= 5_000) {
+			combat.getCombatDelay().reset();
+		}
+		
 		handleRunRestore();
 
 		prayer.drain();
@@ -659,6 +665,18 @@ public class Player extends Mob {
 	@Override
 	public EntityType type() {
 		return EntityType.PLAYER;
+	}
+
+	@Override
+	public void dealDamage(Hit hit) {
+		if (getCurrentHealth() - hit.getDamage() <= 0) {
+			hit.setDamage(getCurrentHealth());
+		}
+		
+		getSkills().setLevel(Skill.HITPOINTS, getCurrentHealth() - hit.getDamage());
+		
+		hitQueue.add(hit);
+		getUpdateFlags().add(UpdateFlag.HIT);		
 	}
 
 }

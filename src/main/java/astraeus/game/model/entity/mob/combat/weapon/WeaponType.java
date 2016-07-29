@@ -5,7 +5,7 @@ package astraeus.game.model.entity.mob.combat.weapon;
  *
  * @author Vult-R
  */
-public enum WeaponInterface {
+public enum WeaponType {
     UNARMED(5855, 5857, new SpecialAttackDefinition(7749, 7761, 7737)),
     THROWN(4446, 4449, new SpecialAttackDefinition(7649, 7661, 7637)),
     BOW(1764, 1767, new SpecialAttackDefinition(7549, 7561, 7548)),
@@ -38,7 +38,7 @@ public enum WeaponInterface {
      */
     private final SpecialAttackDefinition special;
 
-    private WeaponInterface(int interfaceId, int stringId, SpecialAttackDefinition special) {
+    private WeaponType(int interfaceId, int stringId, SpecialAttackDefinition special) {
         this.interfaceId = interfaceId;
         this.nameLine = stringId;
         this.special = special;

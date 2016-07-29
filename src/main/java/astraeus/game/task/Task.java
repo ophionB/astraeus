@@ -88,6 +88,29 @@ public abstract class Task {
 	public Task(int delay) {
 		this(delay, false, StackType.STACK, BreakType.NEVER, TaskType.CURRENT_ACTION);
 	}
+	
+	/**
+	 * Creates a new {@link Task}.
+	 * 
+	 * @param immediate
+	 * 		The flag that denotes to execute this task immediately.
+	 */
+	public Task(boolean immediate) {
+		this(0, immediate, StackType.STACK, BreakType.NEVER, TaskType.CURRENT_ACTION);
+	}
+	
+	/**
+	 * Creates a new {@link Task}.
+	 * 
+	 * @param immediate
+	 * 		The flag that denotes to execute this task immediately.
+	 * 
+	 * @param stackType
+	 * 		The type for how this task stacks.
+	 */
+	public Task(boolean immediate, StackType stackType) {
+		this(0, immediate, stackType, BreakType.NEVER, TaskType.CURRENT_ACTION);
+	}
 
 	/**
 	 * Creates a new {@link Task}.

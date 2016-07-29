@@ -6,6 +6,8 @@ import astraeus.game.model.entity.EntityType;
 import astraeus.game.model.entity.item.Item;
 import astraeus.game.model.entity.mob.Mob;
 import astraeus.game.model.entity.mob.Movement;
+import astraeus.game.model.entity.mob.combat.def.AttackType;
+import astraeus.game.model.entity.mob.combat.def.WeaponType;
 import astraeus.game.model.entity.mob.combat.dmg.Hit;
 import astraeus.game.model.entity.mob.npc.Npc;
 import astraeus.game.model.entity.mob.player.attr.AttributeKey;
@@ -63,6 +65,10 @@ public class Player extends Mob {
 	private DialogueFactory dialogueFactory = new DialogueFactory(this);
 	private Optional<Dialogue> dialogue = Optional.empty();
 	private Optional<OptionDialogue> optionDialogue;
+	
+	private WeaponType weaponType = WeaponType.UNARMED;
+	
+	private AttackType fightType = AttackType.UNARMED_PUNCH;
 	
 	private boolean insertItem;
 
@@ -655,6 +661,22 @@ public class Player extends Mob {
 
 	public Prayer getPrayer() {
 		return prayer;
+	}	
+
+	public AttackType getFightType() {
+		return fightType;
+	}
+
+	public void setFightType(AttackType fightType) {
+		this.fightType = fightType;
+	}
+
+	public WeaponType getWeapon() {
+		return weaponType;
+	}
+
+	public void setWeapon(WeaponType weaponType) {
+		this.weaponType = weaponType;
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import astraeus.game.model.entity.mob.Mob;
 import astraeus.game.model.entity.mob.combat.Combat;
 import astraeus.game.model.entity.mob.combat.CombatType;
 import astraeus.game.model.entity.mob.combat.def.WeaponDefinition;
+import astraeus.game.model.entity.mob.combat.def.WeaponType;
 import astraeus.game.model.entity.mob.player.Player;
 import astraeus.game.model.entity.mob.player.collect.Equipment;
 
@@ -40,24 +41,22 @@ public final class AttackBuilder {
 			return;
 		}
 		
-		WeaponDefinition def = WeaponDefinition.lookup(item.getId());
+		WeaponType def = WeaponType.definitions.get(item.getId());
 		
-		if (def == null) {
+		if (def == null || def.getAttackTypes() == null) {
 			animation = 422;
 
 			combat.getMob().startAnimation(new Animation(Priority.HIGH, animation));
 			return;
 		}
 		
-		animation = def.getAnimations()[0];
-		
-		combat.getMob().startAnimation(new Animation(Priority.HIGH, animation));
+		combat.getMob().startAnimation(new Animation(Priority.HIGH, mob.getPlayer().getFightType().getAttackAnimation()));
 	}
 	
 	public int getAttackSpeed() {
 		if (combat.getMob().isNpc()) {
 			
-			return 3;
+			return 5;
 		}
 		
 		Player player = combat.getMob().getPlayer();
@@ -65,16 +64,16 @@ public final class AttackBuilder {
 		Item item = player.getEquipment().get(Equipment.WEAPON_SLOT);
 		
 		if (item == null) {
-			return 3;
+			return 5;
 		}
 		
-		WeaponDefinition def = WeaponDefinition.lookup(item.getId());
+		WeaponDefinition def = WeaponDefinition.definitions.get(item.getId());
 		
 		if (def == null) {
-			return 3;
+			return 5;
 		}
-		
-		return def.getAttackSpeed();		
+
+		return def.getSpeed();	
 	}
 
 	public Combat getCombat() {
@@ -84,5 +83,9 @@ public final class AttackBuilder {
 	public CombatType getCombatType() {
 		return combatType;
 	}
+
+	public void setCombatType(CombatType combatType) {
+		this.combatType = combatType;
+	}	
 
 }

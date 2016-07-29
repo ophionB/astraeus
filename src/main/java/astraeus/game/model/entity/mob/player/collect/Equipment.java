@@ -3,11 +3,18 @@ package astraeus.game.model.entity.mob.player.collect;
 import astraeus.game.model.entity.item.Item;
 import astraeus.game.model.entity.item.ItemContainer;
 import astraeus.game.model.entity.item.ItemContainerPolicy;
+import astraeus.game.model.entity.mob.combat.def.AttackType;
+import astraeus.game.model.entity.mob.combat.def.WeaponDefinition;
+import astraeus.game.model.entity.mob.combat.def.WeaponType;
 import astraeus.game.model.entity.mob.player.Player;
 import astraeus.game.model.entity.mob.player.skill.Skill;
 import astraeus.game.model.entity.mob.player.skill.SkillRequirement;
 import astraeus.game.model.entity.mob.update.UpdateFlag;
 import astraeus.net.packet.out.ServerMessagePacket;
+import astraeus.net.packet.out.SetItemModelOnWidgetPacket;
+import astraeus.net.packet.out.SetSideBarWidgetPacket;
+import astraeus.net.packet.out.SetWidgetConfigPacket;
+import astraeus.net.packet.out.SetWidgetStringPacket;
 import astraeus.util.StringUtils;
 
 import java.util.HashMap;
@@ -28,6 +35,15 @@ public final class Equipment extends ItemContainer {
 
 		private EquipmentType(final int slot) {
 			this.slot = slot;
+		}
+		
+		public static EquipmentType lookup(int value) {
+			for(EquipmentType type : EquipmentType.values()) {
+				if (type.getSlot() == value) {
+					return type;				
+				}
+			}
+			return null;
 		}
 
 		public int getSlot() {
@@ -58,8 +74,6 @@ public final class Equipment extends ItemContainer {
 
 		private final SkillRequirement[] requirements;
 
-		private final boolean twoHanded;
-
 		private final boolean fullBody;
 
 		private final boolean fullHat;
@@ -69,12 +83,11 @@ public final class Equipment extends ItemContainer {
 		private final int[] bonuses;
 
 		public EquipmentDefinition(int id, String name, EquipmentType type, SkillRequirement[] requirements,
-				boolean twoHanded, boolean fullBody, boolean fullHat, boolean fullMask, int[] bonuses) {
+				boolean fullBody, boolean fullHat, boolean fullMask, int[] bonuses) {
 			this.id = id;
 			this.name = name;
 			this.type = type;
 			this.requirements = requirements;
-			this.twoHanded = twoHanded;
 			this.fullBody = fullBody;
 			this.fullHat = fullHat;
 			this.fullMask = fullMask;
@@ -99,10 +112,6 @@ public final class Equipment extends ItemContainer {
 
 		public SkillRequirement[] getRequirements() {
 			return requirements;
-		}
-
-		public boolean isTwoHanded() {
-			return twoHanded;
 		}
 
 		public boolean isFullBody() {
@@ -206,6 +215,10 @@ public final class Equipment extends ItemContainer {
         	return false;
         }
         
+        WeaponDefinition weaponDef = WeaponDefinition.definitions.get(item.getId());
+        
+        boolean twoHanded = weaponDef == null ? false : weaponDef.isTwoHanded();
+        
         if (!Equipment.canEquip(player, item.getId())) {
         	return false;
         }
@@ -227,15 +240,21 @@ public final class Equipment extends ItemContainer {
             player.getInventory().remove(item, inventorySlot);
         } else {
             int designatedSlot = equipDef.getType().getSlot();
-            if (designatedSlot == Equipment.WEAPON_SLOT && equipDef.isTwoHanded() && used(Equipment.SHIELD_SLOT)) {
+            if (designatedSlot == Equipment.WEAPON_SLOT && twoHanded && used(Equipment.SHIELD_SLOT)) {
                 if (!unequip(Equipment.SHIELD_SLOT, true))
                     return false;
             }
             if (designatedSlot == Equipment.SHIELD_SLOT && used(Equipment.WEAPON_SLOT)) {
-                if (EquipmentDefinition.get(get(Equipment.WEAPON_SLOT).getId()).isTwoHanded()) {
+            	
+            	WeaponDefinition wepDef = WeaponDefinition.definitions.get(get(Equipment.WEAPON_SLOT).getId());
+            	
+            	twoHanded = wepDef == null ? false : wepDef.isTwoHanded();
+            	
+                if (twoHanded) {
                     if (!unequip(Equipment.WEAPON_SLOT, true))
                         return false;
                 }
+                
             }
             if (used(designatedSlot)) {
                 Item equipItem = get(designatedSlot);
@@ -273,7 +292,7 @@ public final class Equipment extends ItemContainer {
         if (!player.getInventory().spaceFor(item)) {
             player.queuePacket(new ServerMessagePacket("You do not have enough space in " + "your inventory!"));
             return false;
-        }
+        }        
         
         remove(item, equipmentSlot);
         
@@ -317,8 +336,61 @@ public final class Equipment extends ItemContainer {
 	 */
 	public void refresh() {
 		refresh(player, 1688);
+		updateWeapon();
 		player.getUpdateFlags().add(UpdateFlag.APPEARANCE);
 	}
+	
+  public void updateWeapon() {
+	  
+	  final Item item = get(Equipment.WEAPON_SLOT);
+	
+    if (item == null) {
+        player.queuePacket(new SetSideBarWidgetPacket(0, WeaponType.UNARMED.getId()));
+        player.queuePacket(new SetWidgetStringPacket("Unarmed", WeaponType.UNARMED.getNameLine()));
+        player.setWeapon(WeaponType.UNARMED);
+
+        for (AttackType type : player.getWeapon().getAttackTypes()) {
+            if (type.getStyle() == player.getFightType().getStyle()) {
+                player.setFightType(type);
+                player.queuePacket(new SetWidgetConfigPacket(player.getFightType().getParent(), player.getFightType().getChild()));
+                return;
+            }
+        }
+        return;
+    }
+    
+    WeaponDefinition weapon = WeaponDefinition.definitions.get(item.getId());
+    
+    if (weapon == null) {
+    	return;
+    }
+    
+    if (weapon.getType() == WeaponType.UNARMED) {
+        player.queuePacket(new SetSideBarWidgetPacket(0, weapon.getId()));
+        player.queuePacket(new SetWidgetStringPacket("Unarmed", weapon.getType().getNameLine()));            
+        player.setWeapon(WeaponType.UNARMED);
+        return;
+    } else if (weapon.getType() == WeaponType.CROSSBOW) {
+        player.queuePacket(new SetWidgetStringPacket("Weapon: ", weapon.getType().getNameLine() - 1));
+    } else if (weapon.getType() == WeaponType.WHIP) {
+        player.queuePacket(new SetWidgetStringPacket("Weapon: ", weapon.getType().getNameLine() - 1));
+    }
+    player.queuePacket(new SetItemModelOnWidgetPacket(weapon.getType().getId() + 1, 200, item.getId()));
+    player.queuePacket(new SetSideBarWidgetPacket(0, weapon.getType().getId()));
+    player.queuePacket(new SetWidgetStringPacket(item.definition().getName(), weapon.getType().getNameLine()));
+    player.setWeapon(weapon.getType());
+
+    for (AttackType type : weapon.getType().getAttackTypes()) {
+        if (type.getStyle() == player.getFightType().getStyle()) {
+            player.setFightType(type);
+            player.queuePacket(new SetWidgetConfigPacket(player.getFightType().getParent(), player.getFightType().getChild()));
+            return;
+        }
+    }
+    
+    player.setFightType(player.getWeapon().getAttackTypes()[0]);
+    player.queuePacket(new SetWidgetConfigPacket(player.getFightType().getParent(), player.getFightType().getChild()));
+}
 
 	public static boolean isFullHat(int itemId) {
 		return EquipmentDefinition.get(itemId) != null ? EquipmentDefinition.get(itemId).isFullHat() : false;

@@ -53,7 +53,7 @@ public final class Bootstrap {
 		logger.info("Unpacking game resources...");
 		// load and cache data
 		executeStartupServices();
-
+		
 		serviceLoader.shutdown();
 
 		if (!serviceLoader.awaitTermination(15, TimeUnit.MINUTES)) {
@@ -107,8 +107,9 @@ public final class Bootstrap {
 			new IPBanParser().run();
 			new UUIDBanParser().run();
 			new EquipmentDefinitionParser().run();
-			new WeaponDefinitionParser().run();
 			//MapDecoder.load();
+			new WeaponDefinitionParser().run();
+			new WeaponTypeSetParser().run();
 		});		
 		
 		logger.info("Loading plugins");

@@ -45,7 +45,7 @@ public final class Server {
         final Stopwatch timer = new Stopwatch().reset();
 
         new Bootstrap().build().bind();
-
+        
         uptime = new Stopwatch();
 
         logger.info("Server Initialized. [Took " + timer.elapsed(TimeUnit.SECONDS) + " seconds]");

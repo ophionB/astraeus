@@ -40,6 +40,7 @@ public final class Inventory extends ItemContainer {
     public boolean add(Item item, int slot) {
         if (!Item.valid(item))
             return false;
+        
         if (!contains(item.getId()) && !item.definition().isStackable()) {
             if (freeSlot() == -1) {
                 player.queuePacket(new ServerMessagePacket("You don't have enough space in your inventory!"));

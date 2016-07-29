@@ -85,7 +85,7 @@ public abstract class Formula {
 	}
 
 	public final int getEffectiveRanged(Mob entity) {
-		double level = entity.getSkills().getLevel(Skill.RANGED);
+		double level = entity.getSkills().getLevel(Skill.RANGE);
 
 		if (entity.isPlayer()) {
 			if (entity.getPlayer().getPrayer().active(PrayerType.SHARP_EYE)) {

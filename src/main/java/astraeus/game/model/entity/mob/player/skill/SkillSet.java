@@ -172,7 +172,7 @@ public class SkillSet {
 		final int strength = getMaxLevel(Skill.STRENGTH);
 		final int hp = getMaxLevel(Skill.HITPOINTS);
 		final int prayer = getMaxLevel(Skill.PRAYER);
-		final int ranged = getMaxLevel(Skill.RANGED);
+		final int ranged = getMaxLevel(Skill.RANGE);
 		final int magic = getMaxLevel(Skill.MAGIC);
 		int combatLevel = (int) (((defence + hp) + Math.floor(prayer / 2)) * 0.25D) + 1;
 		final double meleeMultiplier = (attack + strength) * 0.32500000000000001D;

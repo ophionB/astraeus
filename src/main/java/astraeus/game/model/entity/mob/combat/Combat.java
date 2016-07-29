@@ -9,6 +9,22 @@ import astraeus.util.Stopwatch;
 
 public final class Combat {
 
+    public static final int ATTACK_STAB = 0;
+    public static final int ATTACK_SLASH = 1;
+    public static final int ATTACK_CRUSH = 2;
+    public static final int ATTACK_MAGIC = 3;
+    public static final int ATTACK_RANGED = 4;
+    public static final int DEFENCE_STAB = 5;
+    public static final int DEFENCE_SLASH = 6;
+    public static final int DEFENCE_CRUSH = 7;
+    public static final int DEFENCE_MAGIC = 8;
+    public static final int DEFENCE_RANGED = 9;
+    public static final int BONUS_STRENGTH = 10;
+    public static final int BONUS_PRAYER = 11;
+
+    public static final String[] BONUS_NAMES = { "Stab", "Slash", "Crush", "Magic", "Range", "Stab", "Slash", "Crush", "Magic", "Range",
+            "Strength", "Prayer" };
+
 	private AttackType attackType;
 
 	private final MeleeFormula meleeFormula = new MeleeFormula(this);

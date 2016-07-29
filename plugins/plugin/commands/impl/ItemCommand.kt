@@ -19,8 +19,6 @@ class ItemCommand : Command() {
 			
 			val amount = parser.nextInt()
 			
-			println("{${id} ${amount}}")
-			
 			player.inventory.add(Item(id, amount))
 			return true
 		} else if (parser.hasNext(1)) {

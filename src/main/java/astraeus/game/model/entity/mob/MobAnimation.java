@@ -9,6 +9,7 @@ public final class MobAnimation {
 	public static final int PLAYER_TURN_90_CW = 821;
 	public static final int PLAYER_TURN_90_CCW = 822;
 	public static final int PLAYER_RUN = 824;
+	
 	public static final int PLAYER_ATTACK = 422;
 	public static final int PLAYER_BLOCK = 424;
 	public static final int PLAYER_DEATH = 836;

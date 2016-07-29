@@ -58,7 +58,7 @@ public final class Item extends Entity {
       }
       
       public static boolean valid(Item item) {
-          return item != null && item.id > 0 && item.amount > 0;
+          return item == null ? false :item.id > 0 && item.amount > 0;
       }
 
       /**

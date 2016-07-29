@@ -16,7 +16,7 @@ public class Skill {
 
 	public static final int HITPOINTS = 3;
 
-	public static final int RANGED = 4;
+	public static final int RANGE = 4;
 
 	public static final int PRAYER = 5;
 

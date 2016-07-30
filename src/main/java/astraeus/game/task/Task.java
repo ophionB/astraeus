@@ -1,5 +1,4 @@
 package astraeus.game.task;
-
 import java.util.Objects;
 
 /**

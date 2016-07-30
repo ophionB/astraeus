@@ -3,7 +3,7 @@ package plugin.buttons
 import astraeus.game.event.SubscribesTo
 import astraeus.game.event.impl.ButtonActionEvent
 import astraeus.game.model.entity.mob.player.Player
-import astraeus.game.model.entity.mob.player.CombatPrayer
+import astraeus.game.model.entity.mob.combat.CombatPrayer
 
 @SubscribesTo(ButtonActionEvent::class)
 class PrayerButton : ButtonClick() {

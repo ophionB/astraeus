@@ -2,89 +2,91 @@ package astraeus.game.task.impl;
 
 import astraeus.game.model.entity.mob.Mob;
 import astraeus.game.task.Task;
-import astraeus.game.task.TaskType;
 
 /**
  * Represents a task that involves a mob.
  * 
  * @author Vult-R
  */
-public abstract class MobTask <T extends Mob> extends Task {
-	
+public abstract class MobTask<T extends Mob> extends Task {
+
 	/**
 	 * The mob that this task is for.
 	 */
 	protected final T mob;
-	
+
 	/**
 	 * Creates a new {@link MobTask}.
 	 * 
 	 * @param mob
-	 * 		The mob that this task is for.
+	 *            The mob that this task is for.
 	 * 
 	 * @param immediate
-	 * 		The flag that denotes this task will execute immediately instead of being queued.
+	 *            The flag that denotes this task will execute immediately
+	 *            instead of being queued.
 	 */
-	public MobTask(T mob, boolean immediate) {		
-		super(0, immediate, StackType.STACK, BreakType.NEVER, TaskType.CURRENT_ACTION);
-		this.mob = mob;		
+	public MobTask(T mob, boolean immediate) {
+		super(0, immediate, StackType.STACK, BreakType.NEVER);
+		this.mob = mob;
 	}
-	
+
 	/**
 	 * Creates a new {@link MobTask}.
 	 * 
 	 * @param mob
-	 * 		The mob that this task is for.
+	 *            The mob that this task is for.
 	 * 
 	 * @param delay
-	 * 		The delay in game ticks that this task will sleep for.
+	 *            The delay in game ticks that this task will sleep for.
 	 */
-	public MobTask(T mob, int delay) {		
-		super(delay, false, StackType.STACK, BreakType.NEVER, TaskType.CURRENT_ACTION);
-		this.mob = mob;		
+	public MobTask(T mob, int delay) {
+		super(delay, false, StackType.STACK, BreakType.NEVER);
+		this.mob = mob;
 	}
-	
+
 	/**
 	 * Creates a new {@link MobTask}.
 	 * 
 	 * @param mob
-	 * 		The mob that this task is for.
+	 *            The mob that this task is for.
 	 * 
 	 * @param delay
-	 * 		The delay in game ticks that this task will sleep for.
+	 *            The delay in game ticks that this task will sleep for.
 	 * 
 	 * @param immediate
-	 * 		The flag that denotes this task will execute immediately instead of being queued.
+	 *            The flag that denotes this task will execute immediately
+	 *            instead of being queued.
 	 */
-	public MobTask(T mob, int delay, boolean immediate) {		
-		super(delay, immediate, StackType.STACK, BreakType.NEVER, TaskType.CURRENT_ACTION);
-		this.mob = mob;		
+	public MobTask(T mob, int delay, boolean immediate) {
+		super(delay, immediate, StackType.STACK, BreakType.NEVER);
+		this.mob = mob;
 	}
-	
+
 	/**
 	 * Creates a new {@link MobTask}.
 	 * 
 	 * @param mob
-	 * 		The mob that this task is for.
+	 *            The mob that this task is for.
 	 * 
 	 * @param delay
-	 * 		The delay in game ticks that this task will sleep for.
+	 *            The delay in game ticks that this task will sleep for.
 	 * 
 	 * @param immediate
-	 * 		The flag that denotes this task will execute immediately instead of being queued.
+	 *            The flag that denotes this task will execute immediately
+	 *            instead of being queued.
 	 * 
 	 * @param stackType
-	 * 		The type of stack for this task.
+	 *            The type of stack for this task.
 	 * 
 	 * @param breakType
-	 * 		The type of break for this task.
+	 *            The type of break for this task.
 	 * 
 	 * @param taskType
-	 * 		The type of task being executed.
+	 *            The type of task being executed.
 	 */
-	public MobTask(T mob, int delay, boolean immediate, StackType stackType, BreakType breakType, TaskType taskType) {
-		super(delay, immediate, stackType, breakType, taskType);		
-		this.mob = mob;		
+	public MobTask(T mob, int delay, boolean immediate, StackType stackType, BreakType breakType) {
+		super(delay, immediate, stackType, breakType);
+		this.mob = mob;
 	}
 
 	/**
@@ -93,5 +95,5 @@ public abstract class MobTask <T extends Mob> extends Task {
 	public T getMob() {
 		return mob;
 	}
-	
+
 }

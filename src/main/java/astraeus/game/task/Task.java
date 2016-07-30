@@ -73,11 +73,6 @@ public abstract class Task {
 	 * The type of break for this task.
 	 */
 	protected final BreakType breakType;
-	
-	/**
-	 * The type of task.
-	 */
-	protected final TaskType taskType;	
 
 	/**
 	 * Creates a new {@link Task}.
@@ -86,7 +81,7 @@ public abstract class Task {
 	 * 		The delay in game ticks until this task can execute.
 	 */
 	public Task(int delay) {
-		this(delay, false, StackType.STACK, BreakType.NEVER, TaskType.CURRENT_ACTION);
+		this(delay, false, StackType.STACK, BreakType.NEVER);
 	}
 	
 	/**
@@ -96,7 +91,7 @@ public abstract class Task {
 	 * 		The flag that denotes to execute this task immediately.
 	 */
 	public Task(boolean immediate) {
-		this(0, immediate, StackType.STACK, BreakType.NEVER, TaskType.CURRENT_ACTION);
+		this(0, immediate, StackType.STACK, BreakType.NEVER);
 	}
 	
 	/**
@@ -109,7 +104,7 @@ public abstract class Task {
 	 * 		The type for how this task stacks.
 	 */
 	public Task(boolean immediate, StackType stackType) {
-		this(0, immediate, stackType, BreakType.NEVER, TaskType.CURRENT_ACTION);
+		this(0, immediate, stackType, BreakType.NEVER);
 	}
 
 	/**
@@ -122,7 +117,7 @@ public abstract class Task {
 	 * 		The flag that denotes to execute this task immediately.
 	 */
 	public Task(int delay, boolean immediate) {
-		this(delay, immediate, StackType.STACK, BreakType.NEVER, TaskType.CURRENT_ACTION);
+		this(delay, immediate, StackType.STACK, BreakType.NEVER);
 	}
 
 	/**
@@ -143,12 +138,11 @@ public abstract class Task {
 	 * @param taskType
 	 * 		The type for identifying this task.
 	 */
-	public Task(int delay, boolean immediate, StackType stackType, BreakType breakType, TaskType taskType) {		
+	public Task(int delay, boolean immediate, StackType stackType, BreakType breakType) {		
 		this.delay = (short) delay;
 		this.immediate = immediate;
 		this.breakType = breakType;
 		this.stackType = stackType;
-		this.taskType = taskType;
 	}
 
 	/**
@@ -189,13 +183,6 @@ public abstract class Task {
 	 */
 	public final StackType getStackType() {
 		return stackType;
-	}
-
-	/**
-	 * Gets the type of task.
-	 */
-	public final TaskType getTaskType() {
-		return taskType;
 	}
 
 	/**

@@ -68,7 +68,7 @@ public final class TaskManager {
 			for (final Iterator<Task> i = tasks.iterator(); i.hasNext();) {
 				final Task t = i.next();
 
-				if (t.getStackType() == StackType.NEVER_STACK && t.getTaskType() == task.getTaskType()) {
+				if (t.getStackType() == StackType.NEVER_STACK) {
 					return;
 				}
 			}

@@ -1,0 +1,16 @@
+[
+  {
+    "type": "DRAGON_DAGGER",
+    "ids": [
+      1215,
+      1231,
+      5680,
+      5698
+    ],
+    "amount": 25,
+    "strength": 1.15,
+    "accuracy": 1.25,
+    "combat": "MELEE",
+    "weapon": "DAGGER"
+  }
+]

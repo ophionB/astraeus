@@ -8,6 +8,7 @@ import astraeus.game.model.entity.mob.Mob;
 import astraeus.game.model.entity.mob.Movement;
 import astraeus.game.model.entity.mob.combat.CombatPrayer;
 import astraeus.game.model.entity.mob.combat.def.AttackType;
+import astraeus.game.model.entity.mob.combat.def.WeaponSpecial;
 import astraeus.game.model.entity.mob.combat.def.WeaponType;
 import astraeus.game.model.entity.mob.combat.dmg.Hit;
 import astraeus.game.model.entity.mob.npc.Npc;
@@ -70,6 +71,8 @@ public class Player extends Mob {
 	private WeaponType weaponType = WeaponType.UNARMED;
 	
 	private AttackType attackType = AttackType.UNARMED_PUNCH;
+	
+	private WeaponSpecial weaponSpecial;
 	
 	private boolean insertItem;
 
@@ -678,6 +681,14 @@ public class Player extends Mob {
 
 	public void setWeapon(WeaponType weaponType) {
 		this.weaponType = weaponType;
+	}	
+
+	public WeaponSpecial getWeaponSpecial() {
+		return weaponSpecial;
+	}
+
+	public void setWeaponSpecial(WeaponSpecial weaponSpecial) {
+		this.weaponSpecial = weaponSpecial;
 	}
 
 	@Override

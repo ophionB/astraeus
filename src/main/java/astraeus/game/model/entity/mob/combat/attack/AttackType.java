@@ -21,7 +21,6 @@ public enum AttackType {
 	private AttackType(int accuracyIncrease, int defensiveIncrease) {
 		this.accuraceIncrease = accuracyIncrease;
 		this.defensiveIncrease = defensiveIncrease;
-
 	}
 
 	public int getAccuracyIncrease() {

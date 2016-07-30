@@ -27,7 +27,7 @@ public final class TaskManager {
 	/**
 	 * The method that will process all tasks.
 	 */
-	public void process() {
+	public void runTaskIteration() {
 		Task t;
 
 		synchronized (adding) {
@@ -47,15 +47,17 @@ public final class TaskManager {
 			}
 			
 			try {
+				
 				if (task.hasStopped()) {
 					task.onStop();
 					itr.remove();
 					continue;
 				}
-
+				
 				task.run();
-			} catch (final Exception e) {
-				e.printStackTrace();
+			} catch (final Exception ex) {
+				task.onException(ex);
+				ex.printStackTrace();
 				itr.remove();
 			}
 		}

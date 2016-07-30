@@ -13,12 +13,12 @@ public abstract class Task {
 	public enum StackType {
 		
 		/**
-		 * Always duplicates
+		 * The type that indicates tasks equal to this one can be executed
 		 */
 		STACK,
 		
 		/**
-		 * Never allow duplicates
+		 * The type that indicates tasks equal to this one will never be executed until the current one is finished.
 		 */
 		NEVER_STACK
 	}
@@ -131,9 +131,9 @@ public abstract class Task {
 		this.immediate = immediate;
 		this.stackType = stackType;
 	}
-
+	
 	/**
-	 * The method that is called when a task executes.
+	 * The method called this task executes.
 	 */
 	public abstract void execute();
 	
@@ -141,6 +141,13 @@ public abstract class Task {
 	 * The method called when a task stops.
 	 */
 	public void onStop() {
+		
+	}
+	
+	/**
+	 * The method called when an exception occurs.
+	 */
+	public void onException(Exception ex) {
 		
 	}
 	
@@ -212,7 +219,7 @@ public abstract class Task {
 			throw new IllegalArgumentException("Tick amount must be positive.");
 		}
 
-		this.delay = (short) ticks;
+		this.delay = ticks;
 	}
 
 	/**
@@ -232,7 +239,7 @@ public abstract class Task {
 	/**
 	 * Determines if this task should be interrupted.
 	 */
-	public boolean isInterrupt() {
+	public final boolean isInterrupt() {
 		return interrupt;
 	}
 
@@ -242,14 +249,14 @@ public abstract class Task {
 	 * @param interrupt
 	 * 		The flag that indicates to interrupt this task.
 	 */
-	public void setInterrupt(boolean interrupt) {
+	public final void setInterrupt(boolean interrupt) {
 		this.interrupt = interrupt;
 	}
 	
 	/**
 	 * Gets the identifier for this task.
 	 */
-	public String getIdentifier() {
+	public final String getIdentifier() {
 		return identifier;
 	}
 	

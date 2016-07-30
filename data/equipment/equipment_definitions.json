@@ -25647,13 +25647,13 @@
       0
     ]
   },
-  {
-    "id": 3742,
-    "name": "Red herring",
-    "type": "RING",
+    {
+    "id": 3751,
+    "name": "Berserker helm",
+    "type": "HAT",
     "requirements": [],
     "fullBody": false,
-    "fullHat": false,
+    "fullHat": true,
     "fullMask": false,
     "bonuses": [
       0,

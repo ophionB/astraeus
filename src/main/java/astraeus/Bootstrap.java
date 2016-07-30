@@ -110,6 +110,7 @@ public final class Bootstrap {
 			//MapDecoder.load();
 			new WeaponDefinitionParser().run();
 			new WeaponTypeSetParser().run();
+			new WeaponSpecialParser().run();
 		});		
 		
 		logger.info("Loading plugins");

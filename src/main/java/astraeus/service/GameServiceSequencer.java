@@ -16,17 +16,9 @@ public final class GameServiceSequencer extends GameService {
 		
 		World.world.dequeueLogin();
 		
-		World.world.getTasks().process();
+		World.world.getTasks().runTaskIteration();
 		
-		@SuppressWarnings("unused")
-		long start = System.currentTimeMillis();
-		
-		synchronizer.synchronize();
-		
-		@SuppressWarnings("unused")
-		long end = System.currentTimeMillis();
-		
-		//System.out.println("cycle: " + (end - start) + " ms");				
+		synchronizer.synchronize();		
 		
 		World.world.dequeueLogout();
 		

@@ -116,8 +116,6 @@ public abstract class DistancedTask extends Task {
 	public void execute() {		
 		int currentDistance = Position.getDistance(player.getPosition(), destination);
 		
-		System.out.println("test: " + currentDistance + " " + distance);
-		
 		if (reached) {
 			onReached();
 			stop();

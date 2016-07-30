@@ -6,6 +6,7 @@ import astraeus.game.model.entity.item.ItemContainerPolicy;
 import astraeus.game.model.entity.mob.MobAnimation;
 import astraeus.game.model.entity.mob.combat.def.AttackType;
 import astraeus.game.model.entity.mob.combat.def.WeaponDefinition;
+import astraeus.game.model.entity.mob.combat.def.WeaponSpecial;
 import astraeus.game.model.entity.mob.combat.def.WeaponType;
 import astraeus.game.model.entity.mob.player.Player;
 import astraeus.game.model.entity.mob.player.skill.Skill;
@@ -349,7 +350,7 @@ public final class Equipment extends ItemContainer {
         player.queuePacket(new SetSideBarWidgetPacket(0, WeaponType.UNARMED.getId()));
         player.queuePacket(new SetWidgetStringPacket("Unarmed", WeaponType.UNARMED.getNameLine()));
         player.setWeapon(WeaponType.UNARMED);
-
+        WeaponSpecial.update(player);
         for (AttackType type : player.getWeapon().getAttackTypes()) {
             if (type.getStyle() == player.getAttackType().getStyle()) {
                 player.setAttackType(type);
@@ -386,6 +387,7 @@ public final class Equipment extends ItemContainer {
     player.queuePacket(new SetSideBarWidgetPacket(0, weapon.getType().getId()));
     player.queuePacket(new SetWidgetStringPacket(item.definition().getName(), weapon.getType().getNameLine()));
     player.setWeapon(weapon.getType());
+    WeaponSpecial.update(player);
     
     player.getMobAnimation().setRun(weapon.getCombatAnimation().getRun());
     player.getMobAnimation().setWalk(weapon.getCombatAnimation().getWalk());

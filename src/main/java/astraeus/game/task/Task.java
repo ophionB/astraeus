@@ -8,22 +8,6 @@ package astraeus.game.task;
 public abstract class Task {
 
 	/**
-	 * Represents the enumerated ways task can stop.
-	 */
-	public enum BreakType {
-		
-		/**
-		 * Never stop this task
-		 */
-		NEVER,
-		
-		/**
-		 * Stop this task on movement
-		 */
-		ON_MOVE
-	}
-
-	/**
 	 * Represents the enumerated ways a task can stack.
 	 */
 	public enum StackType {
@@ -75,18 +59,13 @@ public abstract class Task {
 	protected final StackType stackType;
 
 	/**
-	 * The type of break for this task.
-	 */
-	protected final BreakType breakType;
-
-	/**
 	 * Creates a new {@link Task}.
 	 * 
 	 * @param delay
 	 * 		The delay in game ticks until this task can execute.
 	 */
 	public Task(String identifier, int delay) {
-		this(identifier, delay, false, StackType.STACK, BreakType.NEVER);
+		this(identifier, delay, false, StackType.STACK);
 	}
 	
 	/**
@@ -96,7 +75,7 @@ public abstract class Task {
 	 * 		The flag that denotes to execute this task immediately.
 	 */
 	public Task(String identifier, boolean immediate) {
-		this(identifier, 0, immediate, StackType.STACK, BreakType.NEVER);
+		this(identifier, 0, immediate, StackType.STACK);
 	}
 	
 	/**
@@ -109,7 +88,7 @@ public abstract class Task {
 	 * 		The type for how this task stacks.
 	 */
 	public Task(String identifier, boolean immediate, StackType stackType) {
-		this(identifier, 0, immediate, stackType, BreakType.NEVER);
+		this(identifier, 0, immediate, stackType);
 	}
 
 	/**
@@ -125,7 +104,7 @@ public abstract class Task {
 	 * 		The flag that denotes to execute this task immediately.
 	 */
 	public Task(String identifier, int delay, boolean immediate) {
-		this(identifier, delay, immediate, StackType.STACK, BreakType.NEVER);
+		this(identifier, delay, immediate, StackType.STACK);
 	}
 
 	/**
@@ -143,17 +122,13 @@ public abstract class Task {
 	 * @param stackType
 	 * 		The type for how this task stacks.
 	 * 
-	 * @param breakType
-	 * 		The type for how this task breaks.
-	 * 
 	 * @param taskType
 	 * 		The type for identifying this task.
 	 */
-	public Task(String identifier, int delay, boolean immediate, StackType stackType, BreakType breakType) {
+	public Task(String identifier, int delay, boolean immediate, StackType stackType) {
 		this.identifier = identifier;
 		this.delay = delay;
 		this.immediate = immediate;
-		this.breakType = breakType;
 		this.stackType = stackType;
 	}
 
@@ -181,13 +156,6 @@ public abstract class Task {
 	 */
 	public final boolean isImmediate() {
 		return immediate;
-	}
-	
-	/**
-	 * Gets the type of break for this task.
-	 */
-	public final BreakType getBreakType() {
-		return breakType;
 	}
 	
 	/**

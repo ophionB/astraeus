@@ -40,6 +40,11 @@ public abstract class Task {
 	}
 	
 	/**
+	 * The identifier for this task
+	 */
+	private final String identifier;
+	
+	/**
 	 * The amount of ticks that have passed.
 	 */
 	protected int tick = 0;
@@ -80,8 +85,8 @@ public abstract class Task {
 	 * @param delay
 	 * 		The delay in game ticks until this task can execute.
 	 */
-	public Task(int delay) {
-		this(delay, false, StackType.STACK, BreakType.NEVER);
+	public Task(String identifier, int delay) {
+		this(identifier, delay, false, StackType.STACK, BreakType.NEVER);
 	}
 	
 	/**
@@ -90,8 +95,8 @@ public abstract class Task {
 	 * @param immediate
 	 * 		The flag that denotes to execute this task immediately.
 	 */
-	public Task(boolean immediate) {
-		this(0, immediate, StackType.STACK, BreakType.NEVER);
+	public Task(String identifier, boolean immediate) {
+		this(identifier, 0, immediate, StackType.STACK, BreakType.NEVER);
 	}
 	
 	/**
@@ -103,12 +108,15 @@ public abstract class Task {
 	 * @param stackType
 	 * 		The type for how this task stacks.
 	 */
-	public Task(boolean immediate, StackType stackType) {
-		this(0, immediate, stackType, BreakType.NEVER);
+	public Task(String identifier, boolean immediate, StackType stackType) {
+		this(identifier, 0, immediate, stackType, BreakType.NEVER);
 	}
 
 	/**
 	 * Creates a new {@link Task}.
+	 * 
+	 * @param identifier
+	 * 		The identifier for this task.
 	 * 
 	 * @param delay
 	 * 		The delay in game ticks until this task can execute.
@@ -116,12 +124,15 @@ public abstract class Task {
 	 * @param immediate
 	 * 		The flag that denotes to execute this task immediately.
 	 */
-	public Task(int delay, boolean immediate) {
-		this(delay, immediate, StackType.STACK, BreakType.NEVER);
+	public Task(String identifier, int delay, boolean immediate) {
+		this(identifier, delay, immediate, StackType.STACK, BreakType.NEVER);
 	}
 
 	/**
 	 * Creates a new {@link Task}.
+	 * 
+	 * @param identifier
+	 * 		The identifier for this task.
 	 * 
 	 * @param delay
 	 * 		The delay in game ticks until this task can execute.
@@ -138,8 +149,9 @@ public abstract class Task {
 	 * @param taskType
 	 * 		The type for identifying this task.
 	 */
-	public Task(int delay, boolean immediate, StackType stackType, BreakType breakType) {		
-		this.delay = (short) delay;
+	public Task(String identifier, int delay, boolean immediate, StackType stackType, BreakType breakType) {
+		this.identifier = identifier;
+		this.delay = delay;
 		this.immediate = immediate;
 		this.breakType = breakType;
 		this.stackType = stackType;
@@ -264,6 +276,26 @@ public abstract class Task {
 	 */
 	public void setInterrupt(boolean interrupt) {
 		this.interrupt = interrupt;
-	}	
+	}
+	
+	/**
+	 * Gets the identifier for this task.
+	 */
+	public String getIdentifier() {
+		return identifier;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Task) {
+			Task task = (Task) o;
+			
+			if (identifier == task.getIdentifier()) {
+				return true;
+			}
+			
+		}
+		return false;
+	}
 	
 }

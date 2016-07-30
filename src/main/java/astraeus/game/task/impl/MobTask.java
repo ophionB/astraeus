@@ -18,6 +18,9 @@ public abstract class MobTask<T extends Mob> extends Task {
 	/**
 	 * Creates a new {@link MobTask}.
 	 * 
+	 * @param identifier
+	 * 			The identifier for this task.
+	 * 
 	 * @param mob
 	 *            The mob that this task is for.
 	 * 
@@ -25,13 +28,16 @@ public abstract class MobTask<T extends Mob> extends Task {
 	 *            The flag that denotes this task will execute immediately
 	 *            instead of being queued.
 	 */
-	public MobTask(T mob, boolean immediate) {
-		super(0, immediate, StackType.STACK, BreakType.NEVER);
+	public MobTask(String identifier, T mob, boolean immediate) {
+		super(identifier, 0, immediate, StackType.STACK, BreakType.NEVER);
 		this.mob = mob;
 	}
 
 	/**
 	 * Creates a new {@link MobTask}.
+	 * 
+	 * @param identifier
+	 * 			The identifier for this task.
 	 * 
 	 * @param mob
 	 *            The mob that this task is for.
@@ -39,13 +45,16 @@ public abstract class MobTask<T extends Mob> extends Task {
 	 * @param delay
 	 *            The delay in game ticks that this task will sleep for.
 	 */
-	public MobTask(T mob, int delay) {
-		super(delay, false, StackType.STACK, BreakType.NEVER);
+	public MobTask(String identifier, T mob, int delay) {
+		super(identifier, delay, false, StackType.STACK, BreakType.NEVER);
 		this.mob = mob;
 	}
 
 	/**
 	 * Creates a new {@link MobTask}.
+	 * 
+	 * @param identifier
+	 * 			The identifier for this task.
 	 * 
 	 * @param mob
 	 *            The mob that this task is for.
@@ -57,13 +66,16 @@ public abstract class MobTask<T extends Mob> extends Task {
 	 *            The flag that denotes this task will execute immediately
 	 *            instead of being queued.
 	 */
-	public MobTask(T mob, int delay, boolean immediate) {
-		super(delay, immediate, StackType.STACK, BreakType.NEVER);
+	public MobTask(String identifier, T mob, int delay, boolean immediate) {
+		super(identifier, delay, immediate, StackType.STACK, BreakType.NEVER);
 		this.mob = mob;
 	}
 
 	/**
 	 * Creates a new {@link MobTask}.
+	 * 
+	 * @param identifier
+	 * 			The identifier for this task.
 	 * 
 	 * @param mob
 	 *            The mob that this task is for.
@@ -84,8 +96,8 @@ public abstract class MobTask<T extends Mob> extends Task {
 	 * @param taskType
 	 *            The type of task being executed.
 	 */
-	public MobTask(T mob, int delay, boolean immediate, StackType stackType, BreakType breakType) {
-		super(delay, immediate, stackType, breakType);
+	public MobTask(String identifier, T mob, int delay, boolean immediate, StackType stackType, BreakType breakType) {
+		super(identifier, delay, immediate, stackType, breakType);
 		this.mob = mob;
 	}
 

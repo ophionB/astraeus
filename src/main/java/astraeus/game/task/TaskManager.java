@@ -35,22 +35,31 @@ public final class TaskManager {
 				tasks.add(t);
 			}
 		}
-
-		for (final Iterator<Task> i = tasks.iterator(); i.hasNext();) {
-			final Task task = i.next();
+		
+		final Iterator<Task> itr = tasks.iterator();
+		
+		while(itr.hasNext()) {
+			final Task task = itr.next();
+			
+			if (task == null) {
+				itr.remove();
+				continue;
+			}
+			
 			try {
 				if (task.hasStopped()) {
 					task.onStop();
-					i.remove();
+					itr.remove();
 					continue;
 				}
 
 				task.run();
 			} catch (final Exception e) {
 				e.printStackTrace();
-				i.remove();
+				itr.remove();
 			}
 		}
+
 	}
 
 	/**
@@ -64,13 +73,9 @@ public final class TaskManager {
 			return;
 		}
 
-		if (task.getStackType() == StackType.NEVER_STACK) {
-			for (final Iterator<Task> i = tasks.iterator(); i.hasNext();) {
-				final Task t = i.next();
-
-				if (t.getStackType() == StackType.NEVER_STACK) {
-					return;
-				}
+		if (task.getStackType() == StackType.NEVER_STACK) {			
+			if (tasks.contains(task)) {
+				return;
 			}
 		}
 
@@ -81,6 +86,7 @@ public final class TaskManager {
 		}
 
 		adding.add(task);
+		
 	}
 
 }

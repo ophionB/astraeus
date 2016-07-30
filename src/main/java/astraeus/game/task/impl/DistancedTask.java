@@ -104,7 +104,7 @@ public abstract class DistancedTask extends Task {
 	 * 		The flag that denotes to execute this task immediately instead of being queued.
 	 */
 	public DistancedTask(Player player, Position destination, int distance, int delay, boolean immediate) {
-		super(delay, immediate);
+		super("distancedTask", delay, immediate);
 		this.player = player;
 		this.destination = destination;
 		this.distance = distance;		

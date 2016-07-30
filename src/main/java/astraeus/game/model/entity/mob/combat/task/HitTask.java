@@ -14,7 +14,7 @@ public class HitTask extends Task {
 	private final Mob defender;
 
 	public HitTask(Combat combat, Mob defender) {
-		super(true, StackType.NEVER_STACK);
+		super("hitTask", true, StackType.NEVER_STACK);
 		this.combat = combat;
 		this.defender = defender;
 	}

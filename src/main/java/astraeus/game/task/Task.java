@@ -1,5 +1,7 @@
 package astraeus.game.task;
 
+import java.util.Objects;
+
 /**
  * An abstract model that represents units of work to be carried out in sequence to game ticks.
  * 
@@ -261,11 +263,16 @@ public abstract class Task {
 	}
 	
 	@Override
+	public int hashCode() {
+		return Objects.hash(identifier);
+	}
+	
+	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Task) {
 			Task task = (Task) o;
 			
-			if (identifier == task.getIdentifier()) {
+			if (task.hashCode() == hashCode()) {
 				return true;
 			}
 			

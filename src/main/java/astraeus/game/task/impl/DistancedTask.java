@@ -33,10 +33,7 @@ public abstract class DistancedTask extends Task {
 	
 	/**
 	 * Creates a new {@link DistancedTask}.
-	 * 
-	 * @param start
-	 * 		The starting position
-	 * 
+	 *
 	 * @param destination
 	 * 		The ending position
 	 * 
@@ -49,10 +46,7 @@ public abstract class DistancedTask extends Task {
 
 	/**
 	 * Creates a new {@link DistancedTask}.
-	 * 
-	 * @param start
-	 * 		The starting position
-	 * 
+	 *
 	 * @param destination
 	 * 		The ending position
 	 * 
@@ -68,10 +62,7 @@ public abstract class DistancedTask extends Task {
 
 	/**
 	 * Creates a new {@link DistancedTask}.
-	 * 
-	 * @param start
-	 * 		The starting position
-	 * 
+	 *
 	 * @param destination
 	 * 		The ending position
 	 * 
@@ -88,7 +79,7 @@ public abstract class DistancedTask extends Task {
 	/**
 	 * Creates a new {@link DistancedTask}.
 	 * 
-	 * @param start
+	 * @param player
 	 * 		The starting position
 	 * 
 	 * @param destination
@@ -104,7 +95,7 @@ public abstract class DistancedTask extends Task {
 	 * 		The flag that denotes to execute this task immediately instead of being queued.
 	 */
 	public DistancedTask(Player player, Position destination, int distance, int delay, boolean immediate) {
-		super("distancedTask", delay, immediate, StackType.NEVER_STACK);
+		super("distancedTask", player, delay, immediate, DuplicatePolicy.DISALLOW);
 		this.player = player;
 		this.destination = destination;
 		this.distance = distance;		

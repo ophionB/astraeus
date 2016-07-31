@@ -26,7 +26,7 @@ public final class ShopRestockTask extends Task {
      *            the container that will be restocked.
      */
     public ShopRestockTask(Shop container) {
-        super("shopTask", 20, StackType.STACK);
+        super("shopTask", Task.DEFAULT_INSTANCE, 20, false, DuplicatePolicy.ALLOW);
         this.container = container;
     }
 

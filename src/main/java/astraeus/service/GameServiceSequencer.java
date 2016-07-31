@@ -15,10 +15,16 @@ public final class GameServiceSequencer extends GameService {
 	public void runGameLoop() {
 		
 		World.world.dequeueLogin();
+
+		long start = System.currentTimeMillis();
 		
 		World.world.getTasks().runTaskIteration();
 		
-		synchronizer.synchronize();		
+		synchronizer.synchronize();
+
+		long end = System.currentTimeMillis();
+
+		System.out.println(end - start + " ms");
 		
 		World.world.dequeueLogout();
 		

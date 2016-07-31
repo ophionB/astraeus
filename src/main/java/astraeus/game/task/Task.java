@@ -1,4 +1,5 @@
 package astraeus.game.task;
+
 import java.util.Objects;
 
 /**
@@ -58,6 +59,16 @@ public abstract class Task {
 	 * The type of stack for this task.
 	 */
 	protected final StackType stackType;
+	
+	/**
+	 * Creates a new {@link Task}.
+	 * 
+	 * @param delay
+	 * 		The delay in game ticks until this task can execute.
+	 */
+	public Task(String identifier, StackType stackType) {
+		this(identifier, 0, true, stackType);
+	}
 
 	/**
 	 * Creates a new {@link Task}.
@@ -65,8 +76,8 @@ public abstract class Task {
 	 * @param delay
 	 * 		The delay in game ticks until this task can execute.
 	 */
-	public Task(String identifier, int delay) {
-		this(identifier, delay, false, StackType.STACK);
+	public Task(String identifier, int delay, StackType stackType) {
+		this(identifier, delay, true, stackType);
 	}
 	
 	/**
@@ -74,38 +85,9 @@ public abstract class Task {
 	 * 
 	 * @param immediate
 	 * 		The flag that denotes to execute this task immediately.
-	 */
-	public Task(String identifier, boolean immediate) {
-		this(identifier, 0, immediate, StackType.STACK);
-	}
-	
-	/**
-	 * Creates a new {@link Task}.
-	 * 
-	 * @param immediate
-	 * 		The flag that denotes to execute this task immediately.
-	 * 
-	 * @param stackType
-	 * 		The type for how this task stacks.
 	 */
 	public Task(String identifier, boolean immediate, StackType stackType) {
 		this(identifier, 0, immediate, stackType);
-	}
-
-	/**
-	 * Creates a new {@link Task}.
-	 * 
-	 * @param identifier
-	 * 		The identifier for this task.
-	 * 
-	 * @param delay
-	 * 		The delay in game ticks until this task can execute.
-	 * 
-	 * @param immediate
-	 * 		The flag that denotes to execute this task immediately.
-	 */
-	public Task(String identifier, int delay, boolean immediate) {
-		this(identifier, delay, immediate, StackType.STACK);
 	}
 
 	/**

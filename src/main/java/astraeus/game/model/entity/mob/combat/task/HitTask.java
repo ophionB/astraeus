@@ -7,7 +7,7 @@ import astraeus.game.model.entity.mob.combat.dmg.Hit;
 import astraeus.game.task.Task;
 import astraeus.util.RandomUtils;
 
-public class HitTask extends Task {
+public final class HitTask extends Task {
 	
 	private final Combat combat;
 	

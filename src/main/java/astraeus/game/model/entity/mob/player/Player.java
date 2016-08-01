@@ -318,7 +318,8 @@ public class Player extends Mob {
 		// lastly anything else before the npc is updated
 		onTick();
 	}
-	
+
+	@Override
 	public void update() {
 		synchronized (this) {
 			flushPacket(new UpdatePlayerPacket());
@@ -333,6 +334,7 @@ public class Player extends Mob {
 		getGraphics().clear();
 		setRegionChange(false);
 		setTeleporting(false);
+		getSession().flush();
 	}
 
 	@Override

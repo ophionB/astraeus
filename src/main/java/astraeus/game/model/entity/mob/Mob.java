@@ -135,6 +135,14 @@ public abstract class Mob extends Entity {
 	 * The method called before the mob is updated.
 	 */
 	public abstract void preUpdate();
+
+	/**
+	 * The method called during an update. This should only be used for a player, since a player will
+	 * send the PlayerUpdatePacket, and NpcUpdatePacket right after it.
+	 */
+	public void update() {
+
+	}
 	
 	/**
 	 * The method called after a mob is updated.

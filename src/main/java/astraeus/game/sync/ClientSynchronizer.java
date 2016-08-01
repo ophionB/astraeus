@@ -4,12 +4,12 @@ import astraeus.game.model.World;
 import astraeus.game.model.entity.mob.MobList;
 import astraeus.game.model.entity.mob.npc.Npc;
 import astraeus.game.model.entity.mob.player.Player;
-import astraeus.game.sync.task.PlayerUpdateTask;
-import astraeus.game.sync.task.PostNpcUpdateTask;
-import astraeus.game.sync.task.PostPlayerUpdateTask;
-import astraeus.game.sync.task.PreNpcUpdateTask;
-import astraeus.game.sync.task.PrePlayerUpdateTask;
+import astraeus.game.sync.task.MobUpdateTask;
+import astraeus.game.sync.task.PostMobUpdateTask;
+import astraeus.game.sync.task.PreMobUpdateTask;
 import astraeus.service.GameService;
+
+import java.util.concurrent.Phaser;
 
 /**
  * The class that synchronizes player's clients with the server.
@@ -22,6 +22,11 @@ public final class ClientSynchronizer {
 	 * The service that runs the game.
 	 */
 	private final GameService service;
+
+	/**
+	 * The phaser that will help keep our server in sync.
+	 */
+	private final Phaser phaser = new Phaser(1);
 
 	/**
 	 * Creates a new {@link ClientSynchronizer}.
@@ -41,14 +46,20 @@ public final class ClientSynchronizer {
 		MobList<Player> players = World.world.getPlayers();
 		MobList<Npc> npcs = World.world.getMobs();
 		
-		players.forEach(player -> service.getExecutor().submit(new PrePlayerUpdateTask(player)));
+		players.forEach(player -> service.getExecutor().submit(new PreMobUpdateTask<Player>(player, phaser)));
+		phaser.arriveAndAwaitAdvance();
 		
-		npcs.forEach(npc -> service.getExecutor().submit(new PreNpcUpdateTask(npc)));
+		npcs.forEach(npc -> service.getExecutor().submit(new PreMobUpdateTask<Npc>(npc, phaser)));
+		phaser.arriveAndAwaitAdvance();
 		
-		players.forEach(player -> service.getExecutor().submit(new PlayerUpdateTask(player)));		
-		players.forEach(player -> service.getExecutor().submit(new PostPlayerUpdateTask(player)));
+		players.forEach(player -> service.getExecutor().submit(new MobUpdateTask<Player>(player, phaser)));
+		phaser.arriveAndAwaitAdvance();
+
+		players.forEach(player -> service.getExecutor().submit(new PostMobUpdateTask<Player>(player, phaser)));
+		phaser.arriveAndAwaitAdvance();
 		
-		npcs.forEach(npc -> service.getExecutor().submit(new PostNpcUpdateTask(npc)));
+		npcs.forEach(npc -> service.getExecutor().submit(new PostMobUpdateTask<Npc>(npc, phaser)));
+		phaser.arriveAndAwaitAdvance();
 		
 	}
 

@@ -10,16 +10,6 @@
   "version": 1.0
 },
 {
-  "name": "Reload Plugin Command",
-  "description": "The command for reloading plugins.",
-  "group": "command",
-  "base": "plugin.commands.impl.ReloadPluginCommand",
-  "authors": [
-    "Vult-R"
-  ],
-  "version": 1.0
-},
-{
   "name": "Position Command",
   "description": "The command for telling a player his/her coordinates.",
   "group": "command",
@@ -40,16 +30,6 @@
   "version": 1.0
 },
 {
-  "name": "Display Widget Command",
-  "description": "The command for displaying widgets.",
-  "group": "command",
-  "base": "plugin.commands.impl.DisplayWidgetCommand",
-  "authors": [
-    "Vult-R"
-  ],
-  "version": 1.0
-},
-{
   "name": "Debug Command",
   "description": "The command for a developer to enter debug mode.",
   "group": "command",
@@ -64,26 +44,6 @@
   "description": "The command setting a skill level.",
   "group": "command",
   "base": "plugin.commands.impl.SetSkillCommand",
-  "authors": [
-    "Vult-R"
-  ],
-  "version": 1.0
-},
-{
-  "name": "Hit Command",
-  "description": "The command hitting players.",
-  "group": "command",
-  "base": "plugin.commands.impl.HitCommand",
-  "authors": [
-    "Vult-R"
-  ],
-  "version": 1.0
-},
-{
-  "name": "Max Hit Command",
-  "description": "The command showing the max hit of a player.",
-  "group": "command",
-  "base": "plugin.commands.impl.MaxHitCommand",
   "authors": [
     "Vult-R"
   ],

@@ -1,14 +1,9 @@
 package astraeus;
 
 import java.util.concurrent.*;
-import java.util.logging.Logger;
-
 import astraeus.game.model.World;
 import com.google.common.util.concurrent.AbstractScheduledService;
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
-
 import astraeus.game.sync.ClientSynchronizer;
-import astraeus.util.LoggerUtils;
 
 /**
  * Represents a simple engine that sequentially processes game logic.
@@ -20,7 +15,7 @@ public final class GameEngine extends AbstractScheduledService {
 	/**
 	 * The synchronizer that will keeps in sync.
 	 */
-	private final ClientSynchronizer synchronizer = new ClientSynchronizer(this);
+	private final ClientSynchronizer synchronizer = new ClientSynchronizer();
 
 	/**
 	 * The rate in which the executor iterates the game loop.

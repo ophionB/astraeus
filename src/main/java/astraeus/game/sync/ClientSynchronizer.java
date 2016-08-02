@@ -7,7 +7,6 @@ import astraeus.game.model.entity.mob.player.Player;
 import astraeus.game.sync.task.MobUpdateTask;
 import astraeus.game.sync.task.PostMobUpdateTask;
 import astraeus.game.sync.task.PreMobUpdateTask;
-import astraeus.GameEngine;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,11 +20,6 @@ import java.util.concurrent.Phaser;
 public final class ClientSynchronizer {
 
 	/**
-	 * The service that runs the game.
-	 */
-	private final GameEngine service;
-
-	/**
 	 * The {@link ExecutorService} that will be used for synchronized tasks.
 	 */
 	protected static final ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -34,16 +28,6 @@ public final class ClientSynchronizer {
 	 * The phaser that will help keep our server in sync.
 	 */
 	private final Phaser phaser = new Phaser(1);
-
-	/**
-	 * Creates a new {@link ClientSynchronizer}.
-	 * 
-	 * @param service
-	 *            The service that runs the game.
-	 */
-	public ClientSynchronizer(GameEngine service) {
-		this.service = service;
-	}
 
 	/**
 	 * Synchronizes the server with the client.

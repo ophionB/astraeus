@@ -13,7 +13,6 @@ import io.netty.util.ResourceLeakDetector.Level;
 import astraeus.net.channel.ChannelPiplineInitializer;
 import astraeus.net.packet.IncomingPacketHandlerRegistration;
 import astraeus.service.GameService;
-import astraeus.service.GameServiceSequencer;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -41,7 +40,7 @@ public final class Bootstrap {
 	/**
 	 * The engine that manages the games logic.
 	 */
-	private final GameService service = new GameServiceSequencer();
+	private final GameService service = new GameService();
 
 	/**
 	 * Builds the game by executing any startup services, and starting the game
@@ -61,8 +60,9 @@ public final class Bootstrap {
 		}
 
 		logger.info("Preparing game engine...");
-		// run the service for the game loop
-		service.start();
+
+		service.startAsync();
+
 		logger.info("Game Engine has been built");
 		return this;
 	}

@@ -16,7 +16,7 @@ import astraeus.game.model.entity.mob.player.skill.SkillSet;
 import astraeus.game.model.entity.mob.update.UpdateFlag;
 import astraeus.game.model.entity.object.GameObject;
 import astraeus.game.task.Task;
-import astraeus.service.GameServiceSequencer;
+import astraeus.service.GameService;
 import astraeus.util.Stopwatch;
 
 import java.util.*;
@@ -107,14 +107,14 @@ public abstract class Mob extends Entity {
 
 	public abstract int getCurrentHealth();
 	
-	public static int tick = GameServiceSequencer.tick;
+	public static int tick = GameService.tick;
 
 	/**
 	 * The method that increments tick to time actions
 	 */
 	protected void tick() {	
 		
-		tick = GameServiceSequencer.tick;
+		tick = GameService.tick;
 	
 		onTick();
 		

@@ -9,6 +9,8 @@ import astraeus.game.sync.task.PostMobUpdateTask;
 import astraeus.game.sync.task.PreMobUpdateTask;
 import astraeus.service.GameService;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Phaser;
 
 /**
@@ -22,6 +24,11 @@ public final class ClientSynchronizer {
 	 * The service that runs the game.
 	 */
 	private final GameService service;
+
+	/**
+	 * The {@link ExecutorService} that will be used for synchronized tasks.
+	 */
+	protected static final ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
 	/**
 	 * The phaser that will help keep our server in sync.
@@ -45,22 +52,27 @@ public final class ClientSynchronizer {
 		
 		MobList<Player> players = World.world.getPlayers();
 		MobList<Npc> npcs = World.world.getMobs();
-		
-		players.forEach(player -> service.getExecutor().submit(new PreMobUpdateTask<Player>(player, phaser)));
-		phaser.arriveAndAwaitAdvance();
-		
-		npcs.forEach(npc -> service.getExecutor().submit(new PreMobUpdateTask<Npc>(npc, phaser)));
-		phaser.arriveAndAwaitAdvance();
-		
-		players.forEach(player -> service.getExecutor().submit(new MobUpdateTask<Player>(player, phaser)));
+
+		phaser.bulkRegister(players.size());
+		players.forEach(player -> executor.submit(new PreMobUpdateTask<Player>(player, phaser)));
 		phaser.arriveAndAwaitAdvance();
 
-		players.forEach(player -> service.getExecutor().submit(new PostMobUpdateTask<Player>(player, phaser)));
+		phaser.bulkRegister(npcs.size());
+		npcs.forEach(npc -> executor.submit(new PreMobUpdateTask<Npc>(npc, phaser)));
 		phaser.arriveAndAwaitAdvance();
-		
-		npcs.forEach(npc -> service.getExecutor().submit(new PostMobUpdateTask<Npc>(npc, phaser)));
+
+		phaser.bulkRegister(players.size());
+		players.forEach(player -> executor.submit(new MobUpdateTask<Player>(player, phaser)));
 		phaser.arriveAndAwaitAdvance();
-		
+
+		phaser.bulkRegister(players.size());
+		players.forEach(player -> executor.submit(new PostMobUpdateTask<Player>(player, phaser)));
+		phaser.arriveAndAwaitAdvance();
+
+		phaser.bulkRegister(npcs.size());
+		npcs.forEach(npc -> executor.submit(new PostMobUpdateTask<Npc>(npc, phaser)));
+		phaser.arriveAndAwaitAdvance();
+
 	}
 
 }

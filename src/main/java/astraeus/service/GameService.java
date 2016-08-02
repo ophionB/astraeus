@@ -1,11 +1,10 @@
 package astraeus.service;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.logging.Logger;
 
+import astraeus.game.model.World;
+import com.google.common.util.concurrent.AbstractScheduledService;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import astraeus.game.sync.ClientSynchronizer;
@@ -16,7 +15,7 @@ import astraeus.util.LoggerUtils;
  * 
  * @author Vult-R
  */
-public abstract class GameService implements Runnable {
+public class GameService extends AbstractScheduledService {
 
 	/**
 	 * The single logger for this class.
@@ -25,21 +24,10 @@ public abstract class GameService implements Runnable {
 	private static final Logger logger = LoggerUtils.getLogger(GameService.class);
 
 	/**
-	 * The service that will manage the game.
-	 */
-	private final ScheduledExecutorService executor = Executors
-			.newSingleThreadScheduledExecutor(new ThreadFactoryBuilder().setNameFormat("GameThread").build());
-
-	/**
 	 * The synchronizer that will keeps in sync.
 	 */
 	protected final ClientSynchronizer synchronizer = new ClientSynchronizer(this);
-	
-	/**
-	 * The future for this service.
-	 */
-	private ScheduledFuture<?> future;
-	
+
 	/**
 	 * The rate in which the executor iterates the game loop.
 	 */
@@ -50,50 +38,39 @@ public abstract class GameService implements Runnable {
 	 */
 	private static final int GAME_DELAY = 600;
 
+	public static int tick = 0;
+
+	@Override
+	public void runOneIteration() {
+
+		long start = System.currentTimeMillis();
+
+		World.world.dequeueLogin();
+
+		World.world.getTasks().runTaskIteration();
+
+		synchronizer.synchronize();
+
+		World.world.dequeueLogout();
+
+		long end = System.currentTimeMillis();
+
+		System.out.println(end - start + " ms");
+
+		tick++;
+
+		if (tick >= 1000) {
+			tick = 0;
+		}
+
+	}
+
 	/**
 	 * Schedules the game service to run the main game loop.
 	 */
-	public void start() {
-		setFuture(executor.scheduleAtFixedRate(new GameServiceSequencer(), GAME_DELAY, GAME_CYLCE_RATE, TimeUnit.MILLISECONDS));
-	}
-
-	/**
-	 * Sets the current future for this game service.
-	 * 
-	 * @param future
-	 * 		The scheduled future to set.
-	 */
-	public void setFuture(ScheduledFuture<?> future) {
-		this.future = future;
-	}
-	
-	/**
-	 * Cancels this future.
-	 * 
-	 * @param interrupt
-	 * 		The flag that denotes to interrupt the currently executing task.
-	 */
-	public void cancel(boolean interrupt) {
-		future.cancel(interrupt);
-	}
-	
 	@Override
-	public void run() {
-		runGameLoop();
-	}
-	
-	/**
-	 * The method for the game loop.
-	 */
-	abstract void runGameLoop();	
-
-	/**
-	 * Gets the scheduled executor for this service.
-	 * 
-	 * @return The scheduled executor.
-	 */
-	public ScheduledExecutorService getExecutor() {
-		return executor;
+	protected Scheduler scheduler() {
+		return Scheduler.newFixedRateSchedule(GAME_DELAY, GAME_CYLCE_RATE, TimeUnit.MILLISECONDS);
 	}
 
 }

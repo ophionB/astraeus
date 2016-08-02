@@ -8,4 +8,5 @@
 /data/map/
 /.settings/
 /Astraeus-Java-Framework.iml
-
+/build/
+/.gradle/

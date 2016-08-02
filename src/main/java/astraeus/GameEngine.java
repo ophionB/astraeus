@@ -6,7 +6,7 @@ import com.google.common.util.concurrent.AbstractScheduledService;
 import astraeus.game.sync.ClientSynchronizer;
 
 /**
- * Represents a simple engine that sequentially processes game logic.
+ * Represents the main game processor or engine that sequentially processes game logic.
  * 
  * @author Vult-R
  */
@@ -35,6 +35,7 @@ public final class GameEngine extends AbstractScheduledService {
 	@Override
 	public void runOneIteration() {
 
+		@SuppressWarnings("unused")
 		long start = System.currentTimeMillis();
 
 		World.world.dequeueLogin();
@@ -45,9 +46,10 @@ public final class GameEngine extends AbstractScheduledService {
 
 		World.world.dequeueLogout();
 
+		@SuppressWarnings("unused")
 		long end = System.currentTimeMillis();
 
-		System.out.println(end - start + " ms");
+		//System.out.println(end - start + " ms");
 
 		tick++;
 

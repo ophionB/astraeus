@@ -12,7 +12,6 @@ import io.netty.util.ResourceLeakDetector;
 import io.netty.util.ResourceLeakDetector.Level;
 import astraeus.net.channel.ChannelPiplineInitializer;
 import astraeus.net.packet.IncomingPacketHandlerRegistration;
-import astraeus.service.GameService;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -40,7 +39,7 @@ public final class Bootstrap {
 	/**
 	 * The engine that manages the games logic.
 	 */
-	private final GameService service = new GameService();
+	private final GameEngine service = new GameEngine();
 
 	/**
 	 * Builds the game by executing any startup services, and starting the game

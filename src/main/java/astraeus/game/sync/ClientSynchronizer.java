@@ -7,7 +7,7 @@ import astraeus.game.model.entity.mob.player.Player;
 import astraeus.game.sync.task.MobUpdateTask;
 import astraeus.game.sync.task.PostMobUpdateTask;
 import astraeus.game.sync.task.PreMobUpdateTask;
-import astraeus.service.GameService;
+import astraeus.GameEngine;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,7 +23,7 @@ public final class ClientSynchronizer {
 	/**
 	 * The service that runs the game.
 	 */
-	private final GameService service;
+	private final GameEngine service;
 
 	/**
 	 * The {@link ExecutorService} that will be used for synchronized tasks.
@@ -41,7 +41,7 @@ public final class ClientSynchronizer {
 	 * @param service
 	 *            The service that runs the game.
 	 */
-	public ClientSynchronizer(GameService service) {
+	public ClientSynchronizer(GameEngine service) {
 		this.service = service;
 	}
 

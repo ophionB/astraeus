@@ -1,4 +1,4 @@
-package astraeus.service;
+package astraeus;
 
 import java.util.concurrent.*;
 import java.util.logging.Logger;
@@ -15,18 +15,12 @@ import astraeus.util.LoggerUtils;
  * 
  * @author Vult-R
  */
-public class GameService extends AbstractScheduledService {
-
-	/**
-	 * The single logger for this class.
-	 */
-	@SuppressWarnings("unused")
-	private static final Logger logger = LoggerUtils.getLogger(GameService.class);
+public final class GameEngine extends AbstractScheduledService {
 
 	/**
 	 * The synchronizer that will keeps in sync.
 	 */
-	protected final ClientSynchronizer synchronizer = new ClientSynchronizer(this);
+	private final ClientSynchronizer synchronizer = new ClientSynchronizer(this);
 
 	/**
 	 * The rate in which the executor iterates the game loop.
@@ -38,6 +32,9 @@ public class GameService extends AbstractScheduledService {
 	 */
 	private static final int GAME_DELAY = 600;
 
+	/**
+	 * The number of times the server has ran the #runOneIteration method.
+	 */
 	public static int tick = 0;
 
 	@Override

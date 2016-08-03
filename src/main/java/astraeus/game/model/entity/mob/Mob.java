@@ -363,18 +363,38 @@ public abstract class Mob extends Entity {
     this.interactingEntity = entity;
     updateFlags.add(UpdateFlag.ENTITY_INTERACTION);
   }
-
+  
+  private final Stopwatch lastAnimation = new Stopwatch();
+  
   public void startAnimation(final Animation animation) {
+    startAnimation(animation, 0);
+  }
+
+  public void startAnimation(final Animation animation, int delay) {
+    if (lastAnimation.elapsed() < delay) {
+      return;
+    }    
+    
     if (animation != null) {
       animations.add(animation);
       updateFlags.add(UpdateFlag.ANIMATION);
+      lastAnimation.reset();
     }
   }
-
+  
   public void startGraphic(Graphic graphic) {
+    startGraphic(graphic, 0);
+  }
+
+  public void startGraphic(Graphic graphic, int delay) {
+    if (lastAnimation.elapsed() < delay) {
+      return;
+    }
+    
     if (graphic != null) {
       graphics.add(graphic);
       updateFlags.add(UpdateFlag.GRAPHICS);
+      lastAnimation.reset();
     }
   }
 

@@ -168,5 +168,15 @@
     "Vult-R"
   ],
   "version": 1.0
+},
+{
+  "name": "Emote Tab",
+  "description": "The buttons that perform player emotes.",
+  "group": "button",
+  "base": "plugin.buttons.EmoteTab",
+  "authors": [
+    "Vult-R"
+  ],
+  "version": 1.0
 }
 ]

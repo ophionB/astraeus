@@ -8,6 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import astraeus.game.model.Brightness;
 import astraeus.game.model.Position;
 import astraeus.game.model.entity.mob.Movement;
@@ -16,87 +19,15 @@ import astraeus.game.model.entity.mob.player.Player;
 import astraeus.game.model.entity.mob.player.PlayerRights;
 import astraeus.game.model.entity.mob.player.skill.Skill;
 import astraeus.game.model.sound.Volume;
+import lombok.Data;
 
-/**
- * The class used to create an object and convert to json object.
- *
- * @author Seven
- */
+@Data
 public final class PlayerDetails {
 
-  /**
-   * Determines if a {@code player} can be deserialized.
-   *
-   * @param player The player to check.
-   *
-   * @return {@code true} If a player can be deserialized, {@code false} otherwise.
-   */
-  public static boolean deserialize(Player player) throws Exception {
-    BufferedReader reader = null;
-    try {
-      final File file = new File("./Data/characters/details/" + player.getUsername() + ".json");
-
-      if (!file.exists()) {
-        return false;
-      }
-
-      reader = new BufferedReader(new FileReader(file));
-
-      final PlayerDetails details = PlayerSerializer.GSON.fromJson(reader, PlayerDetails.class);
-      player.setUsername(details.username);
-      player.setPassword(details.password);
-      player.setRights(details.rights);
-      player.setPosition(
-          player.attr().get(Player.NEW_PLAYER_KEY) ? Player.DEFAULT_SPAWN : details.location);
-      player.attr().put(Player.NEW_PLAYER_KEY, details.newPlayer);
-      player.attr().put(Player.BRIGHTNESS_KEY, details.brightness);
-      player.attr().put(Player.MUSIC_VOLUME_KEY, details.musicVolume);
-      player.attr().put(Player.SOUND_EFFECT_VOLUME_KEY, details.soundEffectVolume);
-      player.attr().put(Player.AREA_SOUND_VOLUME_KEY, details.areaSoundVolume);
-      player.attr().put(Movement.RUNNING_KEY, details.running);
-      player.attr().put(Player.AUTO_RETALIATE_KEY, details.autoRetaliate);
-      player.attr().put(Player.SOUND_KEY, details.enableSound);
-      player.attr().put(Player.MUSIC_KEY, details.enableMusic);
-      player.attr().put(Player.DEBUG_KEY, details.debugMode);
-      player.attr().put(Player.MOUSE_BUTTON_KEY, details.mouseButtons);
-      player.attr().put(Player.CHAT_EFFECTS_KEY, details.chatEffects);
-      player.attr().put(Player.SPLIT_CHAT_KEY, details.splitChat);
-      player.attr().put(Player.ACCEPT_AID_KEY, details.acceptAid);
-
-      if (details.appearance == null) {
-        player.getAppearance().getDefaultAppearance();
-      } else {
-        player.setAppearance(details.appearance);
-      }
-
-      if (details.skills != null) {
-        player.getSkills().setSkills(details.skills);
-      } else {
-        player.getSkills().setDefault();
-      }
-
-      if (details.friendList.size() > 0) {
-        player.getPlayerRelation().setFriendList(details.friendList);
-      }
-      if (details.ignoreList.size() > 0) {
-        player.getPlayerRelation().setIgnoreList(details.ignoreList);
-      }
-      return true;
-
-    } finally {
-      if (reader != null) {
-        try {
-          reader.close();
-        } catch (final IOException e) {
-          e.printStackTrace();
-        }
-      }
-    }
-  }
+  private static final transient Gson gson = new GsonBuilder().setPrettyPrinting().create();  
 
   private final String username;
   private final String password;
-  @SuppressWarnings("unused")
   private final String hostAddress;
   private final PlayerRights rights;
   private final Position location;
@@ -119,13 +50,6 @@ public final class PlayerDetails {
   private final List<Long> friendList;
   private final List<Long> ignoreList;
 
-  /**
-   * Creates a new {@link PlayerDetails}.
-   *
-   * @param player The player to serialize.
-   *
-   *        Note any of the attributes placed in the constructor will be serialized.
-   */
   public PlayerDetails(Player player) {
     username = player.getUsername();
     password = player.getPassword();
@@ -152,47 +76,70 @@ public final class PlayerDetails {
     ignoreList = player.getPlayerRelation().getIgnoreList();
   }
 
-  public String getUsername() {
-    return username;
-  }
-
-  public PlayerRights getRights() {
-    return rights;
-  }
-
-  public Position getLocation() {
-    return location;
-  }
-
-  public Appearance getAppearance() {
-    return appearance;
-  }
-
-  public Skill[] getSkills() {
-    return skills;
-  }
-
-  /**
-   * Serializes the converted object into json.
-   */
-  public void serialize() throws Exception {
-    BufferedWriter writer = null;
-
+  public void save() throws Exception {
     final File dir = new File("./Data/characters/details/");
 
     if (!dir.exists()) {
       dir.mkdirs();
     }
-
-    try {
-      writer = new BufferedWriter(
-          new FileWriter(dir.toString() + File.separator + username + ".json", false));
-      writer.write(PlayerSerializer.GSON.toJson(this));
-      writer.flush();
-    } finally {
-      if (writer != null) {
-        writer.close();
-      }
+    
+    try(BufferedWriter writer = new BufferedWriter(new FileWriter(dir.toString() + File.separator + username + ".json", false))) {
+      writer.write(gson.toJson(this));
     }
+
   }
+  
+  public static boolean load(Player player) throws IOException {
+    final File file = new File("./Data/characters/details/" + player.getUsername() + ".json");
+
+    if (!file.exists()) {
+      return false;
+    }
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+      final PlayerDetails details = gson.fromJson(reader, PlayerDetails.class);
+
+      player.setUsername(details.getUsername());
+      player.setPassword(details.getPassword());
+      player.setRights(details.getRights());
+      player.setPosition(
+          player.attr().get(Player.NEW_PLAYER_KEY) ? Player.DEFAULT_SPAWN : details.getLocation());
+      player.attr().put(Player.NEW_PLAYER_KEY, details.isNewPlayer());
+      player.attr().put(Player.BRIGHTNESS_KEY, details.getBrightness());
+      player.attr().put(Player.MUSIC_VOLUME_KEY, details.getMusicVolume());
+      player.attr().put(Player.SOUND_EFFECT_VOLUME_KEY, details.getSoundEffectVolume());
+      player.attr().put(Player.AREA_SOUND_VOLUME_KEY, details.getAreaSoundVolume());
+      player.attr().put(Movement.RUNNING_KEY, details.isRunning());
+      player.attr().put(Player.AUTO_RETALIATE_KEY, details.isAutoRetaliate());
+      player.attr().put(Player.SOUND_KEY, details.isEnableSound());
+      player.attr().put(Player.MUSIC_KEY, details.isEnableMusic());
+      player.attr().put(Player.DEBUG_KEY, details.isDebugMode());
+      player.attr().put(Player.MOUSE_BUTTON_KEY, details.isMouseButtons());
+      player.attr().put(Player.CHAT_EFFECTS_KEY, details.isChatEffects());
+      player.attr().put(Player.SPLIT_CHAT_KEY, details.isSplitChat());
+      player.attr().put(Player.ACCEPT_AID_KEY, details.isAcceptAid());
+
+      if (details.getAppearance() == null) {
+        player.getAppearance().getDefaultAppearance();
+      } else {
+        player.setAppearance(details.getAppearance());
+      }
+
+      if (details.getSkills() != null) {
+        player.getSkills().setSkills(details.getSkills());
+      } else {
+        player.getSkills().setDefault();
+      }
+
+      if (details.getFriendList().size() > 0) {
+        player.getPlayerRelation().setFriendList(details.getFriendList());
+      }
+      if (details.getIgnoreList().size() > 0) {
+        player.getPlayerRelation().setIgnoreList(details.getIgnoreList());
+      }
+
+      return true;
+    }
+  }  
+  
 }

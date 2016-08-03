@@ -7,15 +7,24 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import astraeus.game.model.entity.item.Item;
 import astraeus.game.model.entity.mob.player.Player;
+import lombok.Data;
 
 /**
  * The class used to create an object and convert to json object.
  *
  * @author Seven
  */
+@Data
 public final class PlayerContainer {
+  
+  private static final transient Gson gson = new GsonBuilder().setPrettyPrinting().create();
+  
+  private final transient String username;
 
   private Item[] inventory;
 
@@ -23,73 +32,35 @@ public final class PlayerContainer {
 
   private Item[] bank;
 
-  /**
-   * Creates a new {@link PlayerContainer}.
-   *
-   * @param player The player who owns this container.
-   *
-   *        Any attributes that are placed in here will be serialized.
-   */
   public PlayerContainer(Player player) {
     inventory = player.getInventory().container();
     equipment = player.getEquipment().container();
     bank = player.getBank().container();
+    this.username = player.getUsername();
   }
 
-  public Item[] getInventory() {
-    return inventory;
-  }
-
-  public void setInventory(Item[] inventory) {
-    this.inventory = inventory;
-  }
-
-  public Item[] getEquipment() {
-    return equipment;
-  }
-
-  public void setEquipment(Item[] equipment) {
-    this.equipment = equipment;
-  }
-
-  public Item[] getBank() {
-    return bank;
-  }
-
-  public void setBank(Item[] bank) {
-    this.bank = bank;
-  }
-
-  /**
-   * Serializes a {@code player}.
-   */
-  public void serialize(Player player) throws IOException {
-
+  public void save() throws IOException {
     final File dir = new File("./Data/characters/containers/");
 
     if (!dir.exists()) {
       dir.mkdirs();
     }
 
-    try (BufferedWriter writer = new BufferedWriter(
-        new FileWriter(dir.toString() + File.separator + player.getUsername() + ".json", false))) {
-      writer.write(PlayerSerializer.GSON.toJson(this));
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(dir.toString() + File.separator + username + ".json", false))) {
+      writer.write(gson.toJson(this));
     }
+    
   }
 
-  /**
-   * Determins if a {@code player}, can be deserialized.
-   *
-   * @param player The player to check.
-   * @return {@code true} If a player can be deserialized, {@code false} otherwise.
-   */
-  public static boolean deserialize(Player player) throws Exception {
+  public static boolean load(Player player) throws Exception {
     final File file = new File("./Data/characters/containers/" + player.getUsername() + ".json");
+    
     if (!file.exists()) {
       return false;
     }
+    
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-      final PlayerContainer details = PlayerSerializer.GSON.fromJson(reader, PlayerContainer.class);
+      final PlayerContainer details = gson.fromJson(reader, PlayerContainer.class);
 
       if (details.getInventory() != null) {
         player.getInventory().setItems(details.getInventory());

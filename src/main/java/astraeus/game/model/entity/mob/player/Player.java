@@ -23,7 +23,8 @@ import astraeus.game.model.entity.mob.player.collect.Bank;
 import astraeus.game.model.entity.mob.player.collect.Equipment;
 import astraeus.game.model.entity.mob.player.collect.Inventory;
 import astraeus.game.model.entity.mob.player.event.LogoutEvent;
-import astraeus.game.model.entity.mob.player.io.PlayerSerializer;
+import astraeus.game.model.entity.mob.player.io.PlayerContainer;
+import astraeus.game.model.entity.mob.player.io.PlayerDetails;
 import astraeus.game.model.entity.mob.player.skill.Skill;
 import astraeus.game.model.entity.mob.update.UpdateFlag;
 import astraeus.game.model.entity.object.GameObject;
@@ -255,8 +256,15 @@ public class Player extends Mob {
     logger.info(String.format("[DEREGISTERED]: [host= %s]", session.getHostAddress()));
   }
 
-  public void save() {
-    PlayerSerializer.encode(this);
+  public boolean save() {
+    try {
+      new PlayerDetails(this).save();
+      new PlayerContainer(this).save();
+      return true;
+    } catch (final Exception e) {
+      e.printStackTrace();
+    }
+    return false;
   }
 
   @Override

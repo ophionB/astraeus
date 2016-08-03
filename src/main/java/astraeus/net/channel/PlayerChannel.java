@@ -8,7 +8,8 @@ import java.util.logging.Logger;
 import astraeus.Server;
 import astraeus.game.model.World;
 import astraeus.game.model.entity.mob.player.Player;
-import astraeus.game.model.entity.mob.player.io.PlayerDeserializer;
+import astraeus.game.model.entity.mob.player.io.PlayerContainer;
+import astraeus.game.model.entity.mob.player.io.PlayerDetails;
 import astraeus.net.NetworkConstants;
 import astraeus.net.codec.game.GamePacketDecoder;
 import astraeus.net.codec.game.GamePacketEncoder;
@@ -99,7 +100,7 @@ public class PlayerChannel {
     player.setPassword(password);
 
     try {
-      player.attr().put(Player.NEW_PLAYER_KEY, !PlayerDeserializer.deserialize(player));
+      player.attr().put(Player.NEW_PLAYER_KEY, !PlayerDetails.load(player) || !PlayerContainer.load(player));
     } catch (Exception e) {
       e.printStackTrace();
     }

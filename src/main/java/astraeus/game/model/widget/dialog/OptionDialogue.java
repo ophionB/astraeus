@@ -3,12 +3,15 @@ package astraeus.game.model.widget.dialog;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Data;
+
 /**
  * The {@link Chainable} implementation that represents a dialogue in which options are given to the
  * player.
  * 
  * @author Vult-R
  */
+@Data
 public final class OptionDialogue implements Chainable {
 
   /**
@@ -128,21 +131,4 @@ public final class OptionDialogue implements Chainable {
     factory.sendOption(this);
   }
 
-  /**
-   * Gets the text for this dialogue.
-   * 
-   * @return The text.
-   */
-  public String[] getLines() {
-    return lines;
-  }
-
-  /**
-   * Gets the list of actions for this dialogue.
-   * 
-   * @return The list of actions.
-   */
-  public List<Runnable> getActions() {
-    return actions;
-  }
 }

@@ -2,6 +2,7 @@ package astraeus.game.model.location.impl;
 
 import astraeus.game.model.Position;
 import astraeus.game.model.location.Area;
+import lombok.Getter;
 
 /**
  * The location type that models any area in a circle or oval shape.
@@ -13,27 +14,27 @@ public class CircleArea extends Area {
   /**
    * The name of this area.
    */
-  private final String name;
+  @Getter private final String name;
 
   /**
    * The center {@code X} coordinate.
    */
-  private final int x;
+  @Getter private final int x;
 
   /**
    * The center {@code Y} coordinate.
    */
-  private final int y;
+  @Getter private final int y;
 
   /**
    * The center {@code Height} coordinate.
    */
-  private final int height;
+  @Getter private final int height;
 
   /**
    * The radius of this area.
    */
-  private final int radius;
+  @Getter private final int radius;
 
   /**
    * Creates a new {@link CircleLocation}.
@@ -77,38 +78,6 @@ public class CircleArea extends Area {
     this.y = y;
     this.height = height;
     this.radius = radius;
-  }
-
-  /**
-   * @return the height
-   */
-  public int getHeight() {
-    return height;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * @return the radius
-   */
-  public int getRadius() {
-    return radius;
-  }
-
-  /**
-   * @return the x
-   */
-  public int getX() {
-    return x;
-  }
-
-  /**
-   * @return the y
-   */
-  public int getY() {
-    return y;
   }
 
   @Override

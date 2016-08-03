@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import astraeus.game.model.entity.Entity;
 import astraeus.game.model.entity.EntityType;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents a single in-game item that a player can obtain.
@@ -15,11 +17,14 @@ public final class Item extends Entity {
   /**
    * The id of this item.
    */
+  @Getter
   private final int id;
 
   /**
    * The amount of this item.
    */
+  @Getter
+  @Setter
   private int amount;
 
   /**
@@ -51,10 +56,16 @@ public final class Item extends Entity {
     this(item.getId(), item.getAmount());
   }
 
+  /**
+   * Creates a copy of this item.
+   */
   public Item copy() {
     return new Item(id, amount);
   }
 
+  /**
+   * Determines if this item is valid.
+   */
   public static boolean valid(Item item) {
     return item == null ? false : item.id > 0 && item.amount > 0;
   }
@@ -75,44 +86,7 @@ public final class Item extends Entity {
    */
   public void remove(int amount) {
     this.amount -= amount;
-  }
 
-  @Override
-  public boolean equals(Object other) {
-    if (!(other instanceof Item)) {
-      return false;
-    }
-
-    final Item item = (Item) other;
-
-    return item.getId() == id && item.getAmount() == amount;
-  }
-
-  /**
-   * Gets the id of this item.
-   * 
-   * @return id
-   */
-  public int getId() {
-    return id;
-  }
-
-  /**
-   * Gets the amount of this item.
-   * 
-   * @return amount
-   */
-  public int getAmount() {
-    return amount;
-  }
-
-  /**
-   * Sets the amount of this item.
-   * 
-   * @param amount The amount to set.
-   */
-  public void setAmount(int amount) {
-    this.amount = amount;
   }
 
   /**
@@ -183,11 +157,6 @@ public final class Item extends Entity {
     return 0.0;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, amount);
-  }
-
   /**
    * Determines if the item is stackable.
    * 
@@ -218,13 +187,29 @@ public final class Item extends Entity {
   }
 
   @Override
+  public EntityType type() {
+    return EntityType.ITEM;
+  }
+
+  @Override
   public String toString() {
     return "[name=" + getName() + ", id=" + id + ", amount=" + amount + "]";
   }
 
   @Override
-  public EntityType type() {
-    return EntityType.ITEM;
+  public int hashCode() {
+    return Objects.hash(id, amount);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (!(other instanceof Item)) {
+      return false;
+    }
+
+    final Item item = (Item) other;
+
+    return hashCode() == item.hashCode();
   }
 
 }

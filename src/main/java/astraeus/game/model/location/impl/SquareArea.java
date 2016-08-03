@@ -2,6 +2,7 @@ package astraeus.game.model.location.impl;
 
 import astraeus.game.model.Position;
 import astraeus.game.model.location.Area;
+import lombok.Getter;
 
 /**
  * The location type that models any area in a square or rectangle shape.
@@ -13,27 +14,27 @@ public final class SquareArea extends Area {
   /**
    * The name of this area.
    */
-  private final String name;
+  @Getter private final String name;
 
   /**
    * The south-west {@code X} corner of the square.
    */
-  private final int swX;
+  @Getter private final int swX;
 
   /**
    * The south-west {@code Y} corner of the square.
    */
-  private final int swY;
+  @Getter private final int swY;
 
   /**
    * The north-east {@code X} corner of the square.
    */
-  private final int neX;
+  @Getter private final int neX;
 
   /**
    * The north-east {@code Y} corner of the square.
    */
-  private final int neY;
+  @Getter private final int neY;
 
   /**
    * The {@code Z} level of the box.
@@ -84,48 +85,6 @@ public final class SquareArea extends Area {
     this.neX = neX;
     this.neY = neY;
     this.height = height;
-  }
-
-  /**
-   * @return The name of this area.
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * @return the neX
-   */
-  public int getNeX() {
-    return neX;
-  }
-
-  /**
-   * @return the neY
-   */
-  public int getNeY() {
-    return neY;
-  }
-
-  /**
-   * @return the swX
-   */
-  public int getSwX() {
-    return swX;
-  }
-
-  /**
-   * @return the swY
-   */
-  public int getSwY() {
-    return swY;
-  }
-
-  /**
-   * @return the z
-   */
-  public int getZ() {
-    return height;
   }
 
   @Override

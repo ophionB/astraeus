@@ -1,10 +1,13 @@
 package astraeus.game.model.widget.dialog;
 
+import lombok.Data;
+
 /**
  * The {@link Chainable} implementation that represents dialogue in which an NPC is talking.
  *
  * @author Vult-R
  */
+@Data
 public final class NpcDialogue implements Chainable {
 
   /**
@@ -67,33 +70,6 @@ public final class NpcDialogue implements Chainable {
     this.id = id;
     this.expression = expression;
     this.lines = lines;
-  }
-
-  /**
-   * Gets the id of this npc.
-   *
-   * @return The id of this npc.
-   */
-  public int getId() {
-    return id;
-  }
-
-  /**
-   * Gets the expression of this npc.
-   *
-   * @return The expression.
-   */
-  public Expression getExpression() {
-    return expression;
-  }
-
-  /**
-   * Gets the text for this dialogue.
-   *
-   * @return The text.
-   */
-  public String[] getLines() {
-    return lines;
   }
 
   @Override

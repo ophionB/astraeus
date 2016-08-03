@@ -2,6 +2,9 @@ package astraeus.game.task;
 
 import java.util.Objects;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * An abstract model that represents units of work to be carried out in sequence to game ticks.
  *
@@ -30,12 +33,12 @@ public abstract class Task {
     DISALLOW
   }
 
-  private final String identifier;
+  @Getter private final String identifier;
 
   /**
    * The instance this task is attatched to.
    */
-  private final Object attatchment;
+  @Getter private final Object attatchment;
 
   /**
    * The amount of ticks that have passed.
@@ -50,22 +53,22 @@ public abstract class Task {
   /**
    * The flag that denotes to interrupt this task.
    */
-  private boolean interrupt;
+  @Getter @Setter private boolean interrupt;
 
   /**
    * The time in ticks to delay this task from starting.
    */
-  private int delay;
+  @Getter private int delay;
 
   /**
    * The flag that indicates this task is immediate.
    */
-  protected final boolean immediate;
+  @Getter protected final boolean immediate;
 
   /**
    * The type of stack for this task.
    */
-  protected final DuplicatePolicy duplicatePolicy;
+  @Getter protected final DuplicatePolicy duplicatePolicy;
 
   /**
    * Creates a new {@link Task}.
@@ -112,20 +115,6 @@ public abstract class Task {
   }
 
   /**
-   * Determines if this task is immediate.
-   */
-  public final boolean isImmediate() {
-    return immediate;
-  }
-
-  /**
-   * Gets the policy for this task.
-   */
-  public final DuplicatePolicy getDuplicatePolicy() {
-    return duplicatePolicy;
-  }
-
-  /**
    * The method that is called when the task starts.
    */
   public void onStart() {}
@@ -154,13 +143,6 @@ public abstract class Task {
   }
 
   /**
-   * Gets the amount of ticks this task will sleep for.
-   */
-  public final int getDelay() {
-    return delay;
-  }
-
-  /**
    * Sets the delay for this task.
    *
    * @param ticks The ticks to delay this task for.
@@ -185,36 +167,6 @@ public abstract class Task {
    */
   public final boolean hasStopped() {
     return stopped;
-  }
-
-  /**
-   * Determines if this task should be interrupted.
-   */
-  public final boolean isInterrupt() {
-    return interrupt;
-  }
-
-  /**
-   * Gets the identifier of this task.
-   */
-  public String getIdentifier() {
-    return identifier;
-  }
-
-  /**
-   * Gets the instance attached to this task.
-   */
-  public Object getAttatchment() {
-    return attatchment;
-  }
-
-  /**
-   * Sets to interrupt this task it the task doesn't execute.
-   *
-   * @param interrupt The flag that indicates to interrupt this task.
-   */
-  public final void setInterrupt(boolean interrupt) {
-    this.interrupt = interrupt;
   }
 
   @Override

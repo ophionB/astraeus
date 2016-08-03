@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Getter;
+
 /*
  * Copyright (c) 2010-2011 Graham Edgecombe Copyright (c) 2011-2016 Major <major.emrs@gmail.com> and
  * other apollo contributors
@@ -32,9 +34,9 @@ public enum GameObjectType {
   /**
    * The integer value of this ObjectType.
    */
-  private final int value;
+  @Getter private final int value;
 
-  private final ObjectGroup group;
+  @Getter private final ObjectGroup group;
 
   /**
    * Creates the ObjectType.
@@ -58,24 +60,6 @@ public enum GameObjectType {
       }
     }
     return Optional.empty();
-  }
-
-  /**
-   * Gets the integer value of this ObjectType.
-   *
-   * @return The value.
-   */
-  public int getValue() {
-    return value;
-  }
-
-  /**
-   * Gets the group this type belongs to.
-   *
-   * @return The group.
-   */
-  public ObjectGroup getGroup() {
-    return group;
   }
 
 }

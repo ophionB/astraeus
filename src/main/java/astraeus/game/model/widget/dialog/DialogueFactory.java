@@ -19,6 +19,8 @@ import astraeus.net.packet.out.SetWidgetAnimationPacket;
 import astraeus.net.packet.out.SetWidgetStringPacket;
 import astraeus.util.LoggerUtils;
 import astraeus.util.StringUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents a factory class that contains important functions for building dialogues.
@@ -35,7 +37,7 @@ public final class DialogueFactory {
   /**
    * The queue of dialogues in this factory.
    */
-  private final Queue<Chainable> chain = new ArrayDeque<>();
+  @Getter private final Queue<Chainable> chain = new ArrayDeque<>();
 
   /**
    * The maximum length of a single line of dialogue.
@@ -45,17 +47,17 @@ public final class DialogueFactory {
   /**
    * The player who owns this factory.
    */
-  private final Player player;
+  @Getter private final Player player;
 
   /**
    * The flag that denotes dialogue is active.
    */
-  private boolean active;
+  @Getter @Setter private boolean active;
 
   /**
    * The next action in the dialogue chain.
    */
-  private Optional<Runnable> nextAction = Optional.empty();
+  @Getter @Setter private Optional<Runnable> nextAction = Optional.empty();
 
   /**
    * Creates a new {@link DialogueFactory}.
@@ -138,15 +140,6 @@ public final class DialogueFactory {
   private final DialogueFactory append(Chainable chain) {
     this.chain.add(chain);
     return this;
-  }
-
-  /**
-   * Gets the current chain.
-   * 
-   * @return The queue of dialogues.
-   */
-  public final Queue<Chainable> getChain() {
-    return chain;
   }
 
   /**
@@ -681,49 +674,6 @@ public final class DialogueFactory {
       throw new IllegalStateException(
           "Dialogue length too long, maximum length is: " + MAXIMUM_LENGTH);
     }
-  }
-
-  /**
-   * The player that owns this factory.
-   *
-   * @return The player.
-   */
-  public Player getPlayer() {
-    return player;
-  }
-
-  /**
-   * Gets the {@link Optional} describing the next action in the dialogue chain.
-   *
-   * @return The optional describing the next action.
-   */
-  public Optional<Runnable> getNextAction() {
-    return nextAction;
-  }
-
-  /**
-   * Sets the next action in the dialogue chain.
-   *
-   * @param nextAction The action to set.
-   */
-  public void setNextAction(Optional<Runnable> nextAction) {
-    this.nextAction = nextAction;
-  }
-
-  /**
-   * Determines if dialogues are currently open.
-   */
-  public boolean isActive() {
-    return active;
-  }
-
-  /**
-   * Sets the flag that indicates dialogues are present.
-   * 
-   * @param active The flag to set.
-   */
-  public void setActive(boolean active) {
-    this.active = active;
   }
 
 }

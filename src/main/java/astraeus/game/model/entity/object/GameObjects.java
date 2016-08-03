@@ -11,6 +11,7 @@ import astraeus.game.model.entity.item.Item;
 import astraeus.game.model.entity.mob.player.Player;
 import astraeus.net.packet.out.AddGroundItemPacket;
 import astraeus.net.packet.out.AddObjectPacket;
+import lombok.Getter;
 
 /**
  * The class that provides static utility methods for {@link GameObject}s.
@@ -22,12 +23,12 @@ public final class GameObjects {
   /**
    * The list of global object spawned in the game world.
    */
-  private static final List<GameObject> global_objects = new ArrayList<>();
+  @Getter private static final List<GameObject> globalObjects = new ArrayList<>();
 
   /**
    * A map of ground items and their positions in the world.
    */
-  private static final Map<Position, Item> ground_items = new HashMap<>();
+  @Getter private static final Map<Position, Item> groundItems = new HashMap<>();
 
   /**
    * The method that creates global objects for a user.
@@ -35,32 +36,19 @@ public final class GameObjects {
    * @param player The player to create the global objects for.
    */
   public static final void createGlobalObjects(Player player) {
-    global_objects.stream().filter(Objects::nonNull)
+    globalObjects.stream().filter(Objects::nonNull)
         .filter($it -> $it.getPosition().isWithinDistance(player.getPosition(), 32))
         .forEach($it -> player.queuePacket(new AddObjectPacket($it, true)));
   }
 
   public static final void createGlobalItems(Player player) {
-    if (ground_items.isEmpty()) {
+    if (groundItems.isEmpty()) {
       return;
     }
 
-    ground_items.values().stream().filter(Objects::nonNull)
+    groundItems.values().stream().filter(Objects::nonNull)
         .filter($it -> $it.getPosition().isWithinDistance(player.getPosition(), 32))
         .forEach($it -> player.queuePacket(new AddGroundItemPacket($it)));
-  }
-
-  /**
-   * Gets the custom object spawns.
-   * 
-   * @return The custom objects.
-   */
-  public static final List<GameObject> getGlobalObjects() {
-    return global_objects;
-  }
-
-  public static Map<Position, Item> getGroundItems() {
-    return ground_items;
   }
 
 }

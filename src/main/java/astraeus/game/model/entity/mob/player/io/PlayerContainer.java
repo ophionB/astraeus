@@ -39,7 +39,7 @@ public final class PlayerContainer {
     this.username = player.getUsername();
   }
 
-  public void save() throws IOException {
+  public synchronized boolean save() throws IOException {
     final File dir = new File("./Data/characters/containers/");
 
     if (!dir.exists()) {
@@ -48,11 +48,12 @@ public final class PlayerContainer {
 
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(dir.toString() + File.separator + username + ".json", false))) {
       writer.write(gson.toJson(this));
+      return true;
     }
     
   }
 
-  public static boolean load(Player player) throws Exception {
+  public static synchronized boolean load(Player player) throws Exception {
     final File file = new File("./Data/characters/containers/" + player.getUsername() + ".json");
     
     if (!file.exists()) {

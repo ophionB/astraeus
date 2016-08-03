@@ -76,7 +76,7 @@ public final class PlayerDetails {
     ignoreList = player.getPlayerRelation().getIgnoreList();
   }
 
-  public void save() throws Exception {
+  public synchronized boolean save() throws IOException {
     final File dir = new File("./Data/characters/details/");
 
     if (!dir.exists()) {
@@ -85,11 +85,12 @@ public final class PlayerDetails {
     
     try(BufferedWriter writer = new BufferedWriter(new FileWriter(dir.toString() + File.separator + username + ".json", false))) {
       writer.write(gson.toJson(this));
+      return true;
     }
 
   }
   
-  public static boolean load(Player player) throws IOException {
+  public static synchronized boolean load(Player player) throws IOException {
     final File file = new File("./Data/characters/details/" + player.getUsername() + ".json");
 
     if (!file.exists()) {

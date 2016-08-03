@@ -13,8 +13,8 @@ public final class ToggleChatEffectButton extends ButtonClick {
 		switch (event.getButton()) {
 		
 		case 915:
-	        player.attr().toggle(Player.ACCEPT_AID_KEY);
-	        player.queuePacket(new SetWidgetConfigPacket(427, player.attr().get(Player.ACCEPT_AID_KEY)));
+	        player.attr().toggle(Player.CHAT_EFFECTS_KEY);
+	        player.queuePacket(new SetWidgetConfigPacket(172, player.attr().get(Player.CHAT_EFFECTS_KEY)));
 			break;
 		
 		}

@@ -1,7 +1,9 @@
 package astraeus.game.model.entity.mob.player;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import astraeus.game.event.Event;
@@ -249,22 +251,19 @@ public class Player extends Mob {
   }
 
   public void onDeregister() {
-    save();
+    try {
+      save();
+    } catch (IOException ex) {
+      logger.log(Level.SEVERE, String.format("[player= %s] could not be saved.", username), ex);      
+    }
     queuePacket(new LogoutPlayerPacket());
     session.getChannel().close();
     World.world.deregister(this);
     logger.info(String.format("[DEREGISTERED]: [host= %s]", session.getHostAddress()));
   }
 
-  public boolean save() {
-    try {
-      new PlayerDetails(this).save();
-      new PlayerContainer(this).save();
-      return true;
-    } catch (final Exception e) {
-      e.printStackTrace();
-    }
-    return false;
+  public synchronized boolean save() throws IOException {
+    return new PlayerDetails(this).save() && new PlayerContainer(this).save();
   }
 
   @Override

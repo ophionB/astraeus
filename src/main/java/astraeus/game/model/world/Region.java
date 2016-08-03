@@ -17,175 +17,170 @@ import astraeus.game.model.entity.object.GameObject;
  */
 public final class Region implements Comparable<Region> {
 
-	/**
-	 * The id of this region
-	 */
-	private final int id;
-	
-	/**
-	 * The collection of positions mapped to their objects.
-	 */
-	public final Map<Position, GameObject> objects = new HashMap<>();
-	
-	/**
-	 * The collection of regions.
-	 */
-	public static final List<Region> regions = new ArrayList<>();
+  /**
+   * The id of this region
+   */
+  private final int id;
 
-	/**
-	 * Creates a new {@link Region}.
-	 * 
-	 * @param id
-	 * 		The id of this region.
-	 */
-	public Region(int id) {
-		this.id = id;
-	}
+  /**
+   * The collection of positions mapped to their objects.
+   */
+  public final Map<Position, GameObject> objects = new HashMap<>();
 
-	/**
-	 * Adds an object to this region.
-	 * 
-	 * @param object
-	 * 		The object to add.
-	 */
-	public void addGameObject(GameObject object) {
-		int regionAbsX = (id >> 8) << 6;
-		int regionAbsY = (id & 0xff) << 6;
+  /**
+   * The collection of regions.
+   */
+  public static final List<Region> regions = new ArrayList<>();
 
-		int z = object.getPosition().getHeight();
+  /**
+   * Creates a new {@link Region}.
+   * 
+   * @param id The id of this region.
+   */
+  public Region(int id) {
+    this.id = id;
+  }
 
-		if (z > 3) {
-			z = z % 4;
-		}
-		
-		objects.put(new Position(object.getX() - regionAbsX, object.getY() - regionAbsY, z), object);
-	}
+  /**
+   * Adds an object to this region.
+   * 
+   * @param object The object to add.
+   */
+  public void addGameObject(GameObject object) {
+    int regionAbsX = (id >> 8) << 6;
+    int regionAbsY = (id & 0xff) << 6;
 
-	/**
-	 * Removes an object from this region.
-	 * 
-	 * @param object
-	 * 		The object to remove.
-	 */
-	public static void removeGameObject(GameObject object) {
-		Optional<Region> r = Region.lookup(object.getPosition());
-		
-		r.ifPresent(it -> it.objects.put(object.getPosition(), null));	}
+    int z = object.getPosition().getHeight();
 
-	/**
-	 * Determines if an object exists at a specified position.
-	 * 
-	 * @param objectId
-	 * 		The object identifier
-	 * 
-	 * @param position
-	 * 		The coordinate the object is located at.
-	 */
-	public boolean objectExists(int objectId, Position position) {
-		Optional<Region> r = lookup(position);
+    if (z > 3) {
+      z = z % 4;
+    }
 
-		if (!r.isPresent()) {
-			return false;
-		}
-		
-		Region region = r.get();
+    objects.put(new Position(object.getX() - regionAbsX, object.getY() - regionAbsY, z), object);
+  }
 
-		int regionAbsX = (region.id >> 8) << 6;
-		int regionAbsY = (region.id & 0xff) << 6;
-		
-		int tempZ = position.getHeight();
+  /**
+   * Removes an object from this region.
+   * 
+   * @param object The object to remove.
+   */
+  public static void removeGameObject(GameObject object) {
+    Optional<Region> r = Region.lookup(object.getPosition());
 
-		if (tempZ > 3) {
-			tempZ = tempZ % 4;
-		}
+    r.ifPresent(it -> it.objects.put(object.getPosition(), null));
+  }
 
-		GameObject object = region.objects.get(new Position(position.getX() - regionAbsX, position.getY() - regionAbsY, tempZ));
+  /**
+   * Determines if an object exists at a specified position.
+   * 
+   * @param objectId The object identifier
+   * 
+   * @param position The coordinate the object is located at.
+   */
+  public boolean objectExists(int objectId, Position position) {
+    Optional<Region> r = lookup(position);
 
-		return object.getId() == objectId;
-	}
+    if (!r.isPresent()) {
+      return false;
+    }
 
-	/**
-	 * Gets an optional describing the result of retrieving an object from a specified position.
-	 * 
-	 * @param position
-	 * 		The position the object is located at.
-	 */
-	public Optional<GameObject> getObject(Position position) {
-		Optional<Region> optional = lookup(position);
-		
+    Region region = r.get();
 
-		if (!optional.isPresent()) {
-			return Optional.empty();
-		}
-		
-		Region region = optional.get();
+    int regionAbsX = (region.id >> 8) << 6;
+    int regionAbsY = (region.id & 0xff) << 6;
 
-		int regionAbsX = (region.id >> 8) << 6;
-		int regionAbsY = (region.id & 0xff) << 6;
-		
-		int tempZ = position.getHeight();
+    int tempZ = position.getHeight();
 
-		if (tempZ > 3) {
-			tempZ = tempZ % 4;
-		}
-		
-		return Optional.of(region.objects.get(new Position(position.getX() - regionAbsX, position.getY() - regionAbsY, tempZ)));
-	}
+    if (tempZ > 3) {
+      tempZ = tempZ % 4;
+    }
 
-	/**
-	 * Gets an optional describing the result of retrieving a region from a coordinate.
-	 * 
-	 * @param position
-	 * 		The position that is inside a region.
-	 */
-	public static Optional<Region> lookup(Position position) {
-		int regionX = position.getX() >> 3;
-		int regionY = position.getY() >> 3;
-		int regionId = ((regionX / 8) << 8) + (regionY / 8);
+    GameObject object = region.objects
+        .get(new Position(position.getX() - regionAbsX, position.getY() - regionAbsY, tempZ));
 
-		if (regionId > regions.size() - 1) {
-			return Optional.empty();
-		}
+    return object.getId() == objectId;
+  }
 
-		if (regionId < 0) {
-			System.out.println("FATAL CLIPPING ERROR: regionId < 0");
-			System.exit(0);
-		}
+  /**
+   * Gets an optional describing the result of retrieving an object from a specified position.
+   * 
+   * @param position The position the object is located at.
+   */
+  public Optional<GameObject> getObject(Position position) {
+    Optional<Region> optional = lookup(position);
 
-		if (regions.get(regionId) == null) {
-			return Optional.empty();
-		}
 
-		return Optional.of(regions.get(regionId));		
-	}
-	
-	/**
-	 * Gets an optional describing the result of retrieving a {@link Region} by its id.
-	 * 
-	 * @param id
-	 * 		The id of the region to retrieve.
-	 */
-	public static Optional<Region> getRegionById(int id) {
-		return regions.stream().filter(Objects::nonNull).filter(it -> id == it.getId()).findFirst();
-	}
+    if (!optional.isPresent()) {
+      return Optional.empty();
+    }
 
-	/**
-	 * Gets the id of this region.
-	 */
-	public int getId() {
-		return id;
-	}
-	
-	/**
-	 * Gets the collection of regions.
-	 */
-	public static List<Region> getRegions() {
-		return regions;
-	}
+    Region region = optional.get();
 
-	@Override
-	public int compareTo(Region o) {
-		return id > o.getId() ? 1 : -1;
-	}
-	
+    int regionAbsX = (region.id >> 8) << 6;
+    int regionAbsY = (region.id & 0xff) << 6;
+
+    int tempZ = position.getHeight();
+
+    if (tempZ > 3) {
+      tempZ = tempZ % 4;
+    }
+
+    return Optional.of(region.objects
+        .get(new Position(position.getX() - regionAbsX, position.getY() - regionAbsY, tempZ)));
+  }
+
+  /**
+   * Gets an optional describing the result of retrieving a region from a coordinate.
+   * 
+   * @param position The position that is inside a region.
+   */
+  public static Optional<Region> lookup(Position position) {
+    int regionX = position.getX() >> 3;
+    int regionY = position.getY() >> 3;
+    int regionId = ((regionX / 8) << 8) + (regionY / 8);
+
+    if (regionId > regions.size() - 1) {
+      return Optional.empty();
+    }
+
+    if (regionId < 0) {
+      System.out.println("FATAL CLIPPING ERROR: regionId < 0");
+      System.exit(0);
+    }
+
+    if (regions.get(regionId) == null) {
+      return Optional.empty();
+    }
+
+    return Optional.of(regions.get(regionId));
+  }
+
+  /**
+   * Gets an optional describing the result of retrieving a {@link Region} by its id.
+   * 
+   * @param id The id of the region to retrieve.
+   */
+  public static Optional<Region> getRegionById(int id) {
+    return regions.stream().filter(Objects::nonNull).filter(it -> id == it.getId()).findFirst();
+  }
+
+  /**
+   * Gets the id of this region.
+   */
+  public int getId() {
+    return id;
+  }
+
+  /**
+   * Gets the collection of regions.
+   */
+  public static List<Region> getRegions() {
+    return regions;
+  }
+
+  @Override
+  public int compareTo(Region o) {
+    return id > o.getId() ? 1 : -1;
+  }
+
 }

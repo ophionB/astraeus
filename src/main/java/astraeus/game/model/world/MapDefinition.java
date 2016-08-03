@@ -7,58 +7,55 @@ package astraeus.game.model.world;
  */
 public final class MapDefinition {
 
-	/**
-	 * The region on this map.
-	 */
-	private final int regionId;
+  /**
+   * The region on this map.
+   */
+  private final int regionId;
 
-	/**
-	 * The terrain file id
-	 */
-	private final int terrainFileId;	
+  /**
+   * The terrain file id
+   */
+  private final int terrainFileId;
 
-	/**
-	 * The object file id
-	 */
-	private final int objectFileId;	
+  /**
+   * The object file id
+   */
+  private final int objectFileId;
 
-	/**
-	 * Creates a new {@link MapDefinition}.
-	 * 
-	 * @param regionId
-	 * 		The region on this map
-	 * 
-	 * @param terrainFile
-	 * 		The id of the terrain file
-	 * 
-	 * @param objectFileId
-	 * 		The id of the object file
-	 */
-	public MapDefinition(int regionId, int terrainFileId, int objectFileId) {
-		this.regionId = regionId;
-		this.terrainFileId = terrainFileId;
-		this.objectFileId = objectFileId;
-	}
+  /**
+   * Creates a new {@link MapDefinition}.
+   * 
+   * @param regionId The region on this map
+   * 
+   * @param terrainFile The id of the terrain file
+   * 
+   * @param objectFileId The id of the object file
+   */
+  public MapDefinition(int regionId, int terrainFileId, int objectFileId) {
+    this.regionId = regionId;
+    this.terrainFileId = terrainFileId;
+    this.objectFileId = objectFileId;
+  }
 
-	/**
-	 * Gets the map region on this map.
-	 */
-	public int getRegionId() {
-		return regionId;
-	}
+  /**
+   * Gets the map region on this map.
+   */
+  public int getRegionId() {
+    return regionId;
+  }
 
-	/**
-	 * Gets the id of the terrain file.
-	 */
-	public int getTerrainFileId() {
-		return terrainFileId;
-	}
+  /**
+   * Gets the id of the terrain file.
+   */
+  public int getTerrainFileId() {
+    return terrainFileId;
+  }
 
-	/**
-	 * Get sthe id of the object file.
-	 */
-	public int getObjectFileId() {
-		return objectFileId;
-	}
+  /**
+   * Get sthe id of the object file.
+   */
+  public int getObjectFileId() {
+    return objectFileId;
+  }
 
 }

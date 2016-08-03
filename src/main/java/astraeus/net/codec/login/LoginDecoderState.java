@@ -7,14 +7,14 @@ package astraeus.net.codec.login;
  */
 public enum LoginDecoderState {
 
-		/**
-		 * The state where the size of the encrypted data is determined.
-		 */
-		HEADER,
+  /**
+   * The state where the size of the encrypted data is determined.
+   */
+  HEADER,
 
-		/**
-		 * The state where the encrypted data is decoded.
-		 */
-		PAYLOAD;
-	
+  /**
+   * The state where the encrypted data is decoded.
+   */
+  PAYLOAD;
+
 }

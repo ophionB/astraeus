@@ -6,21 +6,21 @@ import astraeus.game.model.entity.mob.player.Player;
 
 public final class ItemOnPlayerEvent implements Event {
 
-	private final Item used;
-	
-	private final Player usedWith;
-	
-	public ItemOnPlayerEvent(Item used, Player usedWith) {
-		this.used = used;
-		this.usedWith = usedWith;
-	}
+  private final Item used;
 
-	public Item getUsed() {
-		return used;
-	}
+  private final Player usedWith;
 
-	public Player getUsedWith() {
-		return usedWith;
-	}
-	
+  public ItemOnPlayerEvent(Item used, Player usedWith) {
+    this.used = used;
+    this.usedWith = usedWith;
+  }
+
+  public Item getUsed() {
+    return used;
+  }
+
+  public Player getUsedWith() {
+    return usedWith;
+  }
+
 }

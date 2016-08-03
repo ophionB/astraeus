@@ -10,15 +10,15 @@ import astraeus.net.packet.Receivable;
 @IncomingPacket.IncomingPacketOpcode(IncomingPacket.PLAYER_OPTION_1)
 public final class PlayerFirstOptionPacket implements Receivable {
 
-	@Override
-	public void handlePacket(Player player, IncomingPacket packet) {
-		ByteBufReader reader = packet.getReader();
-		
-		final int otherPlayerIndex = reader.readShort(ByteOrder.LITTLE);
-		
-		if (World.world.getPlayers().get(otherPlayerIndex) == null) {
-			return;
-		}
-	}
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
+    ByteBufReader reader = packet.getReader();
+
+    final int otherPlayerIndex = reader.readShort(ByteOrder.LITTLE);
+
+    if (World.world.getPlayers().get(otherPlayerIndex) == null) {
+      return;
+    }
+  }
 
 }

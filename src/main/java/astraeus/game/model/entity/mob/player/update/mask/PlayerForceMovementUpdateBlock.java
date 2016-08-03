@@ -15,25 +15,25 @@ import astraeus.net.codec.game.GamePacketBuilder;
  */
 public class PlayerForceMovementUpdateBlock extends PlayerUpdateBlock {
 
-      /**
-       * Creates a new {@link PlayerForceMovementUpdateBlock}.
-       */
-      public PlayerForceMovementUpdateBlock() {
-            super(0x400, UpdateFlag.FORCE_MOVEMENT);
-      }
+  /**
+   * Creates a new {@link PlayerForceMovementUpdateBlock}.
+   */
+  public PlayerForceMovementUpdateBlock() {
+    super(0x400, UpdateFlag.FORCE_MOVEMENT);
+  }
 
-      @Override
-      public void encode(Player entity, GamePacketBuilder builder) {
+  @Override
+  public void encode(Player entity, GamePacketBuilder builder) {
 
-            ForceMovement movement = entity.getForceMovement();
+    ForceMovement movement = entity.getForceMovement();
 
-            builder.write(movement.getStartLocation().getLocalX(), ByteModification.SUBTRACTION)
-            .write(movement.getStartLocation().getLocalY(), ByteModification.SUBTRACTION)
-            .write(movement.getEndLocation().getLocalX(), ByteModification.SUBTRACTION)
-            .write(movement.getEndLocation().getLocalY(), ByteModification.SUBTRACTION)
-            .writeShort(movement.getDurationX(), ByteModification.ADDITION, ByteOrder.LITTLE)
-            .writeShort(movement.getDurationY(), ByteModification.ADDITION)
-            .write(movement.getDirection().getId(), ByteModification.SUBTRACTION);
-      }
+    builder.write(movement.getStartLocation().getLocalX(), ByteModification.SUBTRACTION)
+        .write(movement.getStartLocation().getLocalY(), ByteModification.SUBTRACTION)
+        .write(movement.getEndLocation().getLocalX(), ByteModification.SUBTRACTION)
+        .write(movement.getEndLocation().getLocalY(), ByteModification.SUBTRACTION)
+        .writeShort(movement.getDurationX(), ByteModification.ADDITION, ByteOrder.LITTLE)
+        .writeShort(movement.getDurationY(), ByteModification.ADDITION)
+        .write(movement.getDirection().getId(), ByteModification.SUBTRACTION);
+  }
 
 }

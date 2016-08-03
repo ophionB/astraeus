@@ -1,8 +1,10 @@
 package astraeus;
 
-import java.util.concurrent.*;
-import astraeus.game.model.World;
+import java.util.concurrent.TimeUnit;
+
 import com.google.common.util.concurrent.AbstractScheduledService;
+
+import astraeus.game.model.World;
 import astraeus.game.sync.ClientSynchronizer;
 
 /**
@@ -12,59 +14,59 @@ import astraeus.game.sync.ClientSynchronizer;
  */
 public final class GameEngine extends AbstractScheduledService {
 
-	/**
-	 * The synchronizer that will keeps in sync.
-	 */
-	private final ClientSynchronizer synchronizer = new ClientSynchronizer();
+  /**
+   * The synchronizer that will keeps in sync.
+   */
+  private final ClientSynchronizer synchronizer = new ClientSynchronizer();
 
-	/**
-	 * The rate in which the executor iterates the game loop.
-	 */
-	private static final int GAME_CYLCE_RATE = 600;
-	
-	/**
-	 * The delay in milliseconds before running the game loop.
-	 */
-	private static final int GAME_DELAY = 600;
+  /**
+   * The rate in which the executor iterates the game loop.
+   */
+  private static final int GAME_CYLCE_RATE = 600;
 
-	/**
-	 * The number of times the server has ran the #runOneIteration method.
-	 */
-	public static int tick = 0;
+  /**
+   * The delay in milliseconds before running the game loop.
+   */
+  private static final int GAME_DELAY = 600;
 
-	@Override
-	public void runOneIteration() {
+  /**
+   * The number of times the server has ran the #runOneIteration method.
+   */
+  public static int tick = 0;
 
-		@SuppressWarnings("unused")
-		long start = System.currentTimeMillis();
+  @Override
+  public void runOneIteration() {
 
-		World.world.dequeueLogin();
+    @SuppressWarnings("unused")
+    long start = System.currentTimeMillis();
 
-		World.world.getTasks().runTaskIteration();
+    World.world.dequeueLogin();
 
-		synchronizer.synchronize();
+    World.world.getTasks().runTaskIteration();
 
-		World.world.dequeueLogout();
+    synchronizer.synchronize();
 
-		@SuppressWarnings("unused")
-		long end = System.currentTimeMillis();
+    World.world.dequeueLogout();
 
-		//System.out.println(end - start + " ms");
+    @SuppressWarnings("unused")
+    long end = System.currentTimeMillis();
 
-		tick++;
+    // System.out.println(end - start + " ms");
 
-		if (tick >= 1000) {
-			tick = 0;
-		}
+    tick++;
 
-	}
+    if (tick >= 1000) {
+      tick = 0;
+    }
 
-	/**
-	 * Schedules the game service to run the main game loop.
-	 */
-	@Override
-	protected Scheduler scheduler() {
-		return Scheduler.newFixedRateSchedule(GAME_DELAY, GAME_CYLCE_RATE, TimeUnit.MILLISECONDS);
-	}
+  }
+
+  /**
+   * Schedules the game service to run the main game loop.
+   */
+  @Override
+  protected Scheduler scheduler() {
+    return Scheduler.newFixedRateSchedule(GAME_DELAY, GAME_CYLCE_RATE, TimeUnit.MILLISECONDS);
+  }
 
 }

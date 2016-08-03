@@ -13,40 +13,40 @@ import astraeus.game.task.Task;
  */
 public abstract class Entity {
 
-	private final LinkedList<Task> tasks = new LinkedList<Task>();
+  private final LinkedList<Task> tasks = new LinkedList<Task>();
 
-	public abstract int size();
-	
-	public abstract EntityType type();
-	
-	protected Position position;
+  public abstract int size();
 
-	public boolean isMob() {
-		return getClass() == Mob.class;
-	}
+  public abstract EntityType type();
 
-	public Mob getMob() {
-		return (Mob) this;
-	}
+  protected Position position;
 
-	public int getX() {
-		return position.getX();
-	}
+  public boolean isMob() {
+    return getClass() == Mob.class;
+  }
 
-	public int getY() {
-		return position.getY();
-	}
+  public Mob getMob() {
+    return (Mob) this;
+  }
 
-	public Position getPosition() {
-		return position;		
-	}
+  public int getX() {
+    return position.getX();
+  }
 
-	public void setPosition(Position position) {		
-		this.position = position;
-	}
+  public int getY() {
+    return position.getY();
+  }
 
-	public LinkedList<Task> getTasks() {
-		return tasks;
-	}
+  public Position getPosition() {
+    return position;
+  }
+
+  public void setPosition(Position position) {
+    this.position = position;
+  }
+
+  public LinkedList<Task> getTasks() {
+    return tasks;
+  }
 
 }

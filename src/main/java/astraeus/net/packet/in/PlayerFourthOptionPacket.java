@@ -12,34 +12,34 @@ import astraeus.net.packet.out.ServerMessagePacket;
 @IncomingPacket.IncomingPacketOpcode(IncomingPacket.PLAYER_OPTION_4)
 public final class PlayerFourthOptionPacket implements Receivable {
 
-	@Override
-	public void handlePacket(Player player, IncomingPacket packet) {
-		ByteBufReader reader = packet.getReader();
-		
-		final int otherPlayerTradeIndex = reader.readShort(ByteOrder.LITTLE);
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
+    ByteBufReader reader = packet.getReader();
 
-		if (otherPlayerTradeIndex == player.getSlot()) {
-			return;
-		}
+    final int otherPlayerTradeIndex = reader.readShort(ByteOrder.LITTLE);
 
-		if (player.getRights().equal(PlayerRights.ADMINISTRATOR)) {
-			player.queuePacket(new ServerMessagePacket("Trading as an admin has been disabled."));
-			return;
-		}
+    if (otherPlayerTradeIndex == player.getSlot()) {
+      return;
+    }
 
-		if (otherPlayerTradeIndex < 1) {
-			return;
-		}
+    if (player.getRights().equal(PlayerRights.ADMINISTRATOR)) {
+      player.queuePacket(new ServerMessagePacket("Trading as an admin has been disabled."));
+      return;
+    }
 
-		if (World.world.getPlayers().get(otherPlayerTradeIndex) == null) {
-			return;
-		}
+    if (otherPlayerTradeIndex < 1) {
+      return;
+    }
 
-		Player other = (Player) World.world.getPlayers().get(otherPlayerTradeIndex);
+    if (World.world.getPlayers().get(otherPlayerTradeIndex) == null) {
+      return;
+    }
 
-		if (other == null || !other.isRegistered() || other.isTeleporting() || other.isDead()) {
-			return;
-		}
-	}
+    Player other = (Player) World.world.getPlayers().get(otherPlayerTradeIndex);
+
+    if (other == null || !other.isRegistered() || other.isTeleporting() || other.isDead()) {
+      return;
+    }
+  }
 
 }

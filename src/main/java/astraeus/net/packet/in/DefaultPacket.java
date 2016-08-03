@@ -9,12 +9,13 @@ import astraeus.net.packet.Receivable;
  * 
  * @author SeVen
  */
-@IncomingPacket.IncomingPacketOpcode({IncomingPacket.CAMERA_MOVEMENT, IncomingPacket.IDLE_LOGOUT, IncomingPacket.FOCUS_CHANGE})
+@IncomingPacket.IncomingPacketOpcode({IncomingPacket.CAMERA_MOVEMENT, IncomingPacket.IDLE_LOGOUT,
+    IncomingPacket.FOCUS_CHANGE})
 public class DefaultPacket implements Receivable {
 
-    @Override
-    public void handlePacket(Player player, IncomingPacket packet) {
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
 
-    }
+  }
 
 }

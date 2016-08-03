@@ -14,21 +14,20 @@ import astraeus.net.codec.game.GamePacketBuilder;
  */
 public class NpcSingleHitUpdateBlock extends NpcUpdateBlock {
 
-	private final Hit hit;
+  private final Hit hit;
 
-	public NpcSingleHitUpdateBlock(Hit hit) {
-		super(0x40, UpdateFlag.HIT);
-		this.hit = hit;
-	}
+  public NpcSingleHitUpdateBlock(Hit hit) {
+    super(0x40, UpdateFlag.HIT);
+    this.hit = hit;
+  }
 
-	@Override
-	public void encode(Npc npc, GamePacketBuilder builder) {		
-		builder
-		.write(hit.getDamage(), ByteModification.NEGATION)
-		.write(hit.getType().getId(), ByteModification.SUBTRACTION)
-		//.write(hit.getDamageType().getId()) // custom
-		.write(npc.getCurrentHealth(), ByteModification.SUBTRACTION)
-		.write(npc.getMaximumHealth(), ByteModification.NEGATION);
-    }
+  @Override
+  public void encode(Npc npc, GamePacketBuilder builder) {
+    builder.write(hit.getDamage(), ByteModification.NEGATION)
+        .write(hit.getType().getId(), ByteModification.SUBTRACTION)
+        // .write(hit.getDamageType().getId()) // custom
+        .write(npc.getCurrentHealth(), ByteModification.SUBTRACTION)
+        .write(npc.getMaximumHealth(), ByteModification.NEGATION);
+  }
 
 }

@@ -9,14 +9,15 @@ import astraeus.net.codec.game.GamePacketBuilder;
 
 public class NpcInteractionUpdateBlock extends NpcUpdateBlock {
 
-      public NpcInteractionUpdateBlock() {
-            super(0x20, UpdateFlag.ENTITY_INTERACTION);
-      }
+  public NpcInteractionUpdateBlock() {
+    super(0x20, UpdateFlag.ENTITY_INTERACTION);
+  }
 
-      @Override
-      public void encode(Npc mob, GamePacketBuilder builder) {
-            final Mob entity = (Mob) mob.getInteractingEntity();
-            builder.writeShort(entity == null ? -1 : (entity instanceof Player) ? entity.getSlot() + 32768 : entity.getSlot());
-      }
+  @Override
+  public void encode(Npc mob, GamePacketBuilder builder) {
+    final Mob entity = (Mob) mob.getInteractingEntity();
+    builder.writeShort(entity == null ? -1
+        : (entity instanceof Player) ? entity.getSlot() + 32768 : entity.getSlot());
+  }
 
 }

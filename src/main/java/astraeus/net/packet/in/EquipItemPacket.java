@@ -17,28 +17,29 @@ import astraeus.net.packet.out.ServerMessagePacket;
 @IncomingPacket.IncomingPacketOpcode(IncomingPacket.EQUIP_ITEM)
 public final class EquipItemPacket implements Receivable {
 
-	@Override
-	public void handlePacket(Player player, IncomingPacket packet) {
-		ByteBufReader reader = packet.getReader();
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
+    ByteBufReader reader = packet.getReader();
 
-		final int id = reader.readShort();
-		final int slot = reader.readShort(ByteModification.ADDITION);
-		final int interfaceId = reader.readShort(ByteModification.ADDITION);
+    final int id = reader.readShort();
+    final int slot = reader.readShort(ByteModification.ADDITION);
+    final int interfaceId = reader.readShort(ByteModification.ADDITION);
 
-		if (player.getRights().greaterOrEqual(PlayerRights.DEVELOPER) && player.attr().get(Player.DEBUG_KEY)) {
-			player.queuePacket(new ServerMessagePacket(
-					String.format("[EquipItem] - [id= %d], [slot= %d], [interfaceId= %d]", id, slot, interfaceId)));
-		}
-		
-		Item item = player.getInventory().get(slot);
-		
-		if (item == null || item.getId() != id) {
-			return;
-		}
+    if (player.getRights().greaterOrEqual(PlayerRights.DEVELOPER)
+        && player.attr().get(Player.DEBUG_KEY)) {
+      player.queuePacket(new ServerMessagePacket(String
+          .format("[EquipItem] - [id= %d], [slot= %d], [interfaceId= %d]", id, slot, interfaceId)));
+    }
 
-		if (interfaceId == 3214) {			
-			player.getEquipment().equip(slot);			
-		}
+    Item item = player.getInventory().get(slot);
 
-	}
+    if (item == null || item.getId() != id) {
+      return;
+    }
+
+    if (interfaceId == 3214) {
+      player.getEquipment().equip(slot);
+    }
+
+  }
 }

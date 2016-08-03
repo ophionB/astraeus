@@ -10,12 +10,12 @@ import astraeus.net.packet.Receivable;
 @IncomingPacket.IncomingPacketOpcode(IncomingPacket.ITEM_OPTION_2)
 public final class ItemSecondOptionPacket implements Receivable {
 
-	@Override
-	public void handlePacket(Player player, IncomingPacket packet) {
-		final ByteBufReader reader = packet.getReader();
-		final int itemId = reader.readShort(ByteModification.ADDITION);	
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
+    final ByteBufReader reader = packet.getReader();
+    final int itemId = reader.readShort(ByteModification.ADDITION);
 
-		player.post(new ItemSecondClickEvent(itemId, -1));
-	}
+    player.post(new ItemSecondClickEvent(itemId, -1));
+  }
 
 }

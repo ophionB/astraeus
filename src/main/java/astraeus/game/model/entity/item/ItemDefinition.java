@@ -7,109 +7,111 @@ package astraeus.game.model.entity.item;
  */
 public final class ItemDefinition {
 
-	public static final int ITEM_LIMIT = 11791;
+  public static final int ITEM_LIMIT = 11791;
 
-	//TODO make item definitions immutable
-	public static final ItemDefinition[] definitions = new ItemDefinition[ITEM_LIMIT];	
+  // TODO make item definitions immutable
+  public static final ItemDefinition[] definitions = new ItemDefinition[ITEM_LIMIT];
 
-	private final int id;
-	
-	private final String name;
-	
-	private final String examine;
-	
-	private final int lowAlch;
-	
-	private final int highAlch;
-	
-	private final int shopValue;
-	
-	private final boolean noteable;
-	
-	private final boolean noted;
-	
-	private final int unnotedId;
-	
-	private final int notedId;
-	
-	private final boolean stackable;
-	
-	private final double weight;
+  private final int id;
 
-	public ItemDefinition(int id, String name, String examine, int lowAlch, int highAlch, int shopValue, boolean noteable, boolean noted, int unnotedId, int notedId, boolean stackable, double weight) {
-		this.id = id;
-		this.name = name;
-		this.examine = examine;
-		this.lowAlch = lowAlch;
-		this.highAlch = highAlch;
-		this.shopValue = shopValue;
-		this.noteable = noteable;
-		this.noted = noted;
-		this.unnotedId = unnotedId;
-		this.notedId = notedId;
-		this.stackable = stackable;
-		this.weight = weight;
-	}
+  private final String name;
 
-	public static ItemDefinition[] getDefinitions() {
-		return definitions;
-	}
+  private final String examine;
 
-	public static ItemDefinition lookup(int id) {
-		return definitions[id];
-	}
+  private final int lowAlch;
 
-	public int getId() {
-		return id;
-	}
+  private final int highAlch;
 
-	public String getName() {
-		return name;
-	}
+  private final int shopValue;
 
-	public String getExamine() {
-		return examine;
-	}
+  private final boolean noteable;
 
-	public int getLowAlch() {
-		return lowAlch;
-	}
+  private final boolean noted;
 
-	public int getHighAlch() {
-		return highAlch;
-	}
+  private final int unnotedId;
 
-	public int getShopValue() {
-		return shopValue;
-	}
+  private final int notedId;
 
-	public boolean isNoteable() {
-		return noteable;
-	}
+  private final boolean stackable;
 
-	public boolean isNoted() {
-		return noted;
-	}
+  private final double weight;
 
-	public int getUnnotedId() {
-		return unnotedId;
-	}
+  public ItemDefinition(int id, String name, String examine, int lowAlch, int highAlch,
+      int shopValue, boolean noteable, boolean noted, int unnotedId, int notedId, boolean stackable,
+      double weight) {
+    this.id = id;
+    this.name = name;
+    this.examine = examine;
+    this.lowAlch = lowAlch;
+    this.highAlch = highAlch;
+    this.shopValue = shopValue;
+    this.noteable = noteable;
+    this.noted = noted;
+    this.unnotedId = unnotedId;
+    this.notedId = notedId;
+    this.stackable = stackable;
+    this.weight = weight;
+  }
 
-	public int getNotedId() {
-		return notedId;
-	}
+  public static ItemDefinition[] getDefinitions() {
+    return definitions;
+  }
 
-	public boolean isStackable() {
-		return stackable;
-	}
+  public static ItemDefinition lookup(int id) {
+    return definitions[id];
+  }
 
-	public double getWeight() {
-		return weight;
-	}
+  public int getId() {
+    return id;
+  }
 
-	@Override
-	public String toString() {
-		return "ITEM[" + id + "," + name + "]";
-	}
+  public String getName() {
+    return name;
+  }
+
+  public String getExamine() {
+    return examine;
+  }
+
+  public int getLowAlch() {
+    return lowAlch;
+  }
+
+  public int getHighAlch() {
+    return highAlch;
+  }
+
+  public int getShopValue() {
+    return shopValue;
+  }
+
+  public boolean isNoteable() {
+    return noteable;
+  }
+
+  public boolean isNoted() {
+    return noted;
+  }
+
+  public int getUnnotedId() {
+    return unnotedId;
+  }
+
+  public int getNotedId() {
+    return notedId;
+  }
+
+  public boolean isStackable() {
+    return stackable;
+  }
+
+  public double getWeight() {
+    return weight;
+  }
+
+  @Override
+  public String toString() {
+    return "ITEM[" + id + "," + name + "]";
+  }
 
 }

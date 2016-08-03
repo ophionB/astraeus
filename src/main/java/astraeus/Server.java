@@ -1,10 +1,10 @@
 package astraeus;
 
-import astraeus.util.LoggerUtils;
-import astraeus.util.Stopwatch;
-
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+
+import astraeus.util.LoggerUtils;
+import astraeus.util.Stopwatch;
 
 /**
  * The core class of the server.
@@ -13,47 +13,47 @@ import java.util.logging.Logger;
  */
 public final class Server {
 
-    /**
-     * The single logger for this class.
-     */
-    private static final Logger logger = LoggerUtils.getLogger(Server.class);
+  /**
+   * The single logger for this class.
+   */
+  private static final Logger logger = LoggerUtils.getLogger(Server.class);
 
-    /**
-     * To check if the server needs to be updated.
-     */
-    public static boolean updateServer = false;    
+  /**
+   * To check if the server needs to be updated.
+   */
+  public static boolean updateServer = false;
 
-    /**
-     * Determines if the server has started.
-     */
-    public static boolean serverStarted = false;    
+  /**
+   * Determines if the server has started.
+   */
+  public static boolean serverStarted = false;
 
-    /**
-     * The elapsed time the server has been running.
-     */
-    public static Stopwatch uptime; 
+  /**
+   * The elapsed time the server has been running.
+   */
+  public static Stopwatch uptime;
 
-    /**
-     * The main entry point to the server.
-     *
-     * @param args The command line arguments.
-     *
-     * @throws Exception
-     */
-    public static void main(String[] args) throws Exception {
+  /**
+   * The main entry point to the server.
+   *
+   * @param args The command line arguments.
+   *
+   * @throws Exception
+   */
+  public static void main(String[] args) throws Exception {
 
-        final Stopwatch timer = new Stopwatch().reset();
+    final Stopwatch timer = new Stopwatch().reset();
 
-        new Bootstrap().build().bind();
-        
-        uptime = new Stopwatch();
+    new Bootstrap().build().bind();
 
-        logger.info("Server Initialized. [Took " + timer.elapsed(TimeUnit.SECONDS) + " seconds]");
+    uptime = new Stopwatch();
 
-    }
+    logger.info("Server Initialized. [Took " + timer.elapsed(TimeUnit.SECONDS) + " seconds]");
 
-    public static Stopwatch getUptime() {
-        return uptime;
-    }
+  }
+
+  public static Stopwatch getUptime() {
+    return uptime;
+  }
 
 }

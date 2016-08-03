@@ -11,18 +11,18 @@ import astraeus.util.GsonObjectParser;
 
 public final class EquipmentDefinitionParser extends GsonObjectParser<EquipmentDefinition> {
 
-	public EquipmentDefinitionParser() {
-		super("./data/equipment/equipment_definitions");
-	}
+  public EquipmentDefinitionParser() {
+    super("./data/equipment/equipment_definitions");
+  }
 
-	@Override
-	public EquipmentDefinition[] deserialize(Gson gson, FileReader reader) throws IOException {
-		return gson.fromJson(reader, EquipmentDefinition[].class);
-	}
+  @Override
+  public EquipmentDefinition[] deserialize(Gson gson, FileReader reader) throws IOException {
+    return gson.fromJson(reader, EquipmentDefinition[].class);
+  }
 
-	@Override
-	public void onRead(EquipmentDefinition[] array) throws IOException {
-		Arrays.stream(array).forEach($it -> EquipmentDefinition.getDefinitions().put($it.getId(), $it));		
-	}
+  @Override
+  public void onRead(EquipmentDefinition[] array) throws IOException {
+    Arrays.stream(array).forEach($it -> EquipmentDefinition.getDefinitions().put($it.getId(), $it));
+  }
 
 }

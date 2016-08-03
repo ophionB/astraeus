@@ -6,23 +6,22 @@ import astraeus.game.model.entity.mob.update.UpdateFlag;
 import astraeus.net.codec.game.GamePacketBuilder;
 
 /**
- * The {@link PlayerUpdateBlock} implementation that updates a players forced
- * text.
+ * The {@link PlayerUpdateBlock} implementation that updates a players forced text.
  * 
  * @author SeVen
  */
 public class PlayerForceChatUpdateBlock extends PlayerUpdateBlock {
 
-	/**
-	 * Creates a new {@link PlayerForceChatUpdateBlock}.
-	 */
-	public PlayerForceChatUpdateBlock() {
-		super(0x4, UpdateFlag.FORCED_CHAT);
-	}
+  /**
+   * Creates a new {@link PlayerForceChatUpdateBlock}.
+   */
+  public PlayerForceChatUpdateBlock() {
+    super(0x4, UpdateFlag.FORCED_CHAT);
+  }
 
-	@Override
-	public void encode(Player entity, GamePacketBuilder builder) {
-		builder.writeString(entity.getForcedChat());
-	}
+  @Override
+  public void encode(Player entity, GamePacketBuilder builder) {
+    builder.writeString(entity.getForcedChat());
+  }
 
 }

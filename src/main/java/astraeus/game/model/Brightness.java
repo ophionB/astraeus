@@ -1,5 +1,7 @@
 package astraeus.game.model;
 
+import lombok.Getter;
+
 /**
  * The enumeration of the brightness levels as seen by the client.
  *
@@ -7,22 +9,18 @@ package astraeus.game.model;
  */
 public enum Brightness {
 
-    VERY_DARK(1),
+  VERY_DARK(1),
 
-    DARK(2),
+  DARK(2),
 
-    NORMAL(3),
+  NORMAL(3),
 
-    BRIGHT(4);
+  BRIGHT(4);
 
-    private final int code;
+  @Getter private final int code;
 
-    private Brightness(int code) {
-        this.code = code;
-    }
-
-    public int getCode() {
-        return code;
-    }
+  private Brightness(int code) {
+    this.code = code;
+  }
 
 }

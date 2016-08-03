@@ -9,30 +9,30 @@ import astraeus.net.codec.ByteOrder;
 import astraeus.net.packet.IncomingPacket;
 import astraeus.net.packet.Receivable;
 
-@IncomingPacket.IncomingPacketOpcode({ IncomingPacket.NPC_OPTION_1 })
+@IncomingPacket.IncomingPacketOpcode({IncomingPacket.NPC_OPTION_1})
 public final class NpcFirstClickPacket implements Receivable {
 
-	@Override
-	public void handlePacket(Player player, IncomingPacket packet) {
-		final Npc npc = World.world.getMobs().get(packet.getReader().readShort(ByteOrder.LITTLE));
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
+    final Npc npc = World.world.getMobs().get(packet.getReader().readShort(ByteOrder.LITTLE));
 
-		if (npc == null) {
-			return;
-		}
+    if (npc == null) {
+      return;
+    }
 
-		player.startAction(new DistancedTask(player, npc.getPosition(), 3) {
+    player.startAction(new DistancedTask(player, npc.getPosition(), 3) {
 
-			@Override
-			public void onReached() {
-				player.setInteractingEntity(npc);
-				npc.setInteractingEntity(player);
-				player.post(new NpcFirstClickEvent(npc));
-				stop();
-				
-			}
+      @Override
+      public void onReached() {
+        player.setInteractingEntity(npc);
+        npc.setInteractingEntity(player);
+        player.post(new NpcFirstClickEvent(npc));
+        stop();
 
-		});
+      }
 
-	}
+    });
+
+  }
 
 }

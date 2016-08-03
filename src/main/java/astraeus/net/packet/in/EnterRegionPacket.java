@@ -7,9 +7,9 @@ import astraeus.net.packet.Receivable;
 @IncomingPacket.IncomingPacketOpcode(IncomingPacket.ENTER_REGION)
 public final class EnterRegionPacket implements Receivable {
 
-	@Override
-	public void handlePacket(Player player, IncomingPacket packet) {
-		
-	}
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
+
+  }
 
 }

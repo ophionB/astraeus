@@ -11,14 +11,14 @@ import astraeus.net.packet.Receivable;
 @IncomingPacket.IncomingPacketOpcode(IncomingPacket.ITEM_OPTION_3)
 public final class ItemThirdOptionPacket implements Receivable {
 
-	@Override
-	public void handlePacket(Player player, IncomingPacket packet) {
-		final ByteBufReader reader = packet.getReader();
-		final int itemId11 = reader.readShort(ByteOrder.LITTLE);
-		final int itemId1 = reader.readShort(ByteModification.ADDITION);	
-		final int itemId = reader.readShort(ByteModification.ADDITION);	
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
+    final ByteBufReader reader = packet.getReader();
+    final int itemId11 = reader.readShort(ByteOrder.LITTLE);
+    final int itemId1 = reader.readShort(ByteModification.ADDITION);
+    final int itemId = reader.readShort(ByteModification.ADDITION);
 
-		player.post(new ItemThirdClickEvent(itemId, itemId11, itemId1));
-	}
+    player.post(new ItemThirdClickEvent(itemId, itemId11, itemId1));
+  }
 
 }

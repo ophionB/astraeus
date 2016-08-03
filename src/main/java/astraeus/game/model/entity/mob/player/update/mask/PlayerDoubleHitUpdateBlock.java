@@ -9,31 +9,28 @@ import astraeus.net.codec.ByteModification;
 import astraeus.net.codec.game.GamePacketBuilder;
 
 /**
- * The {@link PlayerUpdateBlock} implementation that updates a players second
- * hit mark.
+ * The {@link PlayerUpdateBlock} implementation that updates a players second hit mark.
  * 
  * @author SeVen
  */
 public class PlayerDoubleHitUpdateBlock extends PlayerUpdateBlock {
-	
-	private final Hit hit;
 
-	/**
-	 * Creates a new {@link PlayerDoubleHitUpdateBlock}.
-	 */
-	public PlayerDoubleHitUpdateBlock(Hit hit) {
-		super(0x200, UpdateFlag.HIT);
-		this.hit = hit;
-	}
+  private final Hit hit;
 
-	@Override
-	public void encode(Player entity, GamePacketBuilder builder) {
-		builder
-		.write(hit.getDamage())
-		.write(hit.getType().getId(), ByteModification.SUBTRACTION)
-		//.write(hit.getDamageType().getId()) // custom
-		.write(entity.getSkills().getLevel(Skill.HITPOINTS))
-		.write(entity.getSkills().getMaxLevel(Skill.HITPOINTS), ByteModification.NEGATION);
-	}
+  /**
+   * Creates a new {@link PlayerDoubleHitUpdateBlock}.
+   */
+  public PlayerDoubleHitUpdateBlock(Hit hit) {
+    super(0x200, UpdateFlag.HIT);
+    this.hit = hit;
+  }
+
+  @Override
+  public void encode(Player entity, GamePacketBuilder builder) {
+    builder.write(hit.getDamage()).write(hit.getType().getId(), ByteModification.SUBTRACTION)
+        // .write(hit.getDamageType().getId()) // custom
+        .write(entity.getSkills().getLevel(Skill.HITPOINTS))
+        .write(entity.getSkills().getMaxLevel(Skill.HITPOINTS), ByteModification.NEGATION);
+  }
 
 }

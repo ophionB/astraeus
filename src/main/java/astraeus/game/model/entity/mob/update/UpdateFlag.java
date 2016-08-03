@@ -6,14 +6,5 @@ package astraeus.game.model.entity.mob.update;
  * @author Seven
  */
 public enum UpdateFlag {
-    APPEARANCE,
-    CHAT,
-    GRAPHICS,
-    ANIMATION,
-    FORCED_CHAT,
-    ENTITY_INTERACTION,
-    FACE_COORDINATE,
-    HIT,
-    TRANSFORM,
-    FORCE_MOVEMENT
+  APPEARANCE, CHAT, GRAPHICS, ANIMATION, FORCED_CHAT, ENTITY_INTERACTION, FACE_COORDINATE, HIT, TRANSFORM, FORCE_MOVEMENT
 }

@@ -1,5 +1,7 @@
 package astraeus.net.packet.out;
 
+import java.util.Optional;
+
 import astraeus.game.model.Direction;
 import astraeus.game.model.entity.mob.player.Player;
 import astraeus.game.model.entity.object.GameObject;
@@ -8,8 +10,6 @@ import astraeus.net.codec.game.GamePacketBuilder;
 import astraeus.net.packet.OutgoingPacket;
 import astraeus.net.packet.Sendable;
 
-import java.util.Optional;
-
 /**
  * The {@link OutgoingPacket} implementation that removes an object from a users client.
  *
@@ -17,30 +17,32 @@ import java.util.Optional;
  */
 public final class RemoveRegionalObjectPacket implements Sendable {
 
-	/**
-	 * The {@code object} that is being removed.
-	 */
-	private final GameObject object;
+  /**
+   * The {@code object} that is being removed.
+   */
+  private final GameObject object;
 
-	private final boolean normal;
+  private final boolean normal;
 
-	/**
-	 * Creates a new {@link RemoveRegionalObjectPacket} packet.
-	 *
-	 * @param object The object to remove.
-	 */
-	public RemoveRegionalObjectPacket(GameObject object, boolean normal) {
-		this.object = object;
-		this.normal = normal;
-	}
+  /**
+   * Creates a new {@link RemoveRegionalObjectPacket} packet.
+   *
+   * @param object The object to remove.
+   */
+  public RemoveRegionalObjectPacket(GameObject object, boolean normal) {
+    this.object = object;
+    this.normal = normal;
+  }
 
-	@Override
-	public Optional<OutgoingPacket> writePacket(Player player) {
-		player.queuePacket(new SetUpdateRegionPacket(object.getPosition()));
-		GamePacketBuilder builder = new GamePacketBuilder(101);
-		builder.write(object.getType() << 2 | (normal ? object.getOrientation() : Direction.getDoorOrientation(object.getEnumeratedOrientation()) & 3), ByteModification.NEGATION)
-				.write(0);
-		return builder.toOutgoingPacket();
-	}
+  @Override
+  public Optional<OutgoingPacket> writePacket(Player player) {
+    player.queuePacket(new SetUpdateRegionPacket(object.getPosition()));
+    GamePacketBuilder builder = new GamePacketBuilder(101);
+    builder.write(
+        object.getType() << 2 | (normal ? object.getOrientation()
+            : Direction.getDoorOrientation(object.getEnumeratedOrientation()) & 3),
+        ByteModification.NEGATION).write(0);
+    return builder.toOutgoingPacket();
+  }
 
 }

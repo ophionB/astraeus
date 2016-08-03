@@ -9,15 +9,14 @@ import astraeus.net.codec.game.GamePacketBuilder;
 
 public class NpcAnimationUpdateBlock extends NpcUpdateBlock {
 
-	public NpcAnimationUpdateBlock() {
-		super(0x10, UpdateFlag.ANIMATION);
-	}
+  public NpcAnimationUpdateBlock() {
+    super(0x10, UpdateFlag.ANIMATION);
+  }
 
-	@Override
-	public void encode(Npc entity, GamePacketBuilder builder) {
-		final Animation animation = entity.getAnimation();
-		builder.writeShort(animation.getId(), ByteOrder.LITTLE)
-		.write(animation.getDelay());
-	}
+  @Override
+  public void encode(Npc entity, GamePacketBuilder builder) {
+    final Animation animation = entity.getAnimation();
+    builder.writeShort(animation.getId(), ByteOrder.LITTLE).write(animation.getDelay());
+  }
 
 }

@@ -14,19 +14,19 @@ import astraeus.game.model.entity.mob.player.Player;
 @FunctionalInterface
 public interface EventSubscriber<E extends Event> extends Predicate<E> {
 
-	/**
-	 * A handler method which executes event specific logic if and only if
-	 * {@link #test(Event)} returns {@code true}.
-	 *
-	 * @param context The context of the event.
-	 * @param player The player to subscribe the event for.
-	 * @param event The event to subscribe.
-	 */
-	void subscribe(EventContext context, Player player, E event);
+  /**
+   * A handler method which executes event specific logic if and only if {@link #test(Event)}
+   * returns {@code true}.
+   *
+   * @param context The context of the event.
+   * @param player The player to subscribe the event for.
+   * @param event The event to subscribe.
+   */
+  void subscribe(EventContext context, Player player, E event);
 
-	@Override
-	default boolean test(E event) {
-		return true;
-	}
+  @Override
+  default boolean test(E event) {
+    return true;
+  }
 
 }

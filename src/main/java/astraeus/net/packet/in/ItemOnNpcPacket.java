@@ -14,30 +14,30 @@ import astraeus.net.packet.Receivable;
 @IncomingPacket.IncomingPacketOpcode(IncomingPacket.ITEM_ON_NPC)
 public final class ItemOnNpcPacket implements Receivable {
 
-	@Override
-	public void handlePacket(Player player, IncomingPacket packet) {
-		ByteBufReader reader = packet.getReader();
-		
-		final int itemId = reader.readShort(false, ByteModification.ADDITION);
-		final int npcSlot = reader.readShort(false, ByteModification.ADDITION);
-		final int itemSlot = reader.readShort(ByteOrder.LITTLE);
-		
-		final Item item = player.getInventory().get(itemSlot);
-		
-		// validate the item is the correct item
-		if (item.getId() != itemId) {
-			return;
-		}
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
+    ByteBufReader reader = packet.getReader();
 
-		final Npc npc = World.world.getMobs().get(npcSlot);
+    final int itemId = reader.readShort(false, ByteModification.ADDITION);
+    final int npcSlot = reader.readShort(false, ByteModification.ADDITION);
+    final int itemSlot = reader.readShort(ByteOrder.LITTLE);
 
-		// validate the npc actually exists
-		if (npc == null) {
-			return;
-		}
-		
-		player.post(new ItemOnNpcEvent(item, npc));
-	}
+    final Item item = player.getInventory().get(itemSlot);
+
+    // validate the item is the correct item
+    if (item.getId() != itemId) {
+      return;
+    }
+
+    final Npc npc = World.world.getMobs().get(npcSlot);
+
+    // validate the npc actually exists
+    if (npc == null) {
+      return;
+    }
+
+    player.post(new ItemOnNpcEvent(item, npc));
+  }
 
 }
 

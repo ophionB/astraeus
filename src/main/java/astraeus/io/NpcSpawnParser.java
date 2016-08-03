@@ -12,18 +12,18 @@ import astraeus.util.GsonObjectParser;
 
 public final class NpcSpawnParser extends GsonObjectParser<NpcSpawn> {
 
-	public NpcSpawnParser() {
-		super("./data/npc/npc_spawns");
-	}
+  public NpcSpawnParser() {
+    super("./data/npc/npc_spawns");
+  }
 
-	@Override
-	public NpcSpawn[] deserialize(Gson gson, FileReader reader) throws IOException {
-		return gson.fromJson(reader, NpcSpawn[].class);
-	}
+  @Override
+  public NpcSpawn[] deserialize(Gson gson, FileReader reader) throws IOException {
+    return gson.fromJson(reader, NpcSpawn[].class);
+  }
 
-	@Override
-	public void onRead(NpcSpawn[] array) throws IOException {
-		Arrays.stream(array).forEach($it -> Npcs.createSpawn($it));		
-	}
+  @Override
+  public void onRead(NpcSpawn[] array) throws IOException {
+    Arrays.stream(array).forEach($it -> Npcs.createSpawn($it));
+  }
 
 }

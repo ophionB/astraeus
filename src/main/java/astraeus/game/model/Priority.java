@@ -1,5 +1,7 @@
 package astraeus.game.model;
 
+import lombok.Getter;
+
 /**
  * A list of priorities.
  * 
@@ -7,38 +9,28 @@ package astraeus.game.model;
  */
 public enum Priority {
 
-	/** A low priority. */
-	LOW(0),
+  /** A low priority. */
+  LOW(0),
 
-	/** A medium priority. */
-	NORMAL(1),
+  /** A medium priority. */
+  NORMAL(1),
 
-	/** A high priority. */
-	HIGH(2),
+  /** A high priority. */
+  HIGH(2),
 
-	/** An extra high priority. */
-	EXTRA_HIGH(3);
+  /** An extra high priority. */
+  EXTRA_HIGH(3);
 
-	/** The priority level as an integer. */
-	private final int priority;
+  /** The priority level as an integer. */
+  @Getter private final int priority;
 
-	/**
-	 * Constructs a new priority.
-	 * 
-	 * @param priority
-	 *            The priority level as an integer.
-	 */
-	private Priority(int priority) {
-		this.priority = priority;
-	}
-
-	/**
-	 * Gets the priority level as an integer.
-	 * 
-	 * @return The priority level.
-	 */
-	public int getPriority() {
-		return priority;
-	}
+  /**
+   * Constructs a new priority.
+   * 
+   * @param priority The priority level as an integer.
+   */
+  private Priority(int priority) {
+    this.priority = priority;
+  }
 
 }

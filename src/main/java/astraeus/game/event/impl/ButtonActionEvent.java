@@ -9,25 +9,25 @@ import astraeus.game.event.Event;
  */
 public final class ButtonActionEvent implements Event {
 
-	/**
-	 * The id of the button.
-	 */
-	private final int button;	
+  /**
+   * The id of the button.
+   */
+  private final int button;
 
-	/**
-	 * Constructs a new {@link ButtonActionEvent} with the specified button id.
-	 *
-	 * @param button The buttons id.
-	 */
-	public ButtonActionEvent(int button) {		
-		this.button = button;
-	}
+  /**
+   * Constructs a new {@link ButtonActionEvent} with the specified button id.
+   *
+   * @param button The buttons id.
+   */
+  public ButtonActionEvent(int button) {
+    this.button = button;
+  }
 
-	/**
-	 * Returns the buttons id.
-	 */
-	public int getButton() {
-		return button;
-	}
+  /**
+   * Returns the buttons id.
+   */
+  public int getButton() {
+    return button;
+  }
 
 }

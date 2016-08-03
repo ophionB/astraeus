@@ -11,17 +11,17 @@ import astraeus.net.packet.Receivable;
 @IncomingPacket.IncomingPacketOpcode(IncomingPacket.ITEM_ON_PLAYER)
 public final class ItemOnPlayerPacket implements Receivable {
 
-	@Override
-	public void handlePacket(Player player, IncomingPacket packet) {
-		final int playerIndex = packet.getReader().readShort(false);
-		final int itemSlot = packet.getReader().readShort(ByteOrder.LITTLE);
-		
-		final Item used = player.getInventory().get(itemSlot);
-		
-		final Player usedWith = World.world.getPlayers().get(playerIndex);
-		
-		player.post(new ItemOnPlayerEvent(used, usedWith));	
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
+    final int playerIndex = packet.getReader().readShort(false);
+    final int itemSlot = packet.getReader().readShort(ByteOrder.LITTLE);
 
-	}
+    final Item used = player.getInventory().get(itemSlot);
+
+    final Player usedWith = World.world.getPlayers().get(playerIndex);
+
+    player.post(new ItemOnPlayerEvent(used, usedWith));
+
+  }
 
 }

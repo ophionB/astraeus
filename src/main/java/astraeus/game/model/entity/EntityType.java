@@ -6,11 +6,11 @@ package astraeus.game.model.entity;
  * @author Vult-R
  */
 public enum EntityType {
-	ITEM,
-	
-	OBJECT,
-	
-	PLAYER,
-	
-	NPC
+  ITEM,
+
+  OBJECT,
+
+  PLAYER,
+
+  NPC
 }

@@ -46,10 +46,10 @@ public final class PostLoginEventConsumer implements EventSubscriber<PostLoginEv
 		event.getPlayer().getInventory().refresh();
 		event.getPlayer().getEquipment().refresh();
 		event.getPlayer().getBank().refresh();
-		event.getPlayer().getRelation().updateLists(true);
-		event.getPlayer().getRelation().sendFriends();
+		event.getPlayer().getPlayerRelation().updateLists(true);
+		event.getPlayer().getPlayerRelation().sendFriends();
 		event.getPlayer().queuePacket(new SetRunEnergyPacket());
-		event.getPlayer().getRelation().updateLists(true);
+		event.getPlayer().getPlayerRelation().updateLists(true);
 		Players.resetPlayerAnimation(event.getPlayer());
 		event.getPlayer().attr().put(Player.SAVE_KEY, true);
 		

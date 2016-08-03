@@ -1,5 +1,7 @@
 package astraeus.game.model.sound;
 
+import lombok.Getter;
+
 /**
  * An enumeration of the volume levels in-game.
  *
@@ -7,24 +9,20 @@ package astraeus.game.model.sound;
  */
 public enum Volume {
 
-    SILENT(4),
+  SILENT(4),
 
-    QUIET(3),
+  QUIET(3),
 
-    NORMAL(2),
+  NORMAL(2),
 
-    HIGH(1),
+  HIGH(1),
 
-    LOUD(0);
+  LOUD(0);
 
-    private final int code;
+  @Getter private final int code;
 
-    private Volume(int code) {
-        this.code = code;
-    }
-
-    public int getCode() {
-        return code;
-    }
+  private Volume(int code) {
+    this.code = code;
+  }
 
 }

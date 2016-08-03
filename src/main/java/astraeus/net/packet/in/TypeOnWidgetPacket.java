@@ -8,9 +8,9 @@ import astraeus.net.packet.Receivable;
 @IncomingPacketOpcode({IncomingPacket.TYPE_ON_WIDGET})
 public final class TypeOnWidgetPacket implements Receivable {
 
-	@Override
-	public void handlePacket(Player player, IncomingPacket packet) {
-		
-	}
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
+
+  }
 
 }

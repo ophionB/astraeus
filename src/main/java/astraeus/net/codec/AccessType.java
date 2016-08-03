@@ -7,14 +7,14 @@ package astraeus.net.codec;
  */
 public enum AccessType {
 
-	/**
-	 * The type that denotes bits can be written as bytes.
-	 */
-	BIT,
+  /**
+   * The type that denotes bits can be written as bytes.
+   */
+  BIT,
 
-	/**
-	 * the type that denotes bytes can be written directly.
-	 */
-	BYTE
+  /**
+   * the type that denotes bytes can be written directly.
+   */
+  BYTE
 
 }

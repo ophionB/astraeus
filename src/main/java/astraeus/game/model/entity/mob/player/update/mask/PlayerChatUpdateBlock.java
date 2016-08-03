@@ -15,21 +15,21 @@ import astraeus.net.codec.game.GamePacketBuilder;
  */
 public class PlayerChatUpdateBlock extends PlayerUpdateBlock {
 
-      /**
-       * Creates a new {@link PlayerChatUpdateBlock}.
-       */
-      public PlayerChatUpdateBlock() {
-            super(0x80, UpdateFlag.CHAT);
-      }
+  /**
+   * Creates a new {@link PlayerChatUpdateBlock}.
+   */
+  public PlayerChatUpdateBlock() {
+    super(0x80, UpdateFlag.CHAT);
+  }
 
-      @Override
-      public void encode(Player entity, GamePacketBuilder builder) {
-            final ChatMessage msg = entity.getChatMessage();
-            final byte[] bytes = msg.getText();
+  @Override
+  public void encode(Player entity, GamePacketBuilder builder) {
+    final ChatMessage msg = entity.getChatMessage();
+    final byte[] bytes = msg.getText();
 
-            builder.writeShort(((msg.getColor() & 0xFF) << 8) + (msg.getEffect() & 0xFF), ByteOrder.LITTLE)
-            .write(entity.getRights().getProtocolValue())
-            .write(bytes.length, ByteModification.NEGATION).writeBytesReverse(bytes);
-      }
+    builder.writeShort(((msg.getColor() & 0xFF) << 8) + (msg.getEffect() & 0xFF), ByteOrder.LITTLE)
+        .write(entity.getRights().getProtocolValue()).write(bytes.length, ByteModification.NEGATION)
+        .writeBytesReverse(bytes);
+  }
 
 }

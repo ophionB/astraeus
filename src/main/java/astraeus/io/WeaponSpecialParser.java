@@ -11,18 +11,18 @@ import astraeus.util.GsonObjectParser;
 
 public final class WeaponSpecialParser extends GsonObjectParser<WeaponSpecial> {
 
-	public WeaponSpecialParser() {
-		super("./data/equipment/weapon_specials");
-	}
+  public WeaponSpecialParser() {
+    super("./data/equipment/weapon_specials");
+  }
 
-	@Override
-	public WeaponSpecial[] deserialize(Gson gson, FileReader reader) throws IOException {
-		return gson.fromJson(reader, WeaponSpecial[].class);
-	}
+  @Override
+  public WeaponSpecial[] deserialize(Gson gson, FileReader reader) throws IOException {
+    return gson.fromJson(reader, WeaponSpecial[].class);
+  }
 
-	@Override
-	public void onRead(WeaponSpecial[] array) throws IOException {
-		Arrays.stream(array).forEach(WeaponSpecial.definitions::add);		
-	}
+  @Override
+  public void onRead(WeaponSpecial[] array) throws IOException {
+    Arrays.stream(array).forEach(WeaponSpecial.definitions::add);
+  }
 
 }

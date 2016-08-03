@@ -8,33 +8,28 @@ import astraeus.game.model.entity.mob.combat.CombatType;
  * @author Vult-R
  */
 public enum DamageType {
-    NONE(-1),
-    MELEE(0),
-    RANGED(1),
-    MAGIC(2),
-    DEFLECT(3),
-    CANNON(4);
+  NONE(-1), MELEE(0), RANGED(1), MAGIC(2), DEFLECT(3), CANNON(4);
 
-    private int id;
+  private int id;
 
-    private DamageType(int id) {
-        this.id = id;
+  private DamageType(int id) {
+    this.id = id;
+  }
+
+  public static DamageType of(CombatType type) {
+    switch (type) {
+      case MAGIC:
+        return MAGIC;
+      case MELEE:
+        return MELEE;
+      case RANGE:
+        return RANGED;
     }
-    
-	public static DamageType of(CombatType type) {
-		switch (type) {
-		case MAGIC:
-			return MAGIC;
-		case MELEE:
-			return MELEE;
-		case RANGE:
-			return RANGED;
-		}
-		return NONE;
-	}
+    return NONE;
+  }
 
-    public int getId() {
-        return id;
-    }
+  public int getId() {
+    return id;
+  }
 
 }

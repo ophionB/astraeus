@@ -2,11 +2,10 @@ package astraeus.util;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.logging.Logger;
 
 /**
  * A specialized parser for parsing json files.
@@ -15,90 +14,85 @@ import java.util.logging.Logger;
  */
 public abstract class GsonObjectParser<T> implements Runnable {
 
-	/**
-	 * The single logger for this class.
-	 */
-	private static final Logger LOGGER = LoggerUtils.getLogger(GsonObjectParser.class);
-	
-	/**
-	 * The single instance of Gson for this parser.
-	 */
-	private static final Gson GSON = new GsonBuilder().create();
+  /**
+   * The single logger for this class.
+   */
+  private static final Logger LOGGER = LoggerUtils.getLogger(GsonObjectParser.class);
 
-	/**
-	 * The path to the file being parsed.
-	 */
-	protected String path;
+  /**
+   * The single instance of Gson for this parser.
+   */
+  private static final Gson GSON = new GsonBuilder().create();
 
-	/**
-	 * The flag that denotes to log this result to the output stream.
-	 */
-	private boolean log;
+  /**
+   * The path to the file being parsed.
+   */
+  protected String path;
 
-	/**
-	 * Creates a new {@link GsonObjectParser}.
-	 * 
-	 * @param path
-	 * 		The path of the file being parsed.
-	 */
-	public GsonObjectParser(String path) {
-		this(path, true);
-	}
+  /**
+   * The flag that denotes to log this result to the output stream.
+   */
+  private boolean log;
 
-	/**
-	 * Creates a new {@link GsonObjectParser}.
-	 * 
-	 * @param path
-	 * 		The path of the file being parsed.
-	 * 
-	 * @param log
-	 * 		The flag to log this result.
-	 */
-	public GsonObjectParser(String path, boolean log) {
-		this.path = path;
-		this.log = log;
-	}
+  /**
+   * Creates a new {@link GsonObjectParser}.
+   * 
+   * @param path The path of the file being parsed.
+   */
+  public GsonObjectParser(String path) {
+    this(path, true);
+  }
 
-	/**
-	 * The method that will deserialize the json file into a java object.
-	 * 
-	 * @param gson
-	 * 		The gson object
-	 * 
-	 * @param reader
-	 * 		The reader that will parse the file.
-	 * 
-	 * @throws IOException
-	 * 
-	 * @return The type as an array.
-	 */
-	public abstract T[] deserialize(Gson gson, FileReader reader) throws IOException;
+  /**
+   * Creates a new {@link GsonObjectParser}.
+   * 
+   * @param path The path of the file being parsed.
+   * 
+   * @param log The flag to log this result.
+   */
+  public GsonObjectParser(String path, boolean log) {
+    this.path = path;
+    this.log = log;
+  }
 
-	/**
-	 * The method called after the {@link #deserialize(Gson, FileReader)} has been called.
-	 * 
-	 * @param array
-	 * 		The array that was deserialized.
-	 * 
-	 * @throw IOException
-	 */
-	public abstract void onRead(T[] array) throws IOException;
+  /**
+   * The method that will deserialize the json file into a java object.
+   * 
+   * @param gson The gson object
+   * 
+   * @param reader The reader that will parse the file.
+   * 
+   * @throws IOException
+   * 
+   * @return The type as an array.
+   */
+  public abstract T[] deserialize(Gson gson, FileReader reader) throws IOException;
 
-	@Override
-	public void run() {		
-		try (FileReader reader = new FileReader(path + ".json")) {
-			
-			T[] types = deserialize(GSON, reader);
+  /**
+   * The method called after the {@link #deserialize(Gson, FileReader)} has been called.
+   * 
+   * @param array The array that was deserialized.
+   * 
+   * @throw IOException
+   */
+  public abstract void onRead(T[] array) throws IOException;
 
-			onRead(types);
+  @Override
+  public void run() {
+    try (FileReader reader = new FileReader(path + ".json")) {
 
-			if (log) {
-				LOGGER.info("Loaded: " + types.length + " " + path.substring(path.lastIndexOf("/")  + 1).replaceAll("_", " "));
-			}
+      T[] types = deserialize(GSON, reader);
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+      onRead(types);
 
-	}
+      if (log) {
+        LOGGER.info("Loaded: " + types.length + " "
+            + path.substring(path.lastIndexOf("/") + 1).replaceAll("_", " "));
+      }
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+  }
 }

@@ -12,8 +12,8 @@ import astraeus.net.packet.Receivable;
 @IncomingPacket.IncomingPacketOpcode(IncomingPacket.REPORT_PLAYER)
 public final class ReportPlayerPacket implements Receivable {
 
-    @Override
-    public void handlePacket(Player player, IncomingPacket packet) {
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
 
-    }
+  }
 }

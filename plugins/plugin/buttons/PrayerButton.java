@@ -10,7 +10,7 @@ public final class PrayerButton extends ButtonClick {
 
 	@Override
 	protected void execute(Player player, ButtonActionEvent event) {
-		player.getPrayer().clickButton(event.getButton());
+		player.getCombatPrayer().clickButton(event.getButton());
 	}
 
 	@Override

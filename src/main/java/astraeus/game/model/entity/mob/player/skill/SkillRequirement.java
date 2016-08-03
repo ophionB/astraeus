@@ -7,22 +7,22 @@ package astraeus.game.model.entity.mob.player.skill;
  */
 public class SkillRequirement {
 
-	private final int level;
+  private final int level;
 
-	private final SkillData skill;
+  private final SkillData skill;
 
-	public SkillRequirement(int level, SkillData skill) {
-		this.level = level;
-		this.skill = skill;
-	}
+  public SkillRequirement(int level, SkillData skill) {
+    this.level = level;
+    this.skill = skill;
+  }
 
-	public int getLevel() {
-		return level;
-	}
+  public int getLevel() {
+    return level;
+  }
 
-	public SkillData getSkill() {
-		return skill;
-	}
+  public SkillData getSkill() {
+    return skill;
+  }
 
 }
 

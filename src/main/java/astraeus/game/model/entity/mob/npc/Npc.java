@@ -1,5 +1,7 @@
 package astraeus.game.model.entity.mob.npc;
 
+import java.util.Objects;
+
 import astraeus.game.GameConstants;
 import astraeus.game.model.Direction;
 import astraeus.game.model.Position;
@@ -9,276 +11,156 @@ import astraeus.game.model.entity.mob.combat.dmg.Hit;
 import astraeus.game.model.entity.mob.update.UpdateFlag;
 import astraeus.game.model.location.Area;
 import astraeus.util.Stopwatch;
-
-import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Npc extends Mob {
 
-      private Direction facingDirection = Direction.SOUTH;
+  @Getter
+  private Direction facingDirection = Direction.SOUTH;
 
-      private Position createdLocation;
+  @Getter
+  @Setter
+  private Position createdLocation;
 
-      private int maximumHealth = 100;
+  @Getter
+  @Setter
+  private int maximumHealth = 100;
 
-      private int currentHealth = 100;
+  @Getter
+  @Setter
+  private int currentHealth = 100;
 
-      private boolean randomWalk;
+  @Getter
+  @Setter
+  private boolean randomWalk;
 
-      private int respawnTimer;
+  @Getter
+  @Setter
+  private int respawnTimer;
 
-      private final Stopwatch randomWalkTimer = new Stopwatch();
+  @Getter
+  private final Stopwatch randomWalkTimer = new Stopwatch();
 
-      private boolean following;
+  @Getter
+  @Setter
+  private boolean following;
 
-      private Area walkingArea;
+  public Npc(int id) {
+    super(GameConstants.DEFAULT_LOCATION);
+    setId(id);
+    size = NpcDefinition.get(id).getSize();
+  }
 
-      private Mob owner;
+  @Override
+  public void onDeath() {
 
-      private boolean lockFollow;
+  }
 
-      public Npc(int id) {
-            super(GameConstants.DEFAULT_LOCATION);
-            setId(id);
-            size = NpcDefinition.get(id).getSize();
-      }
-      
-      @Override
-      public void onDeath() {
-            
-      }
+  @Override
+  public void onMovement() {
 
-      @Override
-      public void onMovement() {
+  }
 
-      }
+  @Override
+  public int size() {
+    return NpcDefinition.get(getId()).getSize();
+  }
 
-      @Override
-      public int size() {            
-            return NpcDefinition.get(getId()).getSize();
-      }
+  public String getName() {
+    return NpcDefinition.getDefinitions()[getId()].getName();
+  }
 
-      @Override
-      public void postUpdate() {
-            getUpdateFlags().clear();
-            getAnimations().clear();
-            getGraphics().clear();
-      }
+  public String getName(int npcId) {
+    if (NpcDefinition.getDefinitions()[npcId] == null || npcId < 0
+        || npcId >= NpcDefinition.MOB_LIMIT) {
+      return "None";
+    }
+    return NpcDefinition.getDefinitions()[npcId].getName();
+  }
 
-      @Override
-      public void decrementHealth(int HP) {
-            this.currentHealth -= HP;
+  @Override
+  public void preUpdate() {
 
-            if (currentHealth <= 0) {
-                  currentHealth = 100;
-                  // setDead(true);
-                  return;
-            }
-      }
+    movement.handleEntityMovement();
 
-      /**
-       * @return the createdLocation
-       */
-      public Position getCreatedLocation() {
-            return createdLocation;
-      }
+    tick();
 
-      @Override
-      public int getCurrentHealth() {
-            return currentHealth;
-      }
+    if (!isRandomWalk() && getInteractingEntity() == null && getTick() % 5 == 4) {
+      Npcs.resetFacingDirection(this);
+    }
 
-      public Direction getFacingDirection() {
-            return facingDirection;
-      }
+    if (!isDead() && getInteractingEntity() == null) {
+      resetEntityInteraction();
+    }
 
-      @Override
-      public int getMaximumHealth() {
-            return maximumHealth;
-      }
+    if (isRandomWalk() && getInteractingEntity() == null && getTick() % 5 == 4) {
+      Npcs.handleRandomWalk(this);
+    }
+  }
 
-      public String getName() {
-            return NpcDefinition.getDefinitions()[getId()].getName();
-      }
+  @Override
+  public void postUpdate() {
+    getUpdateFlags().clear();
+    getAnimations().clear();
+    getGraphics().clear();
+  }
 
-      public String getName(int npcId) {
-            if (NpcDefinition.getDefinitions()[npcId] == null || npcId < 0
-                        || npcId >= NpcDefinition.MOB_LIMIT) {
-                  return "None";
-            }
-            return NpcDefinition.getDefinitions()[npcId].getName();
-      }
+  public void setFacingDirection(Direction facingDirection) {
+    this.facingDirection = facingDirection;
+    getUpdateFlags().add(UpdateFlag.FACE_COORDINATE);
+  }
 
-      public int getRespawnTimer() {
-            return respawnTimer;
-      }
+  /**
+   * The mob should walk to home
+   * 
+   * @return If the mob can walk to home or not
+   */
+  public boolean isWalkToHome() {
+    if (Area.inWilderness(this)) {
+      return Math.abs(getPosition().getX() - createdLocation.getX())
+          + Math.abs(getPosition().getY() - createdLocation.getY()) > getSize() * 1 + 2;
+    }
 
-      /**
-       * @return the following
-       */
-      public boolean isFollowing() {
-            return following;
-      }
+    if (isNpc()) { // TODO: isAttackable
+      return Math.abs(getPosition().getX() - createdLocation.getX())
+          + Math.abs(getPosition().getY() - createdLocation.getY()) > getSize() * 2 + 6;
+    }
 
-      public boolean isRandomWalk() {
-            return randomWalk;
-      }
+    return Position.getManhattanDistance(createdLocation, getPosition()) > 2;
+  }
 
-      @Override
-      public void preUpdate() {
-    	  
-            movement.handleEntityMovement();
-            
-            tick();
-            
-			if (!isRandomWalk() && getInteractingEntity() == null && getTick() % 5 == 4) {
-				Npcs.resetFacingDirection(this);
-			}
+  @Override
+  public void onTick() {
 
-			if (!isDead() && getInteractingEntity() == null) {
-				resetEntityInteraction();
-			}
+  }
 
-			if (isRandomWalk() && getInteractingEntity() == null && getTick() % 5 == 4) {
-				Npcs.handleRandomWalk(this);
-			}
-      }
+  @Override
+  public void dealDamage(Hit hit) {
+    if (getCurrentHealth() - hit.getDamage() <= 0) {
+      hit.setDamage(getCurrentHealth());
+      this.setCurrentHealth(100);
+    }
 
-      /**
-       * @param createdLocation the createdLocation to set
-       */
-      public void setCreatedLocation(Position createdLocation) {
-            this.createdLocation = createdLocation;
-      }
+    setCurrentHealth(getCurrentHealth() - hit.getDamage());
 
-      public void setCurrentHealth(int HP) {
-            this.currentHealth = HP;
-      }
+    hitQueue.add(hit);
+    getUpdateFlags().add(UpdateFlag.HIT);
+  }
 
-      public void setFacingDirection(Direction facingDirection) {
-            this.facingDirection = facingDirection;
-            getUpdateFlags().add(UpdateFlag.FACE_COORDINATE);
-      }
+  @Override
+  public EntityType type() {
+    return EntityType.NPC;
+  }
 
-      /**
-       * @param following the following to set
-       */
-      public void setFollowing(boolean following) {
-            this.following = following;
-      }
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId(), getSlot());
+  }
 
-      public void setMaximumHealth(int maximumHealth) {
-            this.maximumHealth = maximumHealth;
-      }
-
-      public void setRandomWalk(boolean randomWalk) {
-            this.randomWalk = randomWalk;
-      }
-
-      public void setRespawnTimer(int respawnTimer) {
-            this.respawnTimer = respawnTimer;
-      }
-
-      public void setLockFollow(boolean lockFollow) {
-            this.lockFollow = lockFollow;
-      }
-
-      @Override
-      public int hashCode() {
-            return Objects.hash(getId(), getSlot());
-      }
-
-      @Override
-      public boolean equals(Object obj) {
-            if (obj == null) {
-                  return false;
-            }
-
-            if (obj instanceof Npc) {
-                  Npc other = (Npc) obj;
-                  return other.hashCode() == hashCode();
-            }
-
-            return false;
-      }
-
-      /**
-       * The mob should walk to home
-       * 
-       * @return If the mob can walk to home or not
-       */
-      public boolean isWalkToHome() {
-            if (Area.inWilderness(this)) {
-                  return Math.abs(getPosition().getX() - createdLocation.getX()) + Math.abs(
-                              getPosition().getY() - createdLocation.getY()) > getSize() * 1 + 2;
-            }
-
-            if (isNpc()) { // TODO: isAttackable
-                  return Math.abs(getPosition().getX() - createdLocation.getX()) + Math.abs(
-                              getPosition().getY() - createdLocation.getY()) > getSize() * 2 + 6;
-            }
-
-            return Position.getManhattanDistance(createdLocation, getPosition()) > 2;
-      }
-
-      public Mob getOwner() {
-            return owner;
-      }
-
-      public boolean isLockFollow() {
-            return lockFollow;
-      }
-
-      /**
-       * @return the walkingArea
-       */
-      public Area getWalkingArea() {
-            return walkingArea;
-      }
-
-      /**
-       * @param walkingArea the walkingArea to set
-       */
-      public void setWalkingArea(Area walkingArea) {
-            this.walkingArea = walkingArea;
-      }
-
-      /**
-       * @return the randomWalkTimer
-       */
-      public Stopwatch getRandomWalkTimer() {
-            return randomWalkTimer;
-      }
-
-      @Override
-      public int getHashCode() {
-            return Objects.hash(getId(), getSlot());
-      }
-
-      public String toString() {
-            return String.format("[MOB] - [name= %s] [id= %d] [slot= %d] [location= %s]", getName(), getId(), getSlot(), getPosition().toString());
-      }
-
-	@Override
-	public EntityType type() {
-		return EntityType.NPC;
-	}
-
-	@Override
-	public void onTick() {
-		
-	}
-
-	@Override
-	public void dealDamage(Hit hit) {
-		if (getCurrentHealth() - hit.getDamage() <= 0) {
-			hit.setDamage(getCurrentHealth());
-			this.setCurrentHealth(100);
-		}
-		
-		setCurrentHealth(getCurrentHealth() - hit.getDamage());
-		
-		hitQueue.add(hit);
-		getUpdateFlags().add(UpdateFlag.HIT);			
-	}
+  public String toString() {
+    return String.format("[MOB] - [name= %s] [id= %d] [slot= %d] [location= %s]", getName(),
+        getId(), getSlot(), getPosition().toString());
+  }
 
 }

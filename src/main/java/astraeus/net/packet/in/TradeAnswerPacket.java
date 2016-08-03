@@ -7,9 +7,9 @@ import astraeus.net.packet.Receivable;
 @IncomingPacket.IncomingPacketOpcode(IncomingPacket.TRADE_ANSWER)
 public final class TradeAnswerPacket implements Receivable {
 
-	@Override
-	public void handlePacket(Player player, IncomingPacket packet) {
-		
-	}
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
+
+  }
 
 }

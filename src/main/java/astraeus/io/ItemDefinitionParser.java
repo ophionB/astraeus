@@ -16,22 +16,22 @@ import astraeus.util.GsonObjectParser;
  */
 public final class ItemDefinitionParser extends GsonObjectParser<ItemDefinition> {
 
-	/**
-	 * Creates a new {@link ItemDefinitionParser}.
-	 * 
-	 */
-	public ItemDefinitionParser() {
-		super("./data/item/item_definitions");
-	}
+  /**
+   * Creates a new {@link ItemDefinitionParser}.
+   * 
+   */
+  public ItemDefinitionParser() {
+    super("./data/item/item_definitions");
+  }
 
-	@Override
-	public ItemDefinition[] deserialize(Gson gson, FileReader reader) throws IOException {
-		return gson.fromJson(reader, ItemDefinition[].class);		
-	}
+  @Override
+  public ItemDefinition[] deserialize(Gson gson, FileReader reader) throws IOException {
+    return gson.fromJson(reader, ItemDefinition[].class);
+  }
 
-	@Override
-	public void onRead(ItemDefinition[] array) throws IOException {
-		Arrays.stream(array).forEach($it -> ItemDefinition.getDefinitions()[$it.getId()] = $it);		
-	}
+  @Override
+  public void onRead(ItemDefinition[] array) throws IOException {
+    Arrays.stream(array).forEach($it -> ItemDefinition.getDefinitions()[$it.getId()] = $it);
+  }
 
 }

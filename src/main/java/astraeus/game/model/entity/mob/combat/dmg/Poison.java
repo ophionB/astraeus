@@ -10,142 +10,140 @@ import astraeus.util.RandomUtils;
  */
 public final class Poison {
 
-	public static enum PoisonType {
-		
-		NONE(0),
+  public static enum PoisonType {
 
-		REGULAR(1),
+    NONE(0),
 
-		VENOM(2);
-		
-		/**
-		 * The code that indicates the poisons type.
-		 */
-		private final int type;
+    REGULAR(1),
 
-		private PoisonType(int type) {
-			this.type = type;
-		}
+    VENOM(2);
 
-		/**
-		 * Gets the type of poision
-		 */
-		public int getType() {
-			return type;
-		}	
-		
-	}
+    /**
+     * The code that indicates the poisons type.
+     */
+    private final int type;
 
-	/**
-	 * Represents the type of poison according to RuneScape.
-	 */
-	public static enum DamageTypes {
+    private PoisonType(int type) {
+      this.type = type;
+    }
 
-		/**
-		 * Represents the type of poison which deals 1's and 2's.
-		 */
-		WEAK(new int[] { 1, 2 }),
+    /**
+     * Gets the type of poision
+     */
+    public int getType() {
+      return type;
+    }
 
-		/**
-		 * Represents the type of poison which deals 4's and 2's.
-		 */
-		DEFAULT(new int[] { 4, 2 }),
+  }
 
-		/**
-		 * Represents the type of poison which deals 5's and 3's.
-		 */
-		STRONG(new int[] { 5, 3 }),
+  /**
+   * Represents the type of poison according to RuneScape.
+   */
+  public static enum DamageTypes {
 
-		/**
-		 * Represents the type of poison which deals 6's and 4's.
-		 */
-		SUPER(new int[] { 6, 4 }),
+    /**
+     * Represents the type of poison which deals 1's and 2's.
+     */
+    WEAK(new int[] {1, 2}),
 
-		/**
-		 * Represents the type of poison that deals 8's and 6's.
-		 */
-		NPC(new int[] { 8, 6 });
+    /**
+     * Represents the type of poison which deals 4's and 2's.
+     */
+    DEFAULT(new int[] {4, 2}),
 
-		/**
-		 * The possible hits for this type.
-		 */
-		private final int[] hits;
+    /**
+     * Represents the type of poison which deals 5's and 3's.
+     */
+    STRONG(new int[] {5, 3}),
 
-		/**
-		 * Creates a new {@link DamageTypes}.
-		 * 
-		 * @param hits
-		 *            The possible hits for this type.
-		 */
-		private DamageTypes(int[] hits) {
-			this.hits = hits;
-		}
+    /**
+     * Represents the type of poison which deals 6's and 4's.
+     */
+    SUPER(new int[] {6, 4}),
 
-		/**
-		 * Gets a random damage.
-		 * 
-		 * @return The damage.
-		 */
-		public int getDamage() {
-			for (Integer damage : hits) {
-				if (RandomUtils.random(hits.length) == 1) {
-					return damage;
-				}
-			}
-			return hits[0];
+    /**
+     * Represents the type of poison that deals 8's and 6's.
+     */
+    NPC(new int[] {8, 6});
 
-		}
+    /**
+     * The possible hits for this type.
+     */
+    private final int[] hits;
 
-		/**
-		 * @return the damage
-		 */
-		public int[] getHits() {
-			return hits;
-		}
-	}
+    /**
+     * Creates a new {@link DamageTypes}.
+     * 
+     * @param hits The possible hits for this type.
+     */
+    private DamageTypes(int[] hits) {
+      this.hits = hits;
+    }
 
-	/**
-	 * Gets the type of poison for a specified weapon.
-	 * 
-	 * @param id
-	 *            The id of the weapon.
-	 * 
-	 * @return The strength of the poison.
-	 */
-	public static DamageTypes getPoisonTypeForWeapon(int id) {
+    /**
+     * Gets a random damage.
+     * 
+     * @return The damage.
+     */
+    public int getDamage() {
+      for (Integer damage : hits) {
+        if (RandomUtils.random(hits.length) == 1) {
+          return damage;
+        }
+      }
+      return hits[0];
 
-		if (Poison.isWeaponPoisonous(id)) {
+    }
 
-			String name = ItemDefinition.lookup(id).getName();
+    /**
+     * @return the damage
+     */
+    public int[] getHits() {
+      return hits;
+    }
+  }
 
-			if (name.contains("(p)")) {
-				return DamageTypes.WEAK;
-			} else if (name.contains("(p+)")) {
-				return DamageTypes.STRONG;
-			} else if (name.contains("(p++)")) {
-				return DamageTypes.SUPER;
-			}
+  /**
+   * Gets the type of poison for a specified weapon.
+   * 
+   * @param id The id of the weapon.
+   * 
+   * @return The strength of the poison.
+   */
+  public static DamageTypes getPoisonTypeForWeapon(int id) {
 
-		}
-		return DamageTypes.DEFAULT;
-	}
+    if (Poison.isWeaponPoisonous(id)) {
 
-	/**
-	 * Determines if a weapon if poisonous
-	 * 
-	 * @param id
-	 *            The id of the weapon to check.
-	 */
-	public static boolean isWeaponPoisonous(int id) {
-		
-		if (ItemDefinition.lookup(id) == null) {
-			return false;
-		}
-		
-		ItemDefinition def = ItemDefinition.lookup(id);
-		
-		return def.getName().contains("(p)") || def.getName().contains("(p+)") || def.getName().contains("(p++)");
-	}
+      String name = ItemDefinition.lookup(id).getName();
+
+      if (name.contains("(p)")) {
+        return DamageTypes.WEAK;
+      } else if (name.contains("(p+)")) {
+        return DamageTypes.STRONG;
+      } else if (name.contains("(p++)")) {
+        return DamageTypes.SUPER;
+      }
+
+    }
+    return DamageTypes.DEFAULT;
+  }
+
+  /**
+   * Determines if a weapon if poisonous
+   * 
+   * @param id The id of the weapon to check.
+   */
+  public static boolean isWeaponPoisonous(int id) {
+
+    if (ItemDefinition.lookup(id) == null) {
+      return false;
+    }
+
+    ItemDefinition def = ItemDefinition.lookup(id);
+
+    return def.getName().contains("(p)") || def.getName().contains("(p+)")
+        || def.getName().contains("(p++)");
+  }
 
 }
 

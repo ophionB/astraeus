@@ -23,7 +23,7 @@ public final class RegisterPlayerEventConsumer implements EventSubscriber<Regist
 		World.world.register(event.getPlayer());
 		event.getPlayer().setRegionChange(true);
 		event.getPlayer().getUpdateFlags().add(UpdateFlag.APPEARANCE);		
-		event.getPlayer().setPosition(event.getPlayer().attr().contains(AttributeKey.valueOf("new_player", true)) ? Player.defaultSpawn : event.getPlayer().getPosition());
+		event.getPlayer().setPosition(event.getPlayer().attr().contains(AttributeKey.valueOf("new_player", true)) ? Player.DEFAULT_RESPAWN : event.getPlayer().getPosition());
 		logger.info(String.format("[REGISTERED]: [user= %s]", event.getPlayer().getUsername()));
 		
 		player.post(new PostLoginEvent(event.getPlayer()));

@@ -9,30 +9,30 @@ import astraeus.game.model.entity.mob.player.collect.Equipment;
  */
 public enum AttackStyle {
 
-    STAB(Equipment.STAB, Equipment.STAB_DEFENSE),
+  STAB(Equipment.STAB, Equipment.STAB_DEFENSE),
 
-    SLASH(Equipment.SLASH, Equipment.SLASH_DEFENSE),
+  SLASH(Equipment.SLASH, Equipment.SLASH_DEFENSE),
 
-    CRUSH(Equipment.CRUSH, Equipment.CRUSH_DEFENSE),
+  CRUSH(Equipment.CRUSH, Equipment.CRUSH_DEFENSE),
 
-    RANGED(Equipment.RANGED, Equipment.RANGED_DEFENSE),
+  RANGED(Equipment.RANGED, Equipment.RANGED_DEFENSE),
 
-    MAGIC(Equipment.MAGIC, Equipment.MAGIC_DEFENSE);
+  MAGIC(Equipment.MAGIC, Equipment.MAGIC_DEFENSE);
 
-    private int offensiveSlot;
-    private int defensiveSlot;
+  private int offensiveSlot;
+  private int defensiveSlot;
 
-    private AttackStyle(int offensiveSlot, int defensiveSlot) {
-        this.offensiveSlot = offensiveSlot;
-        this.defensiveSlot = defensiveSlot;
-    }
+  private AttackStyle(int offensiveSlot, int defensiveSlot) {
+    this.offensiveSlot = offensiveSlot;
+    this.defensiveSlot = defensiveSlot;
+  }
 
-    public int getDefensiveSlot() {
-        return defensiveSlot;
-    }
+  public int getDefensiveSlot() {
+    return defensiveSlot;
+  }
 
-    public int getOffensiveSlot() {
-        return offensiveSlot;
-    }
+  public int getOffensiveSlot() {
+    return offensiveSlot;
+  }
 
 }

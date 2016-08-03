@@ -13,30 +13,30 @@ import astraeus.net.packet.Receivable;
 @IncomingPacket.IncomingPacketOpcode(IncomingPacket.OBJECT_OPTION_4)
 public final class ObjectFourthOptionPacket implements Receivable {
 
-	@Override
-	public void handlePacket(Player player, IncomingPacket packet) {
-		ByteBufReader reader = packet.getReader();
+  @Override
+  public void handlePacket(Player player, IncomingPacket packet) {
+    ByteBufReader reader = packet.getReader();
 
-		int x = reader.readShort(ByteModification.ADDITION);
-		int y = reader.readShort(ByteModification.ADDITION);
-		int id = reader.readShort();				
+    int x = reader.readShort(ByteModification.ADDITION);
+    int y = reader.readShort(ByteModification.ADDITION);
+    int id = reader.readShort();
 
-		GameObject object = new GameObject(id, new Position(x, y, player.getPosition().getHeight()));
+    GameObject object = new GameObject(id, new Position(x, y, player.getPosition().getHeight()));
 
-		if (player == null || object == null || object.getId() != id) {
-			return;
-		}
+    if (player == null || object == null || object.getId() != id) {
+      return;
+    }
 
-		player.startAction(new DistancedTask(player, object.getPosition(), 2) {
+    player.startAction(new DistancedTask(player, object.getPosition(), 2) {
 
-			@Override
-			public void onReached() {
-				player.faceLocation(object.getPosition());
-				player.post(new ObjectFourthClickEvent(object));
-			}
-			
-		});
-		
-	}
+      @Override
+      public void onReached() {
+        player.faceLocation(object.getPosition());
+        player.post(new ObjectFourthClickEvent(object));
+      }
+
+    });
+
+  }
 
 }

@@ -5,14 +5,14 @@ import astraeus.game.model.entity.object.GameObject;
 
 public final class ObjectFirstClickEvent implements Event {
 
-	private final GameObject gameObject;	
-	
-	public ObjectFirstClickEvent(GameObject gameObject) {		
-		this.gameObject = gameObject;
-	}
+  private final GameObject gameObject;
 
-	public GameObject getGameObject() {
-		return gameObject;
-	}
-	
+  public ObjectFirstClickEvent(GameObject gameObject) {
+    this.gameObject = gameObject;
+  }
+
+  public GameObject getGameObject() {
+    return gameObject;
+  }
+
 }

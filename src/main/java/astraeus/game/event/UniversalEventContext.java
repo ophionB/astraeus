@@ -7,24 +7,24 @@ package astraeus.game.event;
  */
 public final class UniversalEventContext implements EventContext {
 
-	/**
-	 * A flag denoting whether or not the subscriber chain is broken.
-	 */
-	private boolean chainBroken;
+  /**
+   * A flag denoting whether or not the subscriber chain is broken.
+   */
+  private boolean chainBroken;
 
-	@Override
-	public void breakSubscriberChain() {
-		chainBroken = true;
-	}
+  @Override
+  public void breakSubscriberChain() {
+    chainBroken = true;
+  }
 
-	@Override
-	public void repairSubscriberChain() {
-		chainBroken = false;
-	}
+  @Override
+  public void repairSubscriberChain() {
+    chainBroken = false;
+  }
 
-	@Override
-	public boolean isChainBroken() {
-		return chainBroken;
-	}
+  @Override
+  public boolean isChainBroken() {
+    return chainBroken;
+  }
 
 }

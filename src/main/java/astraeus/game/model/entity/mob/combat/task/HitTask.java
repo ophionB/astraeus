@@ -8,37 +8,39 @@ import astraeus.game.task.Task;
 import astraeus.util.RandomUtils;
 
 public final class HitTask extends Task {
-	
-	private final Combat combat;
-	
-	private final Mob defender;
 
-	public HitTask(Combat combat, Mob defender) {
-		super("hitTask", combat.getMob(), 0, true, DuplicatePolicy.DISALLOW);
-		this.combat = combat;
-		this.defender = defender;
-	}
+  private final Combat combat;
 
-	@Override
-	public void execute() {
-		if (!combat.isInCombat() || defender.isDead()) {
-			stop();
-			return;
-		}
-		
-		if (!combat.getCombatTimer().cooldownTick(CombatType.MELEE)) {
-			combat.getCombatTimer().setCooldown(CombatType.MELEE, combat.getAttackBuilder().getAttackSpeed());
+  private final Mob defender;
 
-			combat.getAttackBuilder().buildAttack();
+  public HitTask(Combat combat, Mob defender) {
+    super("hitTask", combat.getMob(), 0, true, DuplicatePolicy.DISALLOW);
+    this.combat = combat;
+    this.defender = defender;
+  }
 
-			combat.getMob().setInteractingEntity(defender);	
-			
-			defender.dealDamage(new Hit(RandomUtils.random(0, combat.getMeleeFormula().calculateMaxHit())));
-			
-			defender.setInteractingEntity(combat.getMob());
-			
-			combat.getCombatDelay().reset();
-		}
-	}
+  @Override
+  public void execute() {
+    if (!combat.isInCombat() || defender.isDead()) {
+      stop();
+      return;
+    }
+
+    if (!combat.getCombatTimer().cooldownTick(CombatType.MELEE)) {
+      combat.getCombatTimer().setCooldown(CombatType.MELEE,
+          combat.getAttackBuilder().getAttackSpeed());
+
+      combat.getAttackBuilder().buildAttack();
+
+      combat.getMob().setInteractingEntity(defender);
+
+      defender
+          .dealDamage(new Hit(RandomUtils.random(0, combat.getMeleeFormula().calculateMaxHit())));
+
+      defender.setInteractingEntity(combat.getMob());
+
+      combat.getCombatDelay().reset();
+    }
+  }
 
 }

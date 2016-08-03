@@ -403,9 +403,7 @@ public final class DialogueFactory {
 
     if (dialogue.getId() == -1) {
       if (player.getInteractingEntity() != null) {
-        if (player.getInteractingEntity().isMob()) {
-          npcId = player.getInteractingEntity().getMob().getId();
-        }
+          npcId = player.getInteractingEntity().getMob().getId();          
       }
     } else {
       npcId = dialogue.getId();

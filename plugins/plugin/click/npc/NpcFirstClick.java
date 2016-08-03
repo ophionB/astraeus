@@ -13,41 +13,28 @@ import plugin.dialog.GeneralStoreDialogue;
 @SubscribesTo(NpcFirstClickEvent.class)
 public final class NpcFirstClick implements EventSubscriber<NpcFirstClickEvent> {
 
-	@Override
-	public void subscribe(EventContext context, Player player, NpcFirstClickEvent event) {
-		switch (event.getNpc().getId()) {
-		
-		case 494:		
-		case 495:
-			player.getDialogueFactory().sendDialogue(new BankerDialogue());
-			break;
-			
-		case 599:
-			player.getDialogueFactory().sendDialogue(new AppearanceDialogue());
-			break;
-			
-		case 528:
-			player.getDialogueFactory().sendDialogue(new GeneralStoreDialogue());
-			break;
-			
-			default:
-				player.getDialogueFactory().sendDialogue(new DefaultDialogue(event.getNpc().getId()));
-				break;
-		
-		}
-	}
+  @Override
+  public void subscribe(EventContext context, Player player, NpcFirstClickEvent event) {
+    switch (event.getNpc().getId()) {
 
-	@Override
-	public boolean test(NpcFirstClickEvent event) {
-		switch (event.getNpc().getId()) {
-		case 494:		
-		case 495:
-		case 599:			
-		case 528:
-			return true;
-			
-		}
-		return false;
-	}
-	
+      case 494:
+      case 495:
+        player.getDialogueFactory().sendDialogue(new BankerDialogue());
+        break;
+
+      case 599:
+        player.getDialogueFactory().sendDialogue(new AppearanceDialogue());
+        break;
+
+      case 528:
+        player.getDialogueFactory().sendDialogue(new GeneralStoreDialogue());
+        break;
+
+      default:
+        player.getDialogueFactory().sendDialogue(new DefaultDialogue(event.getNpc().getId()));
+        break;
+
+    }
+  }
+
 }

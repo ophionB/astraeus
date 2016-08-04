@@ -1,6 +1,7 @@
 package astraeus.game.model.entity.mob.combat;
 
 import astraeus.game.model.entity.mob.player.collect.Equipment;
+import lombok.Getter;
 
 /**
  * Represents an attack style.
@@ -19,20 +20,12 @@ public enum AttackStyle {
 
   MAGIC(Equipment.MAGIC, Equipment.MAGIC_DEFENSE);
 
-  private int offensiveSlot;
-  private int defensiveSlot;
+  @Getter private int offensiveSlot;
+  @Getter private int defensiveSlot;
 
   private AttackStyle(int offensiveSlot, int defensiveSlot) {
     this.offensiveSlot = offensiveSlot;
     this.defensiveSlot = defensiveSlot;
-  }
-
-  public int getDefensiveSlot() {
-    return defensiveSlot;
-  }
-
-  public int getOffensiveSlot() {
-    return offensiveSlot;
   }
 
 }

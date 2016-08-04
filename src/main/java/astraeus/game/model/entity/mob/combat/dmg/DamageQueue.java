@@ -6,18 +6,17 @@ import java.util.Objects;
 import java.util.Optional;
 
 import astraeus.game.model.entity.mob.Mob;
+import lombok.Getter;
 
-/**
- * A queue of hits
- */
-public class DamageQueue {
+public final class DamageQueue {
 
   class DamageEntry implements Comparable<DamageEntry> {
-    private final Mob entity;
-    private int damage;
+    
+    @Getter private final Mob mob;    
+    @Getter private int damage;
 
     public DamageEntry(Mob entity, int damage) {
-      this.entity = entity;
+      this.mob = entity;
       this.damage = damage;
     }
 
@@ -27,32 +26,24 @@ public class DamageQueue {
 
     @Override
     public int compareTo(DamageEntry other) {
-      if (other == null || other.getEntity() == null || !other.getEntity().isRegistered()) {
+      if (other == null || other.getMob() == null || !other.getMob().isRegistered()) {
         return -1;
       }
       return Integer.signum(other.damage - damage);
     }
 
-    public int getDamage() {
-      return damage;
+    @Override
+    public int hashCode() {
+      return Objects.hash(mob, damage);
     }
-
-    public Mob getEntity() {
-      return entity;
-    }
-
+    
     @Override
     public boolean equals(Object obj) {
       if (obj instanceof DamageEntry) {
         DamageEntry other = (DamageEntry) obj;
-        return other.entity.equals(entity) && other.damage == damage;
+        return other.mob.equals(mob) && other.damage == damage;
       }
       return false;
-    }
-
-    @Override
-    public int hashCode() {
-      return Objects.hash(entity, damage);
     }
 
   }
@@ -102,7 +93,7 @@ public class DamageQueue {
       return Optional.empty();
     }
 
-    return Optional.of(pWinner == null ? mWinner.getEntity() : pWinner.getEntity());
+    return Optional.of(pWinner == null ? mWinner.getMob() : pWinner.getMob());
   }
 
   public void reset() {

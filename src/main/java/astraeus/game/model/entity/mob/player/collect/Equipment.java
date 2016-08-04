@@ -32,8 +32,18 @@ import lombok.Getter;
 public final class Equipment extends ItemContainer {
 
   public static enum EquipmentType {
-    NONE(-1), HAT(0), CAPE(1), SHIELD(5), GLOVES(9), BOOTS(10), AMULET(2), RING(12), ARROWS(
-        13), BODY(4), LEGS(7), WEAPON(3);
+    NONE(-1),
+    HAT(0),
+    CAPE(1),
+    SHIELD(5),
+    GLOVES(9),
+    BOOTS(10),
+    AMULET(2),
+    RING(12),
+    ARROWS(13),
+    BODY(4),
+    LEGS(7),
+    WEAPON(3);
 
     @Getter
     private final int slot;
@@ -128,7 +138,7 @@ public final class Equipment extends ItemContainer {
   public static final int RANGED_STRENGTH = 11;
   public static final int MAGIC_STRENGTH = 12;
   public static final int PRAYER = 13;
-
+  
   /** Item bonus names. */
   public static final String[] BONUS_NAMES =
       { /* 0 */ "Stab", /* 1 */ "Slash", /* 2 */ "Crush", /* 3 */ "Magic", /* 4 */ "Range",
@@ -275,14 +285,14 @@ public final class Equipment extends ItemContainer {
         if (r.getSkill().getId() == Skill.PRAYER || r.getSkill().getId() == Skill.HITPOINTS) {
           if (player.getSkills().getMaxLevel(r.getSkill().getId()) < r.getLevel()) {
             player.queuePacket(new ServerMessagePacket("You need "
-                + StringUtils.getAOrAn(r.getSkill().toString()) + " " + r.getSkill().toString()
+                + StringUtils.getAOrAn(r.getSkill().getName()) + " " + r.getSkill().getName()
                 + " level of " + r.getLevel() + " to equip this item."));
             return false;
           }
         } else {
           if (player.getSkills().getLevel(r.getSkill().getId()) < r.getLevel()) {
             player.queuePacket(new ServerMessagePacket("You need "
-                + StringUtils.getAOrAn(r.getSkill().toString()) + " " + r.getSkill().toString()
+                + StringUtils.getAOrAn(r.getSkill().getName()) + " " + r.getSkill().getName()
                 + " level of " + r.getLevel() + " to equip this item."));
             return false;
           }

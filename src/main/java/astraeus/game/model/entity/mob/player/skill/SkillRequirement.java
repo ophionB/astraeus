@@ -1,10 +1,13 @@
 package astraeus.game.model.entity.mob.player.skill;
 
+import lombok.Data;
+
 /**
  * The skill-related requirement.
  * 
  * @author SeVen
  */
+@Data
 public class SkillRequirement {
 
   private final int level;
@@ -14,14 +17,6 @@ public class SkillRequirement {
   public SkillRequirement(int level, SkillData skill) {
     this.level = level;
     this.skill = skill;
-  }
-
-  public int getLevel() {
-    return level;
-  }
-
-  public SkillData getSkill() {
-    return skill;
   }
 
 }

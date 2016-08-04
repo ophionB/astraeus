@@ -1,5 +1,8 @@
 package astraeus.game.model.entity.mob.combat.dmg;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Represents a hitsplat
  *
@@ -7,14 +10,14 @@ package astraeus.game.model.entity.mob.combat.dmg;
  */
 public final class Hit {
 
-  private int damage;
+  @Getter private int damage;
 
-  private HitType type;
+  @Getter @Setter private HitType type;
 
-  private DamageType damageType;
+  @Getter @Setter private DamageType damageType;
 
-  private boolean isSecond;
-  private boolean enabled;
+  @Getter @Setter private boolean isSecond;
+  @Getter @Setter private boolean enabled;
 
   public Hit(int damage) {
     this(damage, HitType.NORMAL, DamageType.NONE);
@@ -38,26 +41,6 @@ public final class Hit {
     enable();
   }
 
-  public int getDamage() {
-    return damage;
-  }
-
-  public HitType getType() {
-    return type;
-  }
-
-  public DamageType getDamageType() {
-    return damageType;
-  }
-
-  public boolean isSecond() {
-    return isSecond;
-  }
-
-  public void setSecond(boolean isSecond) {
-    this.isSecond = isSecond;
-  }
-
   public void setDamage(int damage) {
     this.damage = damage;
 
@@ -76,13 +59,14 @@ public final class Hit {
     enabled = true;
   }
 
-  public boolean isEnabled() {
-    return enabled;
-  }
-
   @Override
   public Hit clone() {
     return new Hit(damage, type, damageType);
+  }
+  
+  @Override
+  public String toString() {
+    return "[HIT] - Damage: " + getDamage() + " Type: " + getType().name();
   }
 
   @Override
@@ -93,11 +77,6 @@ public final class Hit {
 
     final Hit hit = (Hit) other;
     return hit.damage == damage && hit.type == type;
-  }
-
-  @Override
-  public String toString() {
-    return "[HIT] - Damage: " + getDamage() + " Type: " + getType().name();
   }
 
 }

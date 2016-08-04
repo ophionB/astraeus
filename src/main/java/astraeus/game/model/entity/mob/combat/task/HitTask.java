@@ -26,9 +26,9 @@ public final class HitTask extends Task {
       return;
     }
 
-    if (!combat.getCombatTimer().cooldownTick(CombatType.MELEE)) {
-      combat.getCombatTimer().setCooldown(CombatType.MELEE,
-          combat.getAttackBuilder().getAttackSpeed());
+    if (!combat.getCombatCooldown().contains(CombatType.MELEE)) {
+          combat.getCombatCooldown().add(CombatType.MELEE, combat.getAttackBuilder().getAttackSpeed(),
+          combat.getMob());
 
       combat.getAttackBuilder().buildAttack();
 
@@ -38,8 +38,6 @@ public final class HitTask extends Task {
           .dealDamage(new Hit(RandomUtils.random(0, combat.getMeleeFormula().calculateMaxHit())));
 
       defender.setInteractingEntity(combat.getMob());
-
-      combat.getCombatDelay().reset();
     }
   }
 

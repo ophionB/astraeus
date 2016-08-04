@@ -3,7 +3,6 @@ package astraeus.game.model.entity.mob.combat.formula;
 import astraeus.game.model.entity.mob.Mob;
 import astraeus.game.model.entity.mob.combat.Combat;
 import astraeus.game.model.entity.mob.combat.CombatPrayer.PrayerType;
-import astraeus.game.model.entity.mob.combat.attack.AttackType;
 import astraeus.game.model.entity.mob.player.skill.Skill;
 
 public abstract class Formula {
@@ -17,16 +16,6 @@ public abstract class Formula {
   public abstract int calculateMaxHit();
 
   public abstract boolean isAccurate(Mob attacker, Mob defender);
-
-  public int getAttackRoll(int level, int bonus, AttackType type) {
-    final int effectiveLevel = level + type.getAccuracyIncrease() + 8;
-    return (int) Math.ceil(effectiveLevel * (1 + bonus / 64.0) / 4.0);
-  }
-
-  public int getDefenceRoll(int level, int bonus, AttackType type) {
-    final int effectiveLevel = level + type.getDefensiveIncrease() + 8;
-    return (int) Math.ceil(effectiveLevel * (1 + bonus / 64.0) / 4.0);
-  }
 
   public final int getEffectiveAttack(Mob entity) {
     double level = entity.getSkills().getLevel(Skill.ATTACK);

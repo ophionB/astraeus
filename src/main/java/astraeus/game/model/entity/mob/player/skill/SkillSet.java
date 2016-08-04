@@ -116,66 +116,6 @@ public class SkillSet {
   }
 
   public void addCombatExperience(CombatType combatType, int damage) {
-    if (damage <= 0) {
-      return;
-    }
-
-    Player player = entity.getPlayer();
-
-    damage = damage * combatType.getRate();
-
-    switch (combatType) {
-
-      case RANGE:
-        switch (player.getCombat().getAttackType()) {
-          case RAPID:
-          case ACCURATE:
-          case AGGRESSIVE:
-          case CONTROLLED:
-            addExperience(4, damage);
-            break;
-          case LONGRANGE:
-          case DEFENSIVE:
-            addExperience(1, damage / 2);
-            addExperience(4, damage / 2);
-            break;
-        }
-        break;
-
-      case MELEE:
-        switch (player.getCombat().getAttackType()) {
-          case ACCURATE:
-            addExperience(0, damage);
-            break;
-
-          case AGGRESSIVE:
-            addExperience(2, damage);
-            break;
-
-          case DEFENSIVE:
-            addExperience(1, damage);
-            break;
-
-          case CONTROLLED:
-            addExperience(0, (int) (damage / 3.0));
-            addExperience(1, (int) (damage / 3.0));
-            addExperience(2, (int) (damage / 3.0));
-            break;
-
-          case LONGRANGE:
-            addExperience(4, damage);
-            break;
-          case RAPID:
-            addExperience(1, damage / 2);
-            addExperience(4, damage / 2);
-            break;
-        }
-      default:
-        break;
-    }
-
-    addExperience(3, (int) (damage / 3.0));
-
   }
 
   public int calculateCombatLevel() {

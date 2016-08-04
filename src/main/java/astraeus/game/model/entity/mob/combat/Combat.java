@@ -2,13 +2,13 @@ package astraeus.game.model.entity.mob.combat;
 
 import astraeus.game.model.entity.mob.Mob;
 import astraeus.game.model.entity.mob.combat.attack.AttackBuilder;
-import astraeus.game.model.entity.mob.combat.attack.AttackType;
 import astraeus.game.model.entity.mob.combat.formula.impl.MeleeFormula;
 import astraeus.game.model.entity.mob.combat.task.HitTask;
 import astraeus.util.Stopwatch;
+import lombok.Getter;
 
 public final class Combat {
-
+  
   public static final int ATTACK_STAB = 0;
   public static final int ATTACK_SLASH = 1;
   public static final int ATTACK_CRUSH = 2;
@@ -22,16 +22,11 @@ public final class Combat {
   public static final int BONUS_STRENGTH = 10;
   public static final int BONUS_PRAYER = 11;
 
-  public static final String[] BONUS_NAMES = {"Stab", "Slash", "Crush", "Magic", "Range", "Stab",
-      "Slash", "Crush", "Magic", "Range", "Strength", "Prayer"};
-
-  private AttackType attackType;
-
   private final MeleeFormula meleeFormula = new MeleeFormula(this);
 
   private final AttackBuilder attackBuilder = new AttackBuilder(this);
 
-  private final CombatTimer combatTimer = new CombatTimer();
+  @Getter private final CombatCooldown combatCooldown = new CombatCooldown();
 
   private final Mob mob;
 
@@ -46,6 +41,10 @@ public final class Combat {
   public void attack(Mob mob) {
 
     inCombat = true;
+    
+    if (combatCooldown.contains(CombatType.MELEE)) {
+      return;
+    }
 
     mob.startAction(new HitTask(this, mob));
 
@@ -54,12 +53,8 @@ public final class Combat {
 
   public void setCooldown(int delay) {
     if (inCombat && attackBuilder.getCombatType() != null) {
-      getCombatTimer().setCooldown(attackBuilder.getCombatType(), delay);
+      combatCooldown.add(attackBuilder.getCombatType(), delay, mob);
     }
-  }
-
-  public AttackType getAttackType() {
-    return attackType;
   }
 
   public MeleeFormula getMeleeFormula() {
@@ -84,10 +79,6 @@ public final class Combat {
 
   public Stopwatch getCombatDelay() {
     return combatDelay;
-  }
-
-  public CombatTimer getCombatTimer() {
-    return combatTimer;
   }
 
 }

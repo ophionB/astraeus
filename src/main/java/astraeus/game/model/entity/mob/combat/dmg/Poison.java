@@ -2,9 +2,10 @@ package astraeus.game.model.entity.mob.combat.dmg;
 
 import astraeus.game.model.entity.item.ItemDefinition;
 import astraeus.util.RandomUtils;
+import lombok.Getter;
 
 /**
- * Represents a detriment that can damage entities for a period of time.
+ * Represents a detriment that can damage mobs for a period of time.
  * 
  * @author Vult-R
  */
@@ -21,17 +22,10 @@ public final class Poison {
     /**
      * The code that indicates the poisons type.
      */
-    private final int type;
+    @Getter private final int type;
 
     private PoisonType(int type) {
       this.type = type;
-    }
-
-    /**
-     * Gets the type of poision
-     */
-    public int getType() {
-      return type;
     }
 
   }
@@ -69,7 +63,7 @@ public final class Poison {
     /**
      * The possible hits for this type.
      */
-    private final int[] hits;
+    @Getter private final int[] hits;
 
     /**
      * Creates a new {@link DamageTypes}.
@@ -95,12 +89,6 @@ public final class Poison {
 
     }
 
-    /**
-     * @return the damage
-     */
-    public int[] getHits() {
-      return hits;
-    }
   }
 
   /**

@@ -14,6 +14,7 @@ import astraeus.game.model.entity.mob.player.Player;
 import astraeus.game.model.entity.mob.player.collect.Equipment;
 import astraeus.game.model.entity.mob.player.skill.Skill;
 import astraeus.net.packet.out.ServerMessagePacket;
+import astraeus.util.StringUtils;
 import lombok.Getter;
 
 @SubscribesTo(ButtonActionEvent.class)
@@ -40,7 +41,7 @@ public final class EmoteTab extends ButtonClick {
       skillcape.ifPresent(it -> {
        
         if (player.getSkills().getLevel(skillcape.get().getSkillId()) < 99) {
-          player.queuePacket(new ServerMessagePacket("You need a " + player.getSkills().getSkill(skillcape.get().getSkillId()).getName() + " level of 99 to use this."));
+          player.queuePacket(new ServerMessagePacket("You need " + StringUtils.getAOrAn(player.getSkills().getSkill(skillcape.get().getSkillId()).getName()) + " " + player.getSkills().getSkill(skillcape.get().getSkillId()).getName() + " level of 99 to use this."));
           return;
         }
         

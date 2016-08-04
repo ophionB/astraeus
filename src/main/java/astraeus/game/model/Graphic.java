@@ -1,5 +1,7 @@
 package astraeus.game.model;
 
+import lombok.Getter;
+
 /**
  * Represents a single graphic that can be used by entities. Also known as GFX.
  * 
@@ -10,22 +12,22 @@ public final class Graphic implements Comparable<Graphic> {
   /**
    * The id of this graphic.
    */
-  private final int id;
+  @Getter private final int id;
 
   /**
    * The delay of this graphic.
    */
-  private final int delay;
+  @Getter private final int delay;
 
   /**
    * The height of this graphic.
    */
-  private final int height;
+  @Getter private final int height;
 
   /**
    * The priority of the graphic.
    */
-  private final Priority priority;
+  @Getter private final Priority priority;
 
   public Graphic(int id) {
     this(id, 0, false);
@@ -115,33 +117,6 @@ public final class Graphic implements Comparable<Graphic> {
     }
 
     return Integer.signum(other.priority.getPriority() - priority.getPriority());
-  }
-
-  /**
-   * Gets the delay of this graphic.
-   * 
-   * @return delay
-   */
-  public int getDelay() {
-    return delay;
-  }
-
-  /**
-   * Gets the height of this graphic.
-   * 
-   * @return height
-   */
-  public int getHeight() {
-    return height;
-  }
-
-  /**
-   * Gets the id of this graphic.
-   * 
-   * @return id
-   */
-  public int getId() {
-    return id;
   }
 
   @Override

@@ -1,17 +1,17 @@
 package astraeus.game.model.entity.mob.combat;
 
+import lombok.Getter;
+
 public enum CombatType {
 
-  MELEE(4), RANGE(4), MAGIC(2);
+  MELEE(4),
+  RANGE(4),
+  MAGIC(2);
 
-  private int rate;
+  @Getter private int rate;
 
   private CombatType(int rate) {
     this.rate = rate;
-  }
-
-  public int getRate() {
-    return rate;
   }
 
 }

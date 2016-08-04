@@ -2,140 +2,105 @@ package astraeus.game.model.entity.mob.npc.drop;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+
+import lombok.Data;
 
 /**
  * A class which represents a single npc drop.
  * 
- * @author SeVen <https://github.com/7winds>
+ * @author Vult-R https://github.com/Vult-R
  */
-public class NpcDrop {
+@Data
+public final class NpcDrop {
+  
+  public static final double ALWAYS = 1.0;
+  
+  public static final double ALMOST_ALWAYS = 1/2;
+  
+  public static final double VERY_COMMON = 1/5;
+  
+  public static final double COMMON = 1/20;
+  
+  public static final double UNCOMMON = 1/50;
+  
+  public static final double VERY_UNCOMMON = 1/100;
+  
+  public static final double RARE = 1/200;
+  
+  public static final double VERY_RARE = 1/286;
+  
+  public static final double EXTREMELY_RARE = 1/500;
+  
+  public static final double LEGENDARY = 1/900;
 
   /**
-   * The map of drops mapped to their npc ids.
+   * The map of npc ids mapped to their potential drops.
    */
-  private static Map<Integer, NpcDrop[]> MOB_DROPS = new HashMap<>();
+  private final static Map<Integer, NpcDrop[]> drops = new HashMap<>();  
 
   /**
-   * The item id for the item being dropped.
+   * The id of the item being dropped.
    */
   private final int itemId;
 
   /**
-   * The minimum quantity that can be dropped.
+   * The minimum amount of this item that can be dropped.
    */
-  private int minAmount;
+  private final int minAmount;
 
   /**
-   * The maximum quantity that can be dropped.
+   * The maximum amount of this item that can be dropped.
    */
   private int maxAmount;
 
   /**
-   * The chance for this drop.
+   * The rate at which this item drops.
    */
-  private final DropChance chance;
+  private final double rate;
 
   /**
-   * A single npc drop
+   * Creates a new {@link NpcDrop}.
    * 
-   * @param itemId the item id for the item being dropped.
-   * @param chance the items chance for being dropped.
-   * @param minAmount the minimum quantity for this drop.
-   * @param maxAmount the maximum quantity for this drop.
+   * @param itemId
+   *        The id of the item being dropped.
+   *        
+   * @param minAmount
+   *        The minimum amount of this item that can be dropped.
+   *        
+   * @param maxAmount
+   *        The maximum amount of this item that can be dropped.
+   *        
+   * @param rate
+   *        The rate at which this item drops.
    */
-  public NpcDrop(int itemId, int minAmount, int maxAmount, DropChance chance) {
+  public NpcDrop(int itemId, int minAmount, int maxAmount, double rate) {
     this.itemId = itemId;
     this.minAmount = minAmount;
     this.maxAmount = maxAmount;
-    this.chance = chance;
-  }
-
-  public static Map<Integer, NpcDrop[]> getMobDrops() {
-    return MOB_DROPS;
-  }
-
-  public static void setMobDrops(Map<Integer, NpcDrop[]> mobDrops) {
-    MOB_DROPS = mobDrops;
+    this.rate = rate;
   }
 
   /**
-   * Gets the drops for a specified npc.
+   * Gets the optional describing the result of looking for a drop.
    * 
-   * @param id The id of the npc to check.
-   * 
-   * @return The array of drops for this npc.
+   * @param id
+   *        The npc id to check.
+   *        
+   * @return The optional that may contain the array of drops.
    */
-  public static NpcDrop[] lookup(int id) {
-    return MOB_DROPS.get(id);
+  public static Optional<NpcDrop[]> lookup(int id) {
+    return Optional.ofNullable(drops.get(id));
   }
 
   /**
-   * @return the chance
-   */
-  public DropChance getChance() {
-    return chance;
-  }
-
-  /**
-   * Returns the difference between the minumum and maximum quantities.
-   */
-  public int getExtraAmount() {
-    return maxAmount - minAmount;
-  }
-
-  /**
-   * The item id of the item being dropped.
-   */
-  public int getItemId() {
-    return itemId;
-  }
-
-  /**
-   * Returns the max quantity that can be dropped for this item.
-   */
-  public int getMaxAmount() {
-    return maxAmount;
-  }
-
-  /**
-   * Returns the minimum quantity that can be dropped for this item.
-   */
-  public int getMinAmount() {
-    return minAmount;
-  }
-
-  /**
-   * Determines the item being dropped is rare based on the ordinal of the chance.
+   * Determines if this drop is rare.
    */
   public boolean isFromRareTable() {
-    if (chance.ordinal() >= DropChance.RARE.ordinal()) {
+    if (rate <= RARE) {
       return true;
     }
     return false;
-  }
-
-  /**
-   * Sets the maximum quantity of an items drop.
-   * 
-   * @param amount the amount or quantity of the item being dropped.
-   */
-  public void setMaxAmount(int amount) {
-    this.maxAmount = amount;
-  }
-
-  /**
-   * Sets the minimum quantity of an items drop.
-   * 
-   * @param amount the amount or quantity of the item being dropped.
-   */
-  public void setMinAmount(int amount) {
-    this.minAmount = amount;
-  }
-
-  @Override
-  public String toString() {
-    return "[DROP] - " + getItemId() + " " + getMinAmount() + " " + getMaxAmount() + " "
-        + getChance().name();
   }
 
 }

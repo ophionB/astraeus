@@ -1,6 +1,7 @@
 package plugin.commands.impl;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import astraeus.game.event.SubscribesTo;
 import astraeus.game.event.impl.CommandEvent;
@@ -20,7 +21,7 @@ public class SearchItemCommand extends Command {
       
       final String keyword = parser.nextLine().toLowerCase();
       
-      Arrays.stream(ItemDefinition.definitions).filter(it -> it.getName().toLowerCase().contains(keyword)).forEach(it -> player.queuePacket(new ServerMessagePacket(it.getId() + ":" + it.getName())));
+      Arrays.stream(ItemDefinition.definitions).filter(it -> it.getName().toLowerCase().contains(keyword)).filter(Objects::nonNull).forEach(it -> player.queuePacket(new ServerMessagePacket(it.getId() + ":" + it.getName())));
       
       return true;
     }

@@ -13,7 +13,7 @@ public final class AppearanceDialogue extends Dialogue {
 				.sendOption("Change your appearance.", () -> {
 					factory.sendPlayerChat("I would like to change my appearance.").onAction(() -> {
 						factory.getPlayer().attr().put(Player.CHANGING_APPEARANCE_KEY, true);
-						factory.getPlayer().getWidgets().openChatBoxWidget(3559);
+						factory.getPlayer().getWidgets().open(3559);
 					});
 				}, "Keep your current appearance.", () -> {
 					factory.sendPlayerChat("I would like to keep my current appearance.");

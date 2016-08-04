@@ -17,7 +17,8 @@ public class SearchItemCommand extends Command {
   @Override
   protected boolean execute(Player player, CommandParser parser) {
     if (parser.hasNext(1)) {
-      String keyword = parser.nextString().toLowerCase();
+      
+      final String keyword = parser.nextLine().toLowerCase();
       
       Arrays.stream(ItemDefinition.definitions).filter(it -> it.getName().toLowerCase().contains(keyword)).forEach(it -> player.queuePacket(new ServerMessagePacket(it.getId() + ":" + it.getName())));
       

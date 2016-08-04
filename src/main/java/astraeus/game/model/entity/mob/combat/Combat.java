@@ -6,6 +6,7 @@ import astraeus.game.model.entity.mob.combat.formula.impl.MeleeFormula;
 import astraeus.game.model.entity.mob.combat.task.HitTask;
 import astraeus.util.Stopwatch;
 import lombok.Getter;
+import lombok.Setter;
 
 public final class Combat {
   
@@ -22,31 +23,31 @@ public final class Combat {
   public static final int BONUS_STRENGTH = 10;
   public static final int BONUS_PRAYER = 11;
 
-  private final MeleeFormula meleeFormula = new MeleeFormula(this);
+  @Getter private final MeleeFormula meleeFormula = new MeleeFormula(this);
 
-  private final AttackBuilder attackBuilder = new AttackBuilder(this);
+  @Getter private final AttackBuilder attackBuilder = new AttackBuilder(this);
 
   @Getter private final CombatCooldown combatCooldown = new CombatCooldown();
 
-  private final Mob mob;
+  @Getter private final Mob mob;
 
-  private boolean inCombat;
+  @Getter @Setter private boolean inCombat;
 
-  private final Stopwatch combatDelay = new Stopwatch();
+  @Getter private final Stopwatch combatDelay = new Stopwatch();
 
   public Combat(Mob mob) {
     this.mob = mob;
   }
 
-  public void attack(Mob mob) {
-
-    inCombat = true;
+  public void attack(Mob victim) {     
     
     if (combatCooldown.contains(CombatType.MELEE)) {
       return;
     }
+    
+    inCombat = true;
 
-    mob.startAction(new HitTask(this, mob));
+    mob.startAction(new HitTask(this, victim));
 
     // TODO mob animation
   }
@@ -55,30 +56,6 @@ public final class Combat {
     if (inCombat && attackBuilder.getCombatType() != null) {
       combatCooldown.add(attackBuilder.getCombatType(), delay, mob);
     }
-  }
-
-  public MeleeFormula getMeleeFormula() {
-    return meleeFormula;
-  }
-
-  public AttackBuilder getAttackBuilder() {
-    return attackBuilder;
-  }
-
-  public Mob getMob() {
-    return mob;
-  }
-
-  public boolean isInCombat() {
-    return inCombat;
-  }
-
-  public void setInCombat(boolean inCombat) {
-    this.inCombat = inCombat;
-  }
-
-  public Stopwatch getCombatDelay() {
-    return combatDelay;
   }
 
 }

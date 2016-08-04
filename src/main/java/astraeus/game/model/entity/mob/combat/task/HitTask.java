@@ -25,6 +25,11 @@ public final class HitTask extends Task {
       stop();
       return;
     }
+    
+    if (!defender.getPosition().isWithinDistance(combat.getMob().getPosition(), 1)) {
+      stop();
+      return;
+    }
 
     if (!combat.getCombatCooldown().contains(CombatType.MELEE)) {
           combat.getCombatCooldown().add(CombatType.MELEE, combat.getAttackBuilder().getAttackSpeed(),
@@ -36,6 +41,8 @@ public final class HitTask extends Task {
 
       defender
           .dealDamage(new Hit(RandomUtils.random(0, combat.getMeleeFormula().calculateMaxHit())));
+      
+      defender.getCombat().attack(combat.getMob());
 
       defender.setInteractingEntity(combat.getMob());
     }

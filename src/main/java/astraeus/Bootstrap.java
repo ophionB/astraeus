@@ -12,6 +12,7 @@ import astraeus.io.EquipmentDefinitionParser;
 import astraeus.io.GlobalObjectParser;
 import astraeus.io.IPBanParser;
 import astraeus.io.ItemDefinitionParser;
+import astraeus.io.NpcCombatDefinitionParser;
 import astraeus.io.NpcDefinitionParser;
 import astraeus.io.NpcSpawnParser;
 import astraeus.io.PacketSizeParser;
@@ -119,6 +120,7 @@ public final class Bootstrap {
       new WeaponDefinitionParser().run();
       new WeaponTypeSetParser().run();
       new WeaponSpecialParser().run();
+      new NpcCombatDefinitionParser().run();
     });
 
     logger.info("Loading plugins");

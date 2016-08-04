@@ -30,17 +30,24 @@ public final class EmoteTab extends ButtonClick {
         return;
       }
 
-      Optional<Skillcape> optional = Skillcape.lookup(item.getId());
+      Optional<Skillcape> skillcape = Skillcape.lookup(item.getId());      
 
-      if (!optional.isPresent()) {
+      if (!skillcape.isPresent()) {
         player.queuePacket(new ServerMessagePacket("You need a skillcape to do this!"));
         return;
       }
-
-      Skillcape skillcape = optional.get();
-
-      player.startAnimation(new Animation(skillcape.getAnimationId()), 3000);
-      player.startGraphic(new Graphic(skillcape.getGfxId()), 3000);
+      
+      skillcape.ifPresent(it -> {
+       
+        if (player.getSkills().getLevel(skillcape.get().getSkillId()) < 99) {
+          player.queuePacket(new ServerMessagePacket("You need a " + player.getSkills().getSkill(skillcape.get().getSkillId()).getName() + " level of 99 to use this."));
+          return;
+        }
+        
+        player.startAnimation(new Animation(it.getAnimationId()), 3000);
+        player.startGraphic(new Graphic(it.getGfxId()), 3000);
+        return;
+      });
       return;
     }
     

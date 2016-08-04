@@ -282,6 +282,10 @@ public class SkillSet {
   public int getMaxLevel(int skillId) {
     return skills[skillId].getMaxLevel();
   }
+  
+  public Skill getSkill(int skill) {
+    return skills[skill];
+  }
 
   public Skill[] getSkills() {
     return skills;

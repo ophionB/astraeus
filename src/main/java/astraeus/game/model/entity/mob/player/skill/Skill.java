@@ -2,15 +2,6 @@ package astraeus.game.model.entity.mob.player.skill;
 
 public class Skill {
 
-  public static String[] skillName =
-      {"Attack", "Defence", "Strength", "Hitpoints", "Ranged", "Prayer", "Magic", "Cooking",
-          "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining",
-          "Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting", "Hunter"};
-
-  public static String getSkillName(int i) {
-    return skillName[i];
-  }
-
   public static final int ATTACK = 0;
 
   public static final int DEFENCE = 1;
@@ -98,6 +89,10 @@ public class Skill {
 
   public void setSkill(int skill) {
     this.skill = skill;
+  }
+  
+  public String getName() {
+    return SkillData.values()[skill].getName();
   }
 
   @Override

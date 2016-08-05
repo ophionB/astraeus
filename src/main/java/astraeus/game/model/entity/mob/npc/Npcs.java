@@ -32,7 +32,7 @@ public final class Npcs {
 
     if (World.world.getMobs().add(npc)) {
       npc.setPosition(spawn.getPosition());
-      npc.setCreatedLocation(new Position(spawn.getPosition()));
+      npc.setCreatedPosition(new Position(spawn.getPosition()));
 
       npc.setFacingDirection(spawn.getFacing());
       npc.setRandomWalk(spawn.isRandomWalk());
@@ -59,13 +59,13 @@ public final class Npcs {
         Position nextLocation = new Position(mob.getPosition().getX() + randomX,
             mob.getPosition().getY() + randomY, mob.getPosition().getHeight());
 
-        int distance = Position.getDistance(mob.getCreatedLocation(), nextLocation);
+        int distance = Position.getDistance(mob.getCreatedPosition(), nextLocation);
 
         if (mob.getInteractingEntity() == null
             && distance <= GameConstants.NPC_RANDOM_WALK_DISTANCE) {
           mob.getMovement().walk(nextLocation);
         } else if (mob.getInteractingEntity() == null) {
-          mob.getMovement().walk(mob.getCreatedLocation());
+          mob.getMovement().walk(mob.getCreatedPosition());
         }
         mob.getRandomWalkTimer().reset();
       }

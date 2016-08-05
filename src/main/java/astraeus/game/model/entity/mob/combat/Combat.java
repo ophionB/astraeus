@@ -1,7 +1,10 @@
 package astraeus.game.model.entity.mob.combat;
 
+import java.util.Optional;
+
 import astraeus.game.model.entity.mob.Mob;
 import astraeus.game.model.entity.mob.combat.attack.AttackBuilder;
+import astraeus.game.model.entity.mob.combat.def.NpcCombatDefinition;
 import astraeus.game.model.entity.mob.combat.formula.impl.MeleeFormula;
 import astraeus.game.model.entity.mob.combat.task.HitTask;
 import astraeus.util.Stopwatch;
@@ -58,4 +61,15 @@ public final class Combat {
     }
   }
 
+  public int getDeathAnimation() {
+    if (mob.isNpc()) {
+      Optional<NpcCombatDefinition> def = NpcCombatDefinition.lookup(mob.getId());
+      
+      if (def.isPresent()) {
+        return def.get().getDeathAnimation();
+      }
+    }
+    return -1;
+  }
+  
 }

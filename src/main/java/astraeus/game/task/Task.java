@@ -108,13 +108,6 @@ public abstract class Task {
   }
 
   /**
-   * Gets the amount of ticks that have passed since this task has been running.
-   */
-  public final int getTick() {
-    return tick;
-  }
-
-  /**
    * The method that is called when the task starts.
    */
   public void onStart() {}

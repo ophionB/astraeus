@@ -68,6 +68,10 @@ public abstract class Mob extends Entity {
   @Getter
   @Setter
   private Position lastPosition = new Position(0, 0, 0);
+  
+  @Getter
+  @Setter
+  protected Position createdPosition;
 
   @Getter
   @Setter
@@ -160,7 +164,7 @@ public abstract class Mob extends Entity {
   public abstract int getCurrentHealth();
 
   @Getter
-  public static int tick = GameEngine.tick;
+  private static int tick = GameEngine.tick;
 
   /**
    * The method that increments tick to time actions
@@ -210,7 +214,7 @@ public abstract class Mob extends Entity {
    */
   public abstract void onMovement();
 
-  public abstract void dealDamage(Hit hit);
+  public abstract void dealDamage(Mob attacker, Hit hit);
 
   public void startAction(Task currentAction) {
     this.currentAction.ifPresent(it -> {

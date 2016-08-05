@@ -1,13 +1,17 @@
 package astraeus.game.model.entity.mob.npc;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import astraeus.game.GameConstants;
 import astraeus.game.model.Direction;
 import astraeus.game.model.Position;
+import astraeus.game.model.World;
 import astraeus.game.model.entity.EntityType;
 import astraeus.game.model.entity.mob.Mob;
+import astraeus.game.model.entity.mob.combat.def.NpcCombatDefinition;
 import astraeus.game.model.entity.mob.combat.dmg.Hit;
+import astraeus.game.model.entity.mob.combat.task.MobDeathTask;
 import astraeus.game.model.entity.mob.update.UpdateFlag;
 import astraeus.game.model.location.Area;
 import astraeus.util.Stopwatch;
@@ -21,15 +25,11 @@ public class Npc extends Mob {
 
   @Getter
   @Setter
-  private Position createdLocation;
+  private int maximumHealth;
 
   @Getter
   @Setter
-  private int maximumHealth = 100;
-
-  @Getter
-  @Setter
-  private int currentHealth = 100;
+  private int currentHealth;
 
   @Getter
   @Setter
@@ -50,6 +50,11 @@ public class Npc extends Mob {
     super(GameConstants.DEFAULT_LOCATION);
     setId(id);
     size = NpcDefinition.get(id).getSize();
+    
+    Optional<NpcCombatDefinition> npcCombatDef = NpcCombatDefinition.lookup(id);
+    
+    currentHealth = npcCombatDef.isPresent() ? npcCombatDef.get().getHitpoints() : 100;
+    maximumHealth = npcCombatDef.isPresent() ? npcCombatDef.get().getHitpoints() : 100;
   }
 
   @Override
@@ -118,16 +123,16 @@ public class Npc extends Mob {
    */
   public boolean isWalkToHome() {
     if (Area.inWilderness(this)) {
-      return Math.abs(getPosition().getX() - createdLocation.getX())
-          + Math.abs(getPosition().getY() - createdLocation.getY()) > getSize() * 1 + 2;
+      return Math.abs(getPosition().getX() - createdPosition.getX())
+          + Math.abs(getPosition().getY() - createdPosition.getY()) > getSize() * 1 + 2;
     }
 
     if (isNpc()) { // TODO: isAttackable
-      return Math.abs(getPosition().getX() - createdLocation.getX())
-          + Math.abs(getPosition().getY() - createdLocation.getY()) > getSize() * 2 + 6;
+      return Math.abs(getPosition().getX() - createdPosition.getX())
+          + Math.abs(getPosition().getY() - createdPosition.getY()) > getSize() * 2 + 6;
     }
 
-    return Position.getManhattanDistance(createdLocation, getPosition()) > 2;
+    return Position.getManhattanDistance(createdPosition, getPosition()) > 2;
   }
 
   @Override
@@ -136,10 +141,16 @@ public class Npc extends Mob {
   }
 
   @Override
-  public void dealDamage(Hit hit) {
+  public void dealDamage(Mob attacker, Hit hit) {
+    
+    if (isDead()) {
+      return;
+    }
+    
     if (getCurrentHealth() - hit.getDamage() <= 0) {
       hit.setDamage(getCurrentHealth());
-      this.setCurrentHealth(100);
+      setDead(true);
+      World.world.submit(new MobDeathTask(attacker, this));
     }
 
     setCurrentHealth(getCurrentHealth() - hit.getDamage());

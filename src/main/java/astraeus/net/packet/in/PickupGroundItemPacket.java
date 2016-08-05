@@ -1,5 +1,7 @@
 package astraeus.net.packet.in;
 
+import java.util.Optional;
+
 import astraeus.game.model.Position;
 import astraeus.game.model.entity.item.Item;
 import astraeus.game.model.entity.mob.player.Player;
@@ -33,32 +35,43 @@ public final class PickupGroundItemPacket implements Receivable {
     Position position = new Position(x, y, player.getPosition().getHeight());
 
     // get the item from the map
-    Item item = GameObjects.getGroundItems().get(position);
+    Item[] items = GameObjects.getGroundItems().get(position);
 
     // validate it exists
-    if (item == null) {
+    if (items == null) {
       return;
     }
-
-    // validate the item is the same item
-    if (item.getId() != id) {
-      return;
+    
+    Optional<Item> toPickup = Optional.empty();
+    
+    for(Item item : items) {
+      if (item == null) {
+        continue;
+      }
+      
+      if (item.getId() == id) {
+        toPickup = Optional.of(item);
+      }
     }
-
-    if (player.getRights().equals(PlayerRights.DEVELOPER) && player.attr().get(Player.DEBUG_KEY)) {
-      player.queuePacket(new ServerMessagePacket(String
-          .format("[PickupItem] - Item: %s Position: %s", item.toString(), position.toString())));
-    }
-
-    player.startAction(new DistancedTask(player, position, 2) {
-
-      @Override
-      public void onReached() {
-        player.getInventory().add(item);
-        player.queuePacket(new RemoveGroundItemPacket(item));
-        GameObjects.getGlobalObjects().remove(item);
+    
+    toPickup.ifPresent(it -> {      
+      
+      if (player.getRights().equals(PlayerRights.DEVELOPER) && player.attr().get(Player.DEBUG_KEY)) {
+        player.queuePacket(new ServerMessagePacket(String
+            .format("[PickupItem] - Item: %s Position: %s", it.toString(), position.toString())));
       }
 
+      player.startAction(new DistancedTask(player, position, 2) {
+
+        @Override
+        public void onReached() {
+          player.getInventory().add(it);
+          player.queuePacket(new RemoveGroundItemPacket(it));
+          GameObjects.getGlobalObjects().remove(it);
+        }
+
+      });      
+      
     });
 
   }

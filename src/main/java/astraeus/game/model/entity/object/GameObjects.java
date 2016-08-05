@@ -9,7 +9,6 @@ import java.util.Objects;
 import astraeus.game.model.Position;
 import astraeus.game.model.entity.item.Item;
 import astraeus.game.model.entity.mob.player.Player;
-import astraeus.net.packet.out.AddGroundItemPacket;
 import astraeus.net.packet.out.AddObjectPacket;
 import lombok.Getter;
 
@@ -28,7 +27,7 @@ public final class GameObjects {
   /**
    * A map of ground items and their positions in the world.
    */
-  @Getter private static final Map<Position, Item> groundItems = new HashMap<>();
+  @Getter private static final Map<Position, Item[]> groundItems = new HashMap<>();
 
   /**
    * The method that creates global objects for a user.
@@ -39,16 +38,6 @@ public final class GameObjects {
     globalObjects.stream().filter(Objects::nonNull)
         .filter($it -> $it.getPosition().isWithinDistance(player.getPosition(), 32))
         .forEach($it -> player.queuePacket(new AddObjectPacket($it, true)));
-  }
-
-  public static final void createGlobalItems(Player player) {
-    if (groundItems.isEmpty()) {
-      return;
-    }
-
-    groundItems.values().stream().filter(Objects::nonNull)
-        .filter($it -> $it.getPosition().isWithinDistance(player.getPosition(), 32))
-        .forEach($it -> player.queuePacket(new AddGroundItemPacket($it)));
   }
 
 }

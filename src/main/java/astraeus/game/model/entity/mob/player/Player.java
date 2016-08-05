@@ -519,7 +519,7 @@ public class Player extends Mob {
   }
 
   @Override
-  public void dealDamage(Hit hit) {
+  public void dealDamage(Mob attacker, Hit hit) {
     if (getCurrentHealth() - hit.getDamage() <= 0) {
       hit.setDamage(getCurrentHealth());
     }

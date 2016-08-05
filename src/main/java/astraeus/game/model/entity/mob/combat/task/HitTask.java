@@ -12,6 +12,8 @@ public final class HitTask extends Task {
   private final Combat combat;
 
   private final Mob defender;
+  
+  private int tickTimer = 0;  
 
   public HitTask(Combat combat, Mob defender) {
     super("hitTask", combat.getMob(), 0, true, DuplicatePolicy.DISALLOW);
@@ -21,11 +23,12 @@ public final class HitTask extends Task {
 
   @Override
   public void execute() {
-    if (!combat.isInCombat() || defender.isDead()) {
+    if (!combat.isInCombat() || defender.isDead() || combat.getMob().isDead()) {
       stop();
       return;
     }
     
+    // TODO range of weapons
     if (!defender.getPosition().isWithinDistance(combat.getMob().getPosition(), 1)) {
       stop();
       return;
@@ -39,13 +42,21 @@ public final class HitTask extends Task {
 
       combat.getMob().setInteractingEntity(defender);
 
-      defender
-          .dealDamage(new Hit(RandomUtils.random(0, combat.getMeleeFormula().calculateMaxHit())));
+      defender.dealDamage(combat.getMob(), new Hit(RandomUtils.random(0, combat.getMeleeFormula().calculateMaxHit())));
       
-      defender.getCombat().attack(combat.getMob());
+      if (tickTimer >= 1) {
+        defender.getCombat().attack(combat.getMob());
+      }
 
       defender.setInteractingEntity(combat.getMob());
     }
+    
+    tickTimer++;
+    
+    if (tickTimer > 10_000) {
+      tickTimer = 0;
+    }
+    
   }
 
 }

@@ -14,25 +14,25 @@ import lombok.Data;
 @Data
 public final class NpcDrop {
   
-  public static final double ALWAYS = 1.0D;
+  public static final int ALWAYS = 1;
   
-  public static final double ALMOST_ALWAYS = 1/2D;
+  public static final int ALMOST_ALWAYS = 2;
   
-  public static final double VERY_COMMON = 1/5D;
+  public static final int VERY_COMMON = 5;
   
-  public static final double COMMON = 1/20D;
+  public static final int COMMON = 20;
   
-  public static final double UNCOMMON = 1/50D;
+  public static final int UNCOMMON = 50;
   
-  public static final double VERY_UNCOMMON = 1/100D;
+  public static final int VERY_UNCOMMON = 100;
   
-  public static final double RARE = 1/200D;
+  public static final int RARE = 200;
   
-  public static final double VERY_RARE = 1/286D;
+  public static final int VERY_RARE = 286;
   
-  public static final double EXTREMELY_RARE = 1/500D;
+  public static final int EXTREMELY_RARE = 500;
   
-  public static final double LEGENDARY = 1/900D;
+  public static final int LEGENDARY = 900;
   
   /**
    * The map of npc ids mapped to their potential drops.
@@ -59,7 +59,17 @@ public final class NpcDrop {
     /**
      * The rate at which this item drops.
      */
-    private final double rate;
+    private final int rate;
+    
+    /**
+     * The flag that denotes only 1 item will drop.
+     */
+    private final boolean single;
+    
+    /**
+     * The flag that denotes this drop drops a fixed amount of items.
+     */
+    private final boolean fixed;
     
     /**
      * Creates a new {@link NpcDrop}.
@@ -70,7 +80,7 @@ public final class NpcDrop {
      * @param rate
      *        The rate at which this item drops.
      */
-    public Drop(int itemId, double rate) {
+    public Drop(int itemId, int rate) {
       this(itemId, 1, 1, rate);
     }
 
@@ -89,11 +99,13 @@ public final class NpcDrop {
      * @param rate
      *        The rate at which this item drops.
      */
-    public Drop(int itemId, int minAmount, int maxAmount, double rate) {
+    public Drop(int itemId, int minAmount, int maxAmount, int rate) {
       this.itemId = itemId;
       this.minAmount = minAmount;
       this.maxAmount = maxAmount;
       this.rate = rate;
+      this.single = minAmount == 1 && maxAmount == 1;
+      this.fixed = minAmount == maxAmount;
     }
     
     /**
@@ -104,6 +116,13 @@ public final class NpcDrop {
         return true;
       }
       return false;
+    }
+    
+    /**
+     * Gets the difference between the max and the min amount.
+     */
+    public int getExtraAmount() {
+      return maxAmount - minAmount;
     }
     
   }

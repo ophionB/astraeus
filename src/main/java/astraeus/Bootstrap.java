@@ -52,6 +52,21 @@ public final class Bootstrap {
    * The engine that manages the games logic.
    */
   private final GameEngine service = new GameEngine();
+  
+  /**
+   * The world to setup.
+   */
+  private final World world;
+  
+  /**
+   * Creates a new {@link Bootstrap}.
+   * 
+   * @param world
+   *        The world to setup.
+   */
+  public Bootstrap(World world) {
+    this.world = world;
+  }
 
   /**
    * Builds the game by executing any startup services, and starting the game loop.
@@ -90,10 +105,10 @@ public final class Bootstrap {
     ServerBootstrap bootstrap = new ServerBootstrap();
 
     bootstrap.group(loopGroup).channel(NioServerSocketChannel.class)
-        .childHandler(new ChannelPiplineInitializer()).bind(43594).syncUninterruptibly();
+        .childHandler(new ChannelPiplineInitializer()).bind(43593 + world.getId()).syncUninterruptibly();
 
     Server.serverStarted = true;
-    logger.info("Network has been bound");
+    logger.info(String.format("World %d has been bound to port %d", world.getId(), world.getPort()));    
     return this;
   }
 
@@ -126,7 +141,7 @@ public final class Bootstrap {
     });
 
     logger.info("Loading plugins");
-    serviceLoader.execute(() -> World.world.getPluginService().load());
+    serviceLoader.execute(() -> World.getPluginService().load());
 
   }
 

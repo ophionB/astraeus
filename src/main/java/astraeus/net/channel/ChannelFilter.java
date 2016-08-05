@@ -47,7 +47,7 @@ public class ChannelFilter extends ChannelInboundHandlerAdapter {
       return;
     }
     // evaluate the host
-    if (World.world.getIpBans().contains(host)) {
+    if (World.getIpBans().contains(host)) {
       disconnect(ctx, LoginResponse.ACCOUNT_DISABLED);
       return;
     }

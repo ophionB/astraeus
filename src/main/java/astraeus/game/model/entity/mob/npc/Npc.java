@@ -150,7 +150,7 @@ public class Npc extends Mob {
     if (getCurrentHealth() - hit.getDamage() <= 0) {
       hit.setDamage(getCurrentHealth());
       setDead(true);
-      World.world.submit(new MobDeathTask(attacker, this));
+      World.submit(new MobDeathTask(attacker, this));
     }
 
     setCurrentHealth(getCurrentHealth() - hit.getDamage());

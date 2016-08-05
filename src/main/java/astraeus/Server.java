@@ -1,8 +1,8 @@
 package astraeus;
 
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import astraeus.game.model.World;
 import astraeus.util.LoggerUtils;
 import astraeus.util.Stopwatch;
 
@@ -43,12 +43,16 @@ public final class Server {
   public static void main(String[] args) throws Exception {
 
     final Stopwatch timer = new Stopwatch().reset();
+    
+    World world = new World(args.length > 0 ? Integer.parseInt(args[0]) : 1);
 
-    new Bootstrap().build().bind();
+    logger.info(String.format("Starting world: %d", world.getId()));
+    
+    new Bootstrap(world).build().bind();
 
-    uptime = new Stopwatch();
+    uptime = new Stopwatch();    
 
-    logger.info("Server Initialized. [Took " + timer.elapsed(TimeUnit.SECONDS) + " seconds]");
+    logger.info(String.format("World %d initialized. [Took %s ms]", world.getId(), timer.elapsed()));
 
   }
 

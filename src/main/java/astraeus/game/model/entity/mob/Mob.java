@@ -225,7 +225,7 @@ public abstract class Mob extends Entity {
     });
 
     this.currentAction = Optional.of(currentAction);
-    World.world.submit(currentAction);
+    World.submit(currentAction);
   }
 
   public void stopAction() {
@@ -322,11 +322,11 @@ public abstract class Mob extends Entity {
   }
 
   public Npc getNpc() {
-    return World.world.getMobs().get(slot);
+    return World.getNpcs().get(slot);
   }
 
   public Player getPlayer() {
-    return World.world.getPlayers().get(slot);
+    return World.getPlayers().get(slot);
   }
 
   public int getSize() {

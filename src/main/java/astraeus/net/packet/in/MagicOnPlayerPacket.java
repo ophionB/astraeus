@@ -17,7 +17,7 @@ public final class MagicOnPlayerPacket implements Receivable {
     ByteBufReader reader = packet.getReader();
 
     int otherPlayerIndex = reader.readShort(ByteModification.ADDITION);
-    Player other = (Player) World.world.getPlayers().get(otherPlayerIndex);
+    Player other = World.getPlayers().get(otherPlayerIndex);
     @SuppressWarnings("unused")
     final int spell = reader.readShort(ByteOrder.LITTLE);
 

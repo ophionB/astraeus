@@ -258,7 +258,7 @@ public class Player extends Mob {
     }
     queuePacket(new LogoutPlayerPacket());
     session.getChannel().close();
-    World.world.deregister(this);
+    World.deregister(this);
     logger.info(String.format("[DEREGISTERED]: [host= %s]", session.getHostAddress()));
   }
 
@@ -497,7 +497,7 @@ public class Player extends Mob {
    * @param event The event to post.
    */
   public <E extends Event> void post(E event) {
-    World.world.post(this, event);
+    World.post(this, event);
   }
 
   public String getHostAddress() {

@@ -35,8 +35,8 @@ public final class ClientSynchronizer {
    */
   public void synchronize() {
 
-    MobList<Player> players = World.world.getPlayers();
-    MobList<Npc> npcs = World.world.getMobs();
+    MobList<Player> players = World.getPlayers();
+    MobList<Npc> npcs = World.getNpcs();
 
     phaser.bulkRegister(players.size());
     players.forEach(player -> executor.submit(new PreMobUpdateTask<Player>(player, phaser)));

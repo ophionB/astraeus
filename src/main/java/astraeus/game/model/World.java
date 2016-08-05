@@ -21,11 +21,12 @@ import astraeus.game.task.Task;
 import astraeus.game.task.TaskManager;
 import astraeus.plugin.PluginService;
 import astraeus.util.LoggerUtils;
+import lombok.Getter;
 
 /**
  * Represents the game world.
  * 
- * @author SeVen
+ * @author Vult-R
  */
 public final class World {
 
@@ -37,60 +38,63 @@ public final class World {
   /**
    * The collection of players in the game world.
    */
-  private final MobList<Player> players = new MobList<Player>(GameConstants.MAX_PLAYERS);
+  @Getter private static final MobList<Player> players = new MobList<Player>(GameConstants.MAX_PLAYERS);
 
   /**
    * The collection of npcs in the game world.
    */
-  private final MobList<Npc> npcs = new MobList<Npc>(GameConstants.MAX_NPC_SPAWNS);
+  @Getter private static final MobList<Npc> npcs = new MobList<Npc>(GameConstants.MAX_NPC_SPAWNS);
 
   /**
    * The {@link Set} of banned hosts.
    */
-  private final Set<String> ipBans = new HashSet<>();
+  @Getter private static final Set<String> ipBans = new HashSet<>();
 
   /**
    * The {@link Set} of banned mac addresses.
    */
-  private final Set<String> bannedUUIDs = new HashSet<>();
+  @Getter private static final Set<String> bannedUUIDs = new HashSet<>();
 
   /**
    * The {@link Player}s waiting to login.
    */
-  private final Queue<Player> logins = new ConcurrentLinkedQueue<>();
+  @Getter private static final Queue<Player> logins = new ConcurrentLinkedQueue<>();
 
   /**
    * The {@link Player}s waiting to logout.
    */
-  private final Queue<Player> logouts = new ConcurrentLinkedQueue<>();
+  @Getter private static final Queue<Player> logouts = new ConcurrentLinkedQueue<>();
 
   /**
    * This worlds event provider.
    */
-  private final UniversalEventProvider eventProvider = new UniversalEventProvider();
+  @Getter private static final UniversalEventProvider eventProvider = new UniversalEventProvider();
 
   /**
    * The service for plugins.
    */
-  private final PluginService pluginService = new PluginService();
+  @Getter private static final PluginService pluginService = new PluginService();
 
   /**
    * The tasks for this world.
    */
-  private final TaskManager tasks = new TaskManager();
-
-  /**
-   * The single instance of world
-   */
-  // TODO scrap this singleton
-  public static final World world = new World();
+  @Getter private final static TaskManager tasks = new TaskManager();
+  
+  @Getter private final int id;
+  
+  @Getter private final int port;
+  
+  public World(int id) {
+    this.id = id;
+    this.port = 43593 + id;
+  }
 
   /**
    * Registers and adds a {@code entity) into the game world.
    * 
    * @param entity The entity to add.
    */
-  public void register(Mob entity) {
+  public static void register(Mob entity) {
     // check to make this entity is not registered already, and is present.
     if (entity == null || entity.isRegistered()) {
       return;
@@ -108,7 +112,7 @@ public final class World {
    * 
    * @param entity The entity to remove.
    */
-  public void deregister(Mob entity) {
+  public static void deregister(Mob entity) {
 
     if (entity == null || !entity.isRegistered()) {
       return;
@@ -126,7 +130,7 @@ public final class World {
    * 
    * @param player
    */
-  public void queueLogin(Player player) {
+  public static void queueLogin(Player player) {
     if (player.getSession() != null && !logins.contains(player)) {
       logins.add(player);
     }
@@ -135,7 +139,7 @@ public final class World {
   /**
    * The function that allows players to login.
    */
-  public void dequeueLogin() {
+  public static void dequeueLogin() {
     for (int index = 0; index < GameConstants.LOGIN_LIMIT; index++) {
       Player player = logins.poll();
 
@@ -152,7 +156,7 @@ public final class World {
    * 
    * @param player
    */
-  public void queueLogout(Player player) {
+  public static void queueLogout(Player player) {
     if (player != null && !logouts.contains(player)) {
       logouts.add(player);
     }
@@ -161,7 +165,7 @@ public final class World {
   /**
    * The function that logs out players from the game world.
    */
-  public void dequeueLogout() {
+  public static void dequeueLogout() {
     for (int index = 0; index < logouts.size(); index++) {
       Player player = logouts.poll();
 
@@ -178,7 +182,7 @@ public final class World {
    * 
    * @param name
    */
-  public Optional<Player> searchPlayer(String name) {
+  public static Optional<Player> searchPlayer(String name) {
     return players.stream().filter(Objects::nonNull)
         .filter(it -> name.equalsIgnoreCase(it.getUsername())).findFirst();
   }
@@ -189,7 +193,7 @@ public final class World {
    * @param player The player to post the event for.
    * @param event The event to post.
    */
-  public <E extends Event> void post(Player player, E event) {
+  public static <E extends Event> void post(Player player, E event) {
     eventProvider.post(player, event);
   }
 
@@ -198,7 +202,7 @@ public final class World {
    *
    * @param subscriber The event subscriber.
    */
-  public <E extends Event> void provideSubscriber(EventSubscriber<E> subscriber) {
+  public static <E extends Event> void provideSubscriber(EventSubscriber<E> subscriber) {
     eventProvider.provideSubscriber(subscriber);
   }
 
@@ -207,7 +211,7 @@ public final class World {
    *
    * @param subscriber The event subscriber.
    */
-  public <E extends Event> void depriveSubscriber(EventSubscriber<E> subscriber) {
+  public static <E extends Event> void depriveSubscriber(EventSubscriber<E> subscriber) {
     eventProvider.depriveSubscriber(subscriber);
   }
 
@@ -216,77 +220,8 @@ public final class World {
    * 
    * @param task The task to execute.
    */
-  public void submit(Task task) {
+  public static void submit(Task task) {
     tasks.queue(task);
-  }
-
-  /**
-   * Gets the collection the players in this world.
-   * 
-   * @return The collection of players.
-   */
-  public MobList<Player> getPlayers() {
-    return players;
-  }
-
-  /**
-   * Gets the collection of mobs in this world.
-   * 
-   * @return The collection of mobs.
-   */
-  public MobList<Npc> getMobs() {
-    return npcs;
-  }
-
-  /**
-   * Gets the players logging in.
-   * 
-   * @return The queue containing players logging in.
-   */
-  public Queue<Player> getLogins() {
-    return logins;
-  }
-
-  /**
-   * Gets the players logging out.
-   * 
-   * @return The queue containing players logging out.
-   */
-  public Queue<Player> getLogouts() {
-    return logouts;
-  }
-
-  /**
-   * Gets the set of banned hosts.
-   *
-   * @return The set of banned hosts.
-   */
-  public Set<String> getIpBans() {
-    return ipBans;
-  }
-
-  /**
-   * Gets the set of banned mac addresses.
-   *
-   * @return The set of banned mac addresses.
-   */
-  public Set<String> getBannedUUIDs() {
-    return bannedUUIDs;
-  }
-
-  public TaskManager getTasks() {
-    return tasks;
-  }
-
-  /**
-   * Gets the service for plugins.
-   */
-  public PluginService getPluginService() {
-    return pluginService;
-  }
-
-  public UniversalEventProvider getSubscribers() {
-    return eventProvider;
   }
 
 }

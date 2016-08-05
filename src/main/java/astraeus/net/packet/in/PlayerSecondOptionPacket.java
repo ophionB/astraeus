@@ -16,7 +16,7 @@ public final class PlayerSecondOptionPacket implements Receivable {
     ByteBufReader reader = packet.getReader();
 
     int otherPlayerIndex = reader.readShort(ByteOrder.LITTLE);
-    Player other = (Player) World.world.getPlayers().get(otherPlayerIndex);
+    Player other = World.getPlayers().get(otherPlayerIndex);
 
     if (other == null) {
       player

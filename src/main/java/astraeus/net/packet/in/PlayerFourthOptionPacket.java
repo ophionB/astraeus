@@ -31,11 +31,11 @@ public final class PlayerFourthOptionPacket implements Receivable {
       return;
     }
 
-    if (World.world.getPlayers().get(otherPlayerTradeIndex) == null) {
+    if (World.getPlayers().get(otherPlayerTradeIndex) == null) {
       return;
     }
 
-    Player other = (Player) World.world.getPlayers().get(otherPlayerTradeIndex);
+    Player other = World.getPlayers().get(otherPlayerTradeIndex);
 
     if (other == null || !other.isRegistered() || other.isTeleporting() || other.isDead()) {
       return;

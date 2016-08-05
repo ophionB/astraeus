@@ -16,12 +16,12 @@ public final class PlayerThirdOptionPacket implements Receivable {
 
     final int otherPlayerIndex = reader.readShort(ByteOrder.LITTLE);
 
-    if (World.world.getPlayers().get(otherPlayerIndex) == null) {
+    if (World.getPlayers().get(otherPlayerIndex) == null) {
       return;
     }
 
     @SuppressWarnings("unused")
-    final Player leader = (Player) World.world.getPlayers().get(otherPlayerIndex);
+    final Player leader = World.getPlayers().get(otherPlayerIndex);
   }
 
 }

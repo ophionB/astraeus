@@ -127,7 +127,7 @@ public final class StressBot extends Player {
   }
 
   void register() {
-    World.world.register(this);
+    World.register(this);
 
     getUpdateFlags().add(UpdateFlag.APPEARANCE);
 

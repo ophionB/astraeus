@@ -15,7 +15,7 @@ public class UUIDBanParser extends TextFileParser {
   @Override
   public void parse(Scanner reader) throws IOException {
     String uuid = reader.nextLine();
-    World.world.getBannedUUIDs().add(uuid);
+    World.getBannedUUIDs().add(uuid);
   }
 
 }

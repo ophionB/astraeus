@@ -40,13 +40,13 @@ public final class GameEngine extends AbstractScheduledService {
     @SuppressWarnings("unused")
     long start = System.currentTimeMillis();
 
-    World.world.dequeueLogin();
+    World.dequeueLogin();
 
-    World.world.getTasks().runTaskIteration();
+    World.getTasks().runTaskIteration();
 
     synchronizer.synchronize();
 
-    World.world.dequeueLogout();
+    World.dequeueLogout();
 
     @SuppressWarnings("unused")
     long end = System.currentTimeMillis();

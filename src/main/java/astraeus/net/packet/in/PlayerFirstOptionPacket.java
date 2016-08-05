@@ -16,7 +16,7 @@ public final class PlayerFirstOptionPacket implements Receivable {
 
     final int otherPlayerIndex = reader.readShort(ByteOrder.LITTLE);
 
-    if (World.world.getPlayers().get(otherPlayerIndex) == null) {
+    if (World.getPlayers().get(otherPlayerIndex) == null) {
       return;
     }
   }

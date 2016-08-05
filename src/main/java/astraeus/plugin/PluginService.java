@@ -104,7 +104,7 @@ public final class PluginService {
    */
   private void register(EventSubscriber<?> subscriber) {
 
-    World.world.provideSubscriber(subscriber);
+    World.provideSubscriber(subscriber);
 
     subscribers.add(subscriber);
 

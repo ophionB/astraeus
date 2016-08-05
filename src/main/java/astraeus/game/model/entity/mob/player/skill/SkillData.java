@@ -1,7 +1,6 @@
 package astraeus.game.model.entity.mob.player.skill;
 
-import com.sun.xml.internal.ws.util.StringUtils;
-
+import astraeus.util.StringUtils;
 import lombok.Getter;
 
 public enum SkillData {

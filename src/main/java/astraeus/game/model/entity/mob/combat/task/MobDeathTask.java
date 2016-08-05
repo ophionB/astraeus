@@ -58,7 +58,7 @@ public final class MobDeathTask extends Task {
         break;
         
       case 4:
-        World.world.deregister(victim);
+       World.deregister(victim);
         break;
         
       case 5:

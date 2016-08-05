@@ -15,7 +15,7 @@ public final class NpcSecondClickPacket implements Receivable {
 
   @Override
   public void handlePacket(Player player, IncomingPacket packet) {
-    final Npc npc = World.world.getMobs()
+    final Npc npc = World.getNpcs()
         .get(packet.getReader().readShort(ByteOrder.LITTLE, ByteModification.ADDITION));
 
     if (npc == null) {

@@ -124,7 +124,7 @@ public class PlayerChannel {
     channel.pipeline().replace("login-decoder", "game-decoder",
         new GamePacketDecoder(packet.getDecryptor()));
 
-    World.world.queueLogin(player);
+    World.queueLogin(player);
   }
 
   /**
@@ -155,27 +155,27 @@ public class PlayerChannel {
     }
 
     // the world is currently full
-    if (World.world.getPlayers().isFull()) {
+    if (World.getPlayers().isFull()) {
       return LoginResponse.WORLD_FULL;
     }
 
     // this user is already online
-    if (World.world.getPlayers().contains(player)) {
+    if (World.getPlayers().contains(player)) {
       return LoginResponse.ACCOUNT_ONLINE;
     }
 
     // the users ip address has been banned.
-    if (World.world.getIpBans().contains(hostAddress)) {
+    if (World.getIpBans().contains(hostAddress)) {
       return LoginResponse.ACCOUNT_DISABLED;
     }
 
     // the users computer has been banned
-    if (World.world.getBannedUUIDs().contains(packet.getUUID())) {
+    if (World.getBannedUUIDs().contains(packet.getUUID())) {
       return LoginResponse.ACCOUNT_DISABLED;
     }
 
     // check the uuid when the player first created their account.
-    if (World.world.getBannedUUIDs().contains(player.getUuid())) {
+    if (World.getBannedUUIDs().contains(player.getUuid())) {
       return LoginResponse.ACCOUNT_DISABLED;
     }
 

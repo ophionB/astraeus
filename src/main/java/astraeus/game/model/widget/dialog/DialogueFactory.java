@@ -235,7 +235,7 @@ public final class DialogueFactory {
 
     if (player.getInteractingEntity() != null && player.getInteractingEntity() instanceof Npc) {
 
-      final Npc npc = World.world.getMobs().get(player.getInteractingEntity().getSlot());
+      final Npc npc = World.getNpcs().get(player.getInteractingEntity().getSlot());
 
       if (line.contains("#name")) {
         line = line.replaceAll("#name", npc.getName());

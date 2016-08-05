@@ -16,7 +16,7 @@ public final class CombatCooldown {
   
   public void add(CombatType cooldown, int duration, Mob mob) {
     cooldowns.add(cooldown);
-    World.world.submit(new CooldownTask(mob, cooldown, mob.getCombat().getAttackBuilder().getAttackSpeed()));
+    World.submit(new CooldownTask(mob, cooldown, mob.getCombat().getAttackBuilder().getAttackSpeed()));
   }
   
   public void reset(CombatType cooldown) {

@@ -129,7 +129,7 @@ public final class Shop {
 			}
 
 			restockTask = new ShopRestockTask(this);
-			World.world.submit(restockTask);
+			World.submit(restockTask);
 		}
 	}
 

@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import astraeus.game.model.World;
 import astraeus.util.LoggerUtils;
 import astraeus.util.Stopwatch;
+import lombok.Getter;
 
 /**
  * The core class of the server.
@@ -31,7 +32,7 @@ public final class Server {
   /**
    * The elapsed time the server has been running.
    */
-  public static Stopwatch uptime;
+  @Getter private static Stopwatch uptime;
 
   /**
    * The main entry point to the server.
@@ -54,10 +55,6 @@ public final class Server {
 
     logger.info(String.format("World %d initialized. [Took %s ms]", world.getId(), timer.elapsed()));
 
-  }
-
-  public static Stopwatch getUptime() {
-    return uptime;
   }
 
 }

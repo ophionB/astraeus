@@ -1,7 +1,9 @@
 package astraeus.game.model.entity.mob.player.collect;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import astraeus.game.model.entity.item.Item;
 import astraeus.game.model.entity.item.ItemContainer;
@@ -31,6 +33,11 @@ import lombok.Getter;
  */
 public final class Equipment extends ItemContainer {
 
+  /**
+   * Represents the enumerated types of slots that a player can equip items to.
+   *
+   * @author Vult-R
+   */
   public static enum EquipmentType {
     NONE(-1),
     HAT(0),
@@ -52,13 +59,8 @@ public final class Equipment extends ItemContainer {
       this.slot = slot;
     }
 
-    public static EquipmentType lookup(int value) {
-      for (EquipmentType type : EquipmentType.values()) {
-        if (type.getSlot() == value) {
-          return type;
-        }
-      }
-      return null;
+    public static Optional<EquipmentType> lookup(int value) {     
+      return Arrays.stream(EquipmentType.values()).filter(it -> it.getSlot() == value).findFirst();
     }
 
   }

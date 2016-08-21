@@ -77,7 +77,7 @@ public final class PlayerDetails {
   }
 
   public synchronized boolean save() throws IOException {
-    final File dir = new File("./Data/characters/details/");
+    final File dir = new File("./data/characters/details/");
 
     if (!dir.exists()) {
       dir.mkdirs();
@@ -91,7 +91,7 @@ public final class PlayerDetails {
   }
   
   public static synchronized boolean load(Player player) throws IOException {
-    final File file = new File("./Data/characters/details/" + player.getUsername() + ".json");
+    final File file = new File("./data/characters/details/" + player.getUsername() + ".json");
 
     if (!file.exists()) {
       return false;

@@ -40,7 +40,7 @@ public final class PlayerContainer {
   }
 
   public synchronized boolean save() throws IOException {
-    final File dir = new File("./Data/characters/containers/");
+    final File dir = new File("./data/characters/containers/");
 
     if (!dir.exists()) {
       dir.mkdirs();
@@ -54,7 +54,7 @@ public final class PlayerContainer {
   }
 
   public static synchronized boolean load(Player player) throws Exception {
-    final File file = new File("./Data/characters/containers/" + player.getUsername() + ".json");
+    final File file = new File("./data/characters/containers/" + player.getUsername() + ".json");
     
     if (!file.exists()) {
       return false;

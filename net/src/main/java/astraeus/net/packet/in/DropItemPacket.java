@@ -3,6 +3,7 @@ package astraeus.net.packet.in;
 import astraeus.game.model.entity.item.Item;
 import astraeus.game.model.entity.mob.player.Player;
 import astraeus.game.model.entity.mob.player.PlayerRights;
+import astraeus.game.model.entity.object.GameObjects;
 import astraeus.net.codec.ByteModification;
 import astraeus.net.codec.game.ByteBufReader;
 import astraeus.net.packet.IncomingPacket;
@@ -14,7 +15,7 @@ import astraeus.net.packet.out.ServerMessagePacket;
 /**
  * The {@link IncomingPacket} responsible for dropping items.
  * 
- * @author SeVen
+ * @author Vult-R
  */
 @IncomingPacketOpcode(IncomingPacket.DROP_ITEM)
 public final class DropItemPacket implements Receivable {
@@ -49,6 +50,8 @@ public final class DropItemPacket implements Receivable {
     }
 
     player.queuePacket(new AddGroundItemPacket(player.getPosition().copy(), item));
+    
+    GameObjects.getGroundItems().put(player.getPosition().copy(), new Item[]{item});
 
     player.getInventory().remove(item);
 

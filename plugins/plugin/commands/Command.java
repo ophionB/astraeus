@@ -10,7 +10,15 @@ public abstract class Command implements EventSubscriber<CommandEvent> {
 	
 	@Override
 	public void subscribe(EventContext ctx, Player player, CommandEvent event) {
-		execute(player, CommandParser.create(event.getInput()));
+	  
+	  if (player == null) {
+	    return;
+	  }
+	  
+	  if (player.getRights().greaterOrEqual(rights())) {
+	       execute(player, CommandParser.create(event.getInput()));
+	  }	  
+
 	}
 	
 	protected abstract boolean execute(Player player, CommandParser parser);

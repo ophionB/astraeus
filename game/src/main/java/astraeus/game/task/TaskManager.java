@@ -73,14 +73,10 @@ public final class TaskManager {
       return;
     }
 
-    if (task.getDuplicatePolicy() == Task.DuplicatePolicy.DISALLOW && tasks.contains(task)) {
-      return;
-    }
-
     task.onStart();
 
     if (task.isImmediate()) {
-      task.execute();
+      task.execute();      
     }
 
     adding.add(task);

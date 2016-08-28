@@ -18,7 +18,7 @@ public final class CooldownTask extends Task {
   @Getter private final int delay;
   
   public CooldownTask(Mob mob, CombatType cooldown, int delay) {
-    super("combatCooldownTask", mob, delay, false, DuplicatePolicy.ALLOW);
+    super(delay, false);
     this.mob = mob;
     this.cooldown = cooldown;
     this.delay = delay;

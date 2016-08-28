@@ -16,7 +16,7 @@ public final class HitTask extends Task {
   private int tickTimer = 0;  
 
   public HitTask(Combat combat, Mob defender) {
-    super("hitTask", combat.getMob(), 0, true, DuplicatePolicy.DISALLOW);
+    super(0, true);
     this.combat = combat;
     this.defender = defender;
   }

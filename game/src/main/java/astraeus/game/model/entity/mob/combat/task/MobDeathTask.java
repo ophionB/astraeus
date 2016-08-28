@@ -36,7 +36,7 @@ public final class MobDeathTask extends Task {
   private int timer = 0;
   
   public MobDeathTask(Mob attacker, Mob victim) {    
-    super("mobDeathTask", victim, 0, true, DuplicatePolicy.DISALLOW);
+    super(0, true);
     this.attacker= attacker;
     this.victim = victim;
     this.spawn = victim.isNpc() ? new NpcSpawn(victim.getId(), victim.getCreatedPosition()) : null;

@@ -85,7 +85,7 @@ public abstract class DistancedTask extends Task {
    */
   public DistancedTask(Player player, Position destination, int distance, int delay,
       boolean immediate) {
-    super("distancedTask", player, delay, immediate, DuplicatePolicy.DISALLOW);
+    super(delay, immediate);
     this.player = player;
     this.destination = destination;
     this.distance = distance;

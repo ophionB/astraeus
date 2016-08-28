@@ -15,30 +15,7 @@ public abstract class Task {
   /**
    * The default instance this task is locked to if one isn't specified.
    */
-  public static final Object DEFAULT_INSTANCE = new Object();
-
-  /**
-   * Represents the type of polices on how tasks can stack.
-   */
-  public enum DuplicatePolicy {
-
-    /**
-     * The type that indicates duplicate tasks can be executed.
-     */
-    ALLOW,
-
-    /**
-     * The type that indicates no duplicate tasks can be executed.
-     */
-    DISALLOW
-  }
-
-  @Getter private final String identifier;
-
-  /**
-   * The instance this task is attatched to.
-   */
-  @Getter private final Object attatchment;
+  public static final Object ATTACHMENT = new Object();
 
   /**
    * The amount of ticks that have passed.
@@ -66,26 +43,14 @@ public abstract class Task {
   @Getter protected final boolean immediate;
 
   /**
-   * The type of stack for this task.
-   */
-  @Getter protected final DuplicatePolicy duplicatePolicy;
-
-  /**
    * Creates a new {@link Task}.
    *
-   * @param identifier The identifier for this task.
-   * @param attatchment The instance attached to this task.
    * @param delay The delay in game ticks until this task can execute.
    * @param immediate The flag that denotes to execute this task immediately.
-   * @param duplicatePolicy The policy for duplicate tasks.
    */
-  public Task(String identifier, Object attatchment, int delay, boolean immediate,
-      DuplicatePolicy duplicatePolicy) {
-    this.identifier = Objects.requireNonNull(identifier);
-    this.attatchment = attatchment == null ? DEFAULT_INSTANCE : attatchment;
+  public Task(int delay, boolean immediate) {
     this.delay = delay;
     this.immediate = immediate;
-    this.duplicatePolicy = duplicatePolicy;
   }
 
   /**
@@ -164,7 +129,7 @@ public abstract class Task {
 
   @Override
   public int hashCode() {
-    return Objects.hash(identifier, attatchment);
+    return Objects.hash(ATTACHMENT);
   }
 
   @Override
@@ -173,7 +138,7 @@ public abstract class Task {
 
       Task task = (Task) o;
 
-      if (task.getIdentifier().equals(identifier) && task.getAttatchment().equals(attatchment)) {
+      if (task.hashCode() == hashCode()) {
         return true;
       }
 

@@ -26,13 +26,12 @@ public final class ShopRestockTask extends Task {
      *            the container that will be restocked.
      */
     public ShopRestockTask(Shop container) {
-        super("shopTask", Task.DEFAULT_INSTANCE, 20, false, DuplicatePolicy.ALLOW);
+        super(20, false);
         this.container = container;
     }
 
     @Override
     public void execute() {
-    	System.out.println("test");
         if (container.restockCompleted() || !container.isRestock()) {
             this.stop();
             return;

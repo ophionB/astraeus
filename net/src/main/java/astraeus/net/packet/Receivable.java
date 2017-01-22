@@ -19,4 +19,5 @@ public interface Receivable {
    * @param packet The packet that has been received.
    */
   public void handlePacket(Player player, IncomingPacket packet);
+  
 }

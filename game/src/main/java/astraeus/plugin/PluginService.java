@@ -37,7 +37,7 @@ public final class PluginService {
     try {
       Collection<EventSubscriber<?>> plugins = findPlugins();
 
-      plugins.stream().forEach($it -> register($it));
+      plugins.stream().forEach(it -> register(it));      
     } catch (IOException e) {
       logger.log(Level.SEVERE, "A problem was encountered while trying to load plugins.", e);
     }
@@ -49,8 +49,8 @@ public final class PluginService {
    *
    * @throws IOException
    */
-  private Collection<EventSubscriber<?>> findPlugins() throws IOException {
-    return findPlugins(new File("./plugins/"));
+  private Collection<EventSubscriber<?>> findPlugins() throws IOException {	  
+    return findPlugins(new File("./plugins/src/main/"));
   }
 
   /**
@@ -65,13 +65,13 @@ public final class PluginService {
   private Collection<EventSubscriber<?>> findPlugins(File dir) throws IOException {
     Collection<EventSubscriber<?>> plugins = new ArrayList<>();
     for (File file : dir.listFiles()) {
-      String base = file.getPath();
-
-      base = base.replace(".\\plugins\\", "");
+      String base = file.getPath(); 
 
       base = base.replace("\\", ".");
-
-      base = base.replace(".java", "");
+      
+      base = base.replace("..plugins.src.main.", "");
+      
+      base = base.replace(".java", "");      
 
       if (!file.isDirectory()) {
         try {

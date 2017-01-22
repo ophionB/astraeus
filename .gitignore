@@ -7,3 +7,5 @@
 /data/characters/details/
 /data/map/
 /.settings/
+/.gradle/
+/build/

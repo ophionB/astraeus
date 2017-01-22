@@ -1,41 +1,16 @@
-group 'Astraeus'
-version '1.0-SNAPSHOT'
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
-
+group = 'astraeus'
+version = '0.0.1'
 apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'war'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
-idea {
-
-	module {
-	
-		sourceDirs += file('plugins')
-		sourceDirs += file('game/src/main/java')
-		sourceDirs += file('net/src/main/java')
-		sourceDirs += file('util/src/main/java')
-		
-		testSourceDirs += file('game/src/test/java')
-		testSourceDirs += file('net/src/test/java')
-		testSourceDirs += file('util/src/test/java')
-	
-	}
-
-}
-
 dependencies {
+
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
@@ -49,7 +24,11 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.moandjiezana.toml/toml4j
     compile group: 'com.moandjiezana.toml', name: 'toml4j', version: '0.6.0'
-    
+
     compile "org.projectlombok:lombok:1.16.2"
 
+}
+
+sourceSets {
+  main.java.srcDirs = ['game/src/main/java', 'net/src/main/java', 'util/src/main/java', 'plugins/src/main']
 }

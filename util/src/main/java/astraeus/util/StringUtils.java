@@ -2,11 +2,8 @@ package astraeus.util;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import astraeus.Server;
 
 public final class StringUtils {
 
@@ -35,27 +32,6 @@ public final class StringUtils {
 
   public static String capitalize(final String string) {
     return Character.toUpperCase(string.charAt(0)) + string.substring(1);
-  }
-
-  /**
-   * Gets the elapsed time the server has been running for.
-   * 
-   * @return The elapsed time.
-   */
-  public static String getUptime() {
-    long elapsedSeconds = Server.getUptime().elapsed(TimeUnit.SECONDS);
-
-    long minute = elapsedSeconds >= 60 ? elapsedSeconds / 60 : 0;
-
-    long seconds = (Server.getUptime().elapsed(TimeUnit.SECONDS) >= 60
-        ? Server.getUptime().elapsed(TimeUnit.SECONDS) - (minute * 60)
-        : Server.getUptime().elapsed(TimeUnit.SECONDS));
-
-    long hour = minute >= 60 ? minute / 60 : 0;
-    long day = hour >= 24 ? hour / 24 : 0;
-
-    return String.format("[uptime= %d Days %d Hours %d Minutes %d Seconds]", day, hour, minute,
-        seconds);
   }
 
   /**

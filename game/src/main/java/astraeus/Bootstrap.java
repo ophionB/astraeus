@@ -132,7 +132,6 @@ public final class Bootstrap {
       new IPBanParser().run();
       new UUIDBanParser().run();
       new EquipmentDefinitionParser().run();
-      // MapDecoder.load();
       new WeaponDefinitionParser().run();
       new WeaponTypeSetParser().run();
       new WeaponSpecialParser().run();

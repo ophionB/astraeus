@@ -219,6 +219,11 @@ public final class IncomingPacket {
    * Sent when a player uses magic on an npc.
    */
   public static final int MAGIC_ON_NPC = 131;
+  
+  /**
+   * Sent when a player uses magic on an object.
+   */
+  public static final int MAGIC_ON_OBJECT = 35;
 
   /**
    * Sent when a player attempts to cast magic on another player.

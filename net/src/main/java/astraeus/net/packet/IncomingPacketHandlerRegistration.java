@@ -30,6 +30,7 @@ import astraeus.net.packet.in.LoadRegionPacket;
 import astraeus.net.packet.in.MagicOnFloorItemPacket;
 import astraeus.net.packet.in.MagicOnItemPacket;
 import astraeus.net.packet.in.MagicOnNpcPacket;
+import astraeus.net.packet.in.MagicOnObjectPacket;
 import astraeus.net.packet.in.MagicOnPlayerPacket;
 import astraeus.net.packet.in.MoveItemPacket;
 import astraeus.net.packet.in.MovementPacket;
@@ -162,5 +163,6 @@ public final class IncomingPacketHandlerRegistration {
     registerHandler(new NpcFirstClickPacket());
     registerHandler(new NpcSecondClickPacket());
     registerHandler(new NpcThirdClickPacket());
+    registerHandler(new MagicOnObjectPacket());
   }
 }

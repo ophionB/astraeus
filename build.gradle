@@ -29,6 +29,6 @@ dependencies {
 
 }
 
-sourceSets {
-  main.java.srcDirs = ['game/src/main/java', 'net/src/main/java', 'util/src/main/java', 'plugins/src/main']
+sourceSets { 
+   	main.java.srcDirs = ['game/src/main/java', 'net/src/main/java', 'util/src/main/java', 'plugins/src/main']
 }

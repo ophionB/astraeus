@@ -82,8 +82,6 @@ public class SkillSet {
     skill.setExperience(skill.getExperience() + experience);
     expCounter += experience;
 
-    // player.send(new SendExperienceCounter(skillId, (int) skill.getExperience() - (int) last));
-
     if (skill.getMaxLevel() < 99
         && skill.getExperience() >= getExperienceForLevel(skill.getMaxLevel() + 1)) {
       int lastLevel = skill.getMaxLevel();

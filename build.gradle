@@ -1,9 +1,6 @@
 group = 'astraeus'
-version = '0.0.1'
+version = '1.0.0'
 apply plugin: 'java'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -30,5 +27,5 @@ dependencies {
 }
 
 sourceSets { 
-   	main.java.srcDirs = ['game/src/main/java', 'net/src/main/java', 'util/src/main/java', 'plugins/src/main']
+   	main.java.srcDirs = ['src/main/java', 'src/test/java', 'plugins/src/main/java']
 }

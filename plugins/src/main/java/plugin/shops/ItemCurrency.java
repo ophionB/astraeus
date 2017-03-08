@@ -1,7 +1,7 @@
 package plugin.shops;
 
-import io.battlerune.game.model.entity.item.Item;
-import io.battlerune.game.model.entity.mob.player.Player;
+import astraeus.game.model.entity.item.Item;
+import astraeus.game.model.entity.mob.player.Player;
 
 /**
  * The currency that provides basic functionality for all tangible currencies.

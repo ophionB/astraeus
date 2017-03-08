@@ -1,10 +1,10 @@
 package plugin.commands;
 
-import io.battlerune.game.event.EventContext;
-import io.battlerune.game.event.EventSubscriber;
-import io.battlerune.game.event.impl.CommandEvent;
-import io.battlerune.game.model.entity.mob.player.Player;
-import io.battlerune.game.model.entity.mob.player.PlayerRights;
+import astraeus.game.event.EventContext;
+import astraeus.game.event.EventSubscriber;
+import astraeus.game.event.impl.CommandEvent;
+import astraeus.game.model.entity.mob.player.Player;
+import astraeus.game.model.entity.mob.player.PlayerRights;
 
 public abstract class Command implements EventSubscriber<CommandEvent> {
 	

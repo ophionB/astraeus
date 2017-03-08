@@ -1,22 +1,22 @@
 package plugin.event;
 
-import io.battlerune.Configuration;
-import io.battlerune.game.event.EventContext;
-import io.battlerune.game.event.EventSubscriber;
-import io.battlerune.game.event.SubscribesTo;
-import io.battlerune.game.model.entity.mob.Movement;
-import io.battlerune.game.model.entity.mob.player.Player;
-import io.battlerune.game.model.entity.mob.player.PlayerOption;
-import io.battlerune.game.model.entity.mob.player.Players;
-import io.battlerune.game.model.entity.mob.player.event.PostLoginEvent;
-import io.battlerune.net.packet.out.ResetCameraPositionPacket;
-import io.battlerune.net.packet.out.ServerMessagePacket;
-import io.battlerune.net.packet.out.SetPlayerOptionPacket;
-import io.battlerune.net.packet.out.SetPlayerSlotPacket;
-import io.battlerune.net.packet.out.SetPrivacyOptionPacket;
-import io.battlerune.net.packet.out.SetRunEnergyPacket;
-import io.battlerune.net.packet.out.SetSpecialAmountPacket;
-import io.battlerune.net.packet.out.SetWidgetConfigPacket;
+import astraeus.Configuration;
+import astraeus.game.event.EventContext;
+import astraeus.game.event.EventSubscriber;
+import astraeus.game.event.SubscribesTo;
+import astraeus.game.model.entity.mob.Movement;
+import astraeus.game.model.entity.mob.player.Player;
+import astraeus.game.model.entity.mob.player.PlayerOption;
+import astraeus.game.model.entity.mob.player.Players;
+import astraeus.game.model.entity.mob.player.event.PostLoginEvent;
+import astraeus.net.packet.out.ResetCameraPositionPacket;
+import astraeus.net.packet.out.ServerMessagePacket;
+import astraeus.net.packet.out.SetPlayerOptionPacket;
+import astraeus.net.packet.out.SetPlayerSlotPacket;
+import astraeus.net.packet.out.SetPrivacyOptionPacket;
+import astraeus.net.packet.out.SetRunEnergyPacket;
+import astraeus.net.packet.out.SetSpecialAmountPacket;
+import astraeus.net.packet.out.SetWidgetConfigPacket;
 
 @SubscribesTo(PostLoginEvent.class)
 public final class PostLoginEventConsumer implements EventSubscriber<PostLoginEvent> {

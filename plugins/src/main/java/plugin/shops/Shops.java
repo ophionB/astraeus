@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import io.battlerune.game.event.EventContext;
-import io.battlerune.game.event.EventSubscriber;
-import io.battlerune.game.event.SubscribesTo;
-import io.battlerune.game.model.entity.mob.player.Player;
+import astraeus.game.event.EventContext;
+import astraeus.game.event.EventSubscriber;
+import astraeus.game.event.SubscribesTo;
+import astraeus.game.model.entity.mob.player.Player;
 
 @SubscribesTo(ShopEvent.class)
 public final class Shops implements EventSubscriber<ShopEvent> {

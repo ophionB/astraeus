@@ -1,9 +1,9 @@
 package plugin.buttons;
 
-import io.battlerune.game.event.SubscribesTo;
-import io.battlerune.game.event.impl.ButtonActionEvent;
-import io.battlerune.game.model.entity.mob.combat.def.AttackType;
-import io.battlerune.game.model.entity.mob.player.Player;
+import astraeus.game.event.SubscribesTo;
+import astraeus.game.event.impl.ButtonActionEvent;
+import astraeus.game.model.entity.mob.combat.def.AttackType;
+import astraeus.game.model.entity.mob.player.Player;
 
 @SubscribesTo(ButtonActionEvent.class)
 public final class BattleAxeAttackTypeButtons extends ButtonClick {

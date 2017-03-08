@@ -1,7 +1,7 @@
 package plugin.dialog;
 
-import io.battlerune.game.model.widget.dialog.Dialogue;
-import io.battlerune.game.model.widget.dialog.DialogueFactory;
+import astraeus.game.model.widget.dialog.Dialogue;
+import astraeus.game.model.widget.dialog.DialogueFactory;
 import plugin.shops.ShopEvent;
 
 public final class GeneralStoreDialogue extends Dialogue {

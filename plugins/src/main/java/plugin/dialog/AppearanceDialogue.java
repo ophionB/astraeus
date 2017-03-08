@@ -1,9 +1,9 @@
 package plugin.dialog;
 
-import io.battlerune.game.model.entity.mob.player.Player;
-import io.battlerune.game.model.widget.dialog.Dialogue;
-import io.battlerune.game.model.widget.dialog.DialogueFactory;
-import io.battlerune.game.model.widget.dialog.Expression;
+import astraeus.game.model.entity.mob.player.Player;
+import astraeus.game.model.widget.dialog.Dialogue;
+import astraeus.game.model.widget.dialog.DialogueFactory;
+import astraeus.game.model.widget.dialog.Expression;
 
 public final class AppearanceDialogue extends Dialogue {
 

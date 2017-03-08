@@ -1,6 +1,6 @@
 package plugin.shops;
 
-import io.battlerune.game.model.entity.mob.player.Player;
+import astraeus.game.model.entity.mob.player.Player;
 
 /**
  * The parent class of all currencies that provides basic functionality for any

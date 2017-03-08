@@ -5,16 +5,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import io.battlerune.game.event.SubscribesTo;
-import io.battlerune.game.event.impl.ButtonActionEvent;
-import io.battlerune.game.model.Animation;
-import io.battlerune.game.model.Graphic;
-import io.battlerune.game.model.entity.item.Item;
-import io.battlerune.game.model.entity.mob.player.Player;
-import io.battlerune.game.model.entity.mob.player.collect.Equipment;
-import io.battlerune.game.model.entity.mob.player.skill.Skill;
-import io.battlerune.net.packet.out.ServerMessagePacket;
-import io.battlerune.util.StringUtils;
+import astraeus.game.event.SubscribesTo;
+import astraeus.game.event.impl.ButtonActionEvent;
+import astraeus.game.model.Animation;
+import astraeus.game.model.Graphic;
+import astraeus.game.model.entity.item.Item;
+import astraeus.game.model.entity.mob.player.Player;
+import astraeus.game.model.entity.mob.player.collect.Equipment;
+import astraeus.game.model.entity.mob.player.skill.Skill;
+import astraeus.net.packet.out.ServerMessagePacket;
+import astraeus.util.StringUtils;
 import lombok.Getter;
 
 @SubscribesTo(ButtonActionEvent.class)

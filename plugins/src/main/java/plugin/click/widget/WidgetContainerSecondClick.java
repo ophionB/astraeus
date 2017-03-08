@@ -1,13 +1,13 @@
 package plugin.click.widget;
 
-import io.battlerune.game.event.EventContext;
-import io.battlerune.game.event.EventSubscriber;
-import io.battlerune.game.event.SubscribesTo;
-import io.battlerune.game.event.impl.WidgetContainerSecondOptionEvent;
-import io.battlerune.game.model.entity.item.Item;
-import io.battlerune.game.model.entity.mob.player.Player;
-import io.battlerune.game.model.entity.mob.player.PlayerRights;
-import io.battlerune.net.packet.out.ServerMessagePacket;
+import astraeus.game.event.EventContext;
+import astraeus.game.event.EventSubscriber;
+import astraeus.game.event.SubscribesTo;
+import astraeus.game.event.impl.WidgetContainerSecondOptionEvent;
+import astraeus.game.model.entity.item.Item;
+import astraeus.game.model.entity.mob.player.Player;
+import astraeus.game.model.entity.mob.player.PlayerRights;
+import astraeus.net.packet.out.ServerMessagePacket;
 import plugin.shops.Shops;
 
 @SubscribesTo(WidgetContainerSecondOptionEvent.class)

@@ -1,8 +1,8 @@
 package plugin.dialog;
 
-import astraeus.game.model.widget.dialog.Dialogue;
-import astraeus.game.model.widget.dialog.DialogueFactory;
-import astraeus.game.model.widget.dialog.Expression;
+import io.battlerune.game.model.widget.dialog.Dialogue;
+import io.battlerune.game.model.widget.dialog.DialogueFactory;
+import io.battlerune.game.model.widget.dialog.Expression;
 
 public final class DefaultDialogue extends Dialogue {
 	

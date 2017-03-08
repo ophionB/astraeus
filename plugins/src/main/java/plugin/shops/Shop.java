@@ -8,16 +8,16 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import astraeus.game.GameConstants;
-import astraeus.game.model.World;
-import astraeus.game.model.entity.item.Item;
-import astraeus.game.model.entity.item.ItemContainer;
-import astraeus.game.model.entity.item.ItemContainerPolicy;
-import astraeus.game.model.entity.mob.player.Player;
-import astraeus.net.packet.out.ServerMessagePacket;
-import astraeus.net.packet.out.SetWidgetStringPacket;
-import astraeus.net.packet.out.UpdateItemsOnWidgetPacket;
-import astraeus.util.StringUtils;
+import io.battlerune.game.GameConstants;
+import io.battlerune.game.model.World;
+import io.battlerune.game.model.entity.item.Item;
+import io.battlerune.game.model.entity.item.ItemContainer;
+import io.battlerune.game.model.entity.item.ItemContainerPolicy;
+import io.battlerune.game.model.entity.mob.player.Player;
+import io.battlerune.net.packet.out.ServerMessagePacket;
+import io.battlerune.net.packet.out.SetWidgetStringPacket;
+import io.battlerune.net.packet.out.UpdateItemsOnWidgetPacket;
+import io.battlerune.util.StringUtils;
 
 /**
  * The container that represents a shop players can buy and sell items from.

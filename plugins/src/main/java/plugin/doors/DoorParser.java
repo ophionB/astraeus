@@ -1,10 +1,11 @@
 package plugin.doors;
 
 import com.google.gson.JsonObject;
-import astraeus.game.model.Direction;
-import astraeus.game.model.Position;
-import astraeus.game.model.entity.object.GameObjectType;
-import astraeus.util.GsonParser;
+
+import io.battlerune.game.model.Direction;
+import io.battlerune.game.model.Position;
+import io.battlerune.game.model.entity.object.GameObjectType;
+import io.battlerune.util.GsonParser;
 
 public final class DoorParser extends GsonParser {
 

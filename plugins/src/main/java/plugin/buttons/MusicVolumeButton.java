@@ -1,10 +1,10 @@
 package plugin.buttons;
 
-import astraeus.game.event.SubscribesTo;
-import astraeus.game.event.impl.ButtonActionEvent;
-import astraeus.game.model.entity.mob.player.Player;
-import astraeus.game.model.sound.Volume;
-import astraeus.net.packet.out.SetWidgetConfigPacket;
+import io.battlerune.game.event.SubscribesTo;
+import io.battlerune.game.event.impl.ButtonActionEvent;
+import io.battlerune.game.model.entity.mob.player.Player;
+import io.battlerune.game.model.sound.Volume;
+import io.battlerune.net.packet.out.SetWidgetConfigPacket;
 
 @SubscribesTo(ButtonActionEvent.class)
 public final class MusicVolumeButton extends ButtonClick {

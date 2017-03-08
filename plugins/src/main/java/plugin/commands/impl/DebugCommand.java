@@ -1,10 +1,10 @@
 package plugin.commands.impl;
 
-import astraeus.game.event.SubscribesTo;
-import astraeus.game.event.impl.CommandEvent;
-import astraeus.game.model.entity.mob.player.Player;
-import astraeus.game.model.entity.mob.player.PlayerRights;
-import astraeus.net.packet.out.ServerMessagePacket;
+import io.battlerune.game.event.SubscribesTo;
+import io.battlerune.game.event.impl.CommandEvent;
+import io.battlerune.game.model.entity.mob.player.Player;
+import io.battlerune.game.model.entity.mob.player.PlayerRights;
+import io.battlerune.net.packet.out.ServerMessagePacket;
 import plugin.commands.Command;
 import plugin.commands.CommandParser;
 

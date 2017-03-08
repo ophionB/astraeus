@@ -3,9 +3,9 @@ package plugin.shops;
 import java.util.Arrays;
 import java.util.Objects;
 
-import astraeus.game.model.entity.item.Item;
-import astraeus.game.task.Task;
-import astraeus.net.packet.out.UpdateItemsOnWidgetPacket;
+import io.battlerune.game.model.entity.item.Item;
+import io.battlerune.game.task.Task;
+import io.battlerune.net.packet.out.UpdateItemsOnWidgetPacket;
 
 /**
  * The task that will restock items in shop containers when needed.

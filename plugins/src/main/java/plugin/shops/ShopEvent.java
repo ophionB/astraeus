@@ -1,6 +1,6 @@
 package plugin.shops;
 
-import astraeus.game.event.Event;
+import io.battlerune.game.event.Event;
 
 public final class ShopEvent implements Event {
 	

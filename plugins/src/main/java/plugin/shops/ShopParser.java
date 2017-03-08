@@ -2,8 +2,8 @@ package plugin.shops;
 
 import com.google.gson.JsonObject;
 
-import astraeus.game.model.entity.item.Item;
-import astraeus.util.GsonParser;
+import io.battlerune.game.model.entity.item.Item;
+import io.battlerune.util.GsonParser;
 
 public final class ShopParser extends GsonParser {
 

@@ -6,12 +6,12 @@ import java.util.stream.Stream;
 
 import com.google.common.collect.ImmutableSet;
 
-import astraeus.game.model.Direction;
-import astraeus.game.model.Position;
-import astraeus.game.model.entity.mob.player.Player;
-import astraeus.game.model.entity.object.GameObject;
-import astraeus.net.packet.out.AddObjectPacket;
-import astraeus.net.packet.out.RemoveRegionalObjectPacket;
+import io.battlerune.game.model.Direction;
+import io.battlerune.game.model.Position;
+import io.battlerune.game.model.entity.mob.player.Player;
+import io.battlerune.game.model.entity.object.GameObject;
+import io.battlerune.net.packet.out.AddObjectPacket;
+import io.battlerune.net.packet.out.RemoveRegionalObjectPacket;
 
 /**
  * The class that contains static-utility methods for doors.

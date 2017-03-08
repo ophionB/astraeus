@@ -1,10 +1,10 @@
 package plugin.click.item;
 
-import astraeus.game.event.EventContext;
-import astraeus.game.event.EventSubscriber;
-import astraeus.game.event.SubscribesTo;
-import astraeus.game.event.impl.ItemFirstClickEvent;
-import astraeus.game.model.entity.mob.player.Player;
+import io.battlerune.game.event.EventContext;
+import io.battlerune.game.event.EventSubscriber;
+import io.battlerune.game.event.SubscribesTo;
+import io.battlerune.game.event.impl.ItemFirstClickEvent;
+import io.battlerune.game.model.entity.mob.player.Player;
 
 @SubscribesTo(ItemFirstClickEvent.class)
 public final class ItemFirstClick implements EventSubscriber<ItemFirstClickEvent> {

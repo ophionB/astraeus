@@ -50,7 +50,7 @@ public final class PluginService {
    * @throws IOException
    */
   private Collection<EventSubscriber<?>> findPlugins() throws IOException {	  
-    return findPlugins(new File("./plugins/src/main/"));
+    return findPlugins(new File("./plugins/src/main/java"));
   }
 
   /**
@@ -69,7 +69,7 @@ public final class PluginService {
 
       base = base.replace("\\", ".");
       
-      base = base.replace("..plugins.src.main.", "");
+      base = base.replace("..plugins.src.main.java.", "");
       
       base = base.replace(".java", "");      
 

@@ -8786,6 +8786,36 @@
       0
     ]
   },
+    {
+    "id": 1163,
+    "name": "Rune full helm",
+    "type": "HAT",
+    "requirements": [
+      {
+        "level": 40,
+        "skill": "DEFENCE"
+      }
+    ],
+    "fullBody": false,
+    "fullHat": true,
+    "fullMask": false,
+    "bonuses": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },  
   {
     "id": 1169,
     "name": "Coif",

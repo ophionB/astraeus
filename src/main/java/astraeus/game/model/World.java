@@ -51,9 +51,9 @@ public final class World {
   @Getter private static final Set<String> ipBans = new HashSet<>();
 
   /**
-   * The {@link Set} of banned mac addresses.
+   * The {@link Set} of banned unique ids
    */
-  @Getter private static final Set<String> bannedUUIDs = new HashSet<>();
+  @Getter private static final Set<Integer> bannedUids = new HashSet<>();
 
   /**
    * The {@link Player}s waiting to login.

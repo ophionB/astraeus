@@ -17,7 +17,6 @@ import astraeus.io.NpcDefinitionParser;
 import astraeus.io.NpcDropParser;
 import astraeus.io.NpcSpawnParser;
 import astraeus.io.PacketSizeParser;
-import astraeus.io.UUIDBanParser;
 import astraeus.io.WeaponDefinitionParser;
 import astraeus.io.WeaponSpecialParser;
 import astraeus.io.WeaponTypeSetParser;
@@ -130,7 +129,6 @@ public final class Bootstrap {
       new NpcDefinitionParser().run();
       new NpcSpawnParser().run();
       new IPBanParser().run();
-      new UUIDBanParser().run();
       new EquipmentDefinitionParser().run();
       new WeaponDefinitionParser().run();
       new WeaponTypeSetParser().run();

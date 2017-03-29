@@ -87,17 +87,17 @@ public class PlayerChannel {
 
     final String password = packet.getPassword();
 
-    @SuppressWarnings("unused")
-    final String uuid = packet.getUUID();
+    final int uid = packet.getUid();
 
-    @SuppressWarnings("unused")
-    final String hostAddress = channel.remoteAddress().getAddress().getHostAddress();
+    //final String hostAddress = channel.remoteAddress().getAddress().getHostAddress();
 
     Player player = this.getPlayer();
 
     player.setUsername(username);
 
     player.setPassword(password);
+    
+    player.setUid(uid);
 
     try {
       player.attr().put(Player.NEW_PLAYER_KEY, !PlayerDetails.load(player) || !PlayerContainer.load(player));
@@ -169,13 +169,8 @@ public class PlayerChannel {
       return LoginResponse.ACCOUNT_DISABLED;
     }
 
-    // the users computer has been banned
-    if (World.getBannedUUIDs().contains(packet.getUUID())) {
-      return LoginResponse.ACCOUNT_DISABLED;
-    }
-
     // check the uuid when the player first created their account.
-    if (World.getBannedUUIDs().contains(player.getUuid())) {
+    if (World.getBannedUids().contains(player.getUid())) {
       return LoginResponse.ACCOUNT_DISABLED;
     }
 

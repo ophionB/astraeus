@@ -2,6 +2,7 @@ package astraeus.net.codec.login;
 
 import astraeus.net.codec.IsaacCipher;
 import io.netty.channel.ChannelHandlerContext;
+import lombok.Getter;
 
 /**
  * The upstream packet that contains information about a player.
@@ -13,31 +14,37 @@ public final class LoginDetailsPacket {
   /**
    * The context to which this player is going through.
    */
+  @Getter
   private final ChannelHandlerContext context;
 
   /**
    * The username for this user.
    */
+  @Getter
   private final String username;
 
   /**
    * The password for this user.
    */
+  @Getter
   private final String password;
 
   /**
-   * The universal unique identifier for this player.
+   * The unique identifier for this player.
    */
-  private final String uuid;
+  @Getter
+  private final int uid;  
 
   /**
    * The encrypting isaac
    */
+  @Getter
   private final IsaacCipher encryptor;
 
   /**
    * The decrypting isaac
    */
+  @Getter
   private final IsaacCipher decryptor;
 
   /**
@@ -56,37 +63,13 @@ public final class LoginDetailsPacket {
    * @param decrpytor The decrypting isaac
    */
   public LoginDetailsPacket(ChannelHandlerContext context, String username, String password,
-      String uuid, IsaacCipher encryptor, IsaacCipher decryptor) {
+      int uid, IsaacCipher encryptor, IsaacCipher decryptor) {
     this.context = context;
     this.username = username;
-    this.uuid = uuid;
+    this.uid = uid;
     this.password = password;
     this.encryptor = encryptor;
     this.decryptor = decryptor;
-  }
-
-  public ChannelHandlerContext getContext() {
-    return context;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public String getUUID() {
-    return uuid;
-  }
-
-  public IsaacCipher getEncryptor() {
-    return encryptor;
-  }
-
-  public IsaacCipher getDecryptor() {
-    return decryptor;
   }
 
 }

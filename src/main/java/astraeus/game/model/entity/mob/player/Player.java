@@ -136,8 +136,9 @@ public class Player extends Mob {
   @Getter
   @Setter
   private String password;
-  @Getter
-  private String uuid;
+  
+  @Getter @Setter
+  private int uid;
 
   @Getter
   @Setter

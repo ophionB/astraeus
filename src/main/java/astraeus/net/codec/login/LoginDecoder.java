@@ -159,13 +159,10 @@ public final class LoginDecoder extends ByteToMessageDecoder {
 
       IsaacCipher encryptor = new IsaacCipher(isaacSeed);
 
-      @SuppressWarnings("unused")
       int uid = rsaBuffer.readInt();
 
       ByteBuf buf = Unpooled.wrappedBuffer(rsaBuffer);
 
-      // universal unique identifier, rate of collision is so low its said to be unique.
-      String uuid = ByteBufUtils.readJagString(buf);
       String username = ByteBufUtils.readJagString(buf);
       String password = ByteBufUtils.readJagString(buf);
 
@@ -175,7 +172,7 @@ public final class LoginDecoder extends ByteToMessageDecoder {
         return;
       }
 
-      out.add(new LoginDetailsPacket(ctx, username, password, uuid, encryptor, decryptor));
+      out.add(new LoginDetailsPacket(ctx, username, password, uid, encryptor, decryptor));
     }
   }
 

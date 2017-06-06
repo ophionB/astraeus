@@ -1,22 +1,22 @@
 package plugin.event;
 
-import astraeus.Configuration;
-import astraeus.game.event.EventContext;
-import astraeus.game.event.EventSubscriber;
-import astraeus.game.event.SubscribesTo;
-import astraeus.game.model.entity.mob.Movement;
-import astraeus.game.model.entity.mob.player.Player;
-import astraeus.game.model.entity.mob.player.PlayerOption;
-import astraeus.game.model.entity.mob.player.Players;
-import astraeus.game.model.entity.mob.player.event.PostLoginEvent;
-import astraeus.net.packet.out.ResetCameraPositionPacket;
-import astraeus.net.packet.out.ServerMessagePacket;
-import astraeus.net.packet.out.SetPlayerOptionPacket;
-import astraeus.net.packet.out.SetPlayerSlotPacket;
-import astraeus.net.packet.out.SetPrivacyOptionPacket;
-import astraeus.net.packet.out.SetRunEnergyPacket;
-import astraeus.net.packet.out.SetSpecialAmountPacket;
-import astraeus.net.packet.out.SetWidgetConfigPacket;
+import com.astraeus.Configuration;
+import com.astraeus.game.event.EventContext;
+import com.astraeus.game.event.EventSubscriber;
+import com.astraeus.game.event.SubscribesTo;
+import com.astraeus.game.world.entity.mob.Movement;
+import com.astraeus.game.world.entity.mob.player.Player;
+import com.astraeus.game.world.entity.mob.player.PlayerOption;
+import com.astraeus.game.world.entity.mob.player.Players;
+import com.astraeus.game.world.entity.mob.player.event.PostLoginEvent;
+import com.astraeus.net.packet.out.ResetCameraPositionPacket;
+import com.astraeus.net.packet.out.ServerMessagePacket;
+import com.astraeus.net.packet.out.SetPlayerOptionPacket;
+import com.astraeus.net.packet.out.SetPlayerSlotPacket;
+import com.astraeus.net.packet.out.SetPrivacyOptionPacket;
+import com.astraeus.net.packet.out.SetRunEnergyPacket;
+import com.astraeus.net.packet.out.SetSpecialAmountPacket;
+import com.astraeus.net.packet.out.SetWidgetConfigPacket;
 
 @SubscribesTo(PostLoginEvent.class)
 public final class PostLoginEventConsumer implements EventSubscriber<PostLoginEvent> {

@@ -1,11 +1,11 @@
 package plugin.doors;
 
-import astraeus.game.model.Direction;
-import astraeus.game.model.Position;
-import astraeus.game.model.entity.object.GameObject;
-import astraeus.game.model.entity.object.GameObjectType;
-
 import java.util.Objects;
+
+import com.astraeus.game.world.Direction;
+import com.astraeus.game.world.Position;
+import com.astraeus.game.world.entity.object.GameObject;
+import com.astraeus.game.world.entity.object.GameObjectType;
 
 /**
  * Represents a door object in the game world.

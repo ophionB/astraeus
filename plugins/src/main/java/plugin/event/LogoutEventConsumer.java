@@ -1,11 +1,11 @@
 package plugin.event;
 
-import astraeus.game.event.EventContext;
-import astraeus.game.event.EventSubscriber;
-import astraeus.game.event.SubscribesTo;
-import astraeus.game.model.entity.mob.player.Player;
-import astraeus.game.model.entity.mob.player.event.LogoutEvent;
-import astraeus.net.packet.out.LogoutPlayerPacket;
+import com.astraeus.game.event.EventContext;
+import com.astraeus.game.event.EventSubscriber;
+import com.astraeus.game.event.SubscribesTo;
+import com.astraeus.game.world.entity.mob.player.Player;
+import com.astraeus.game.world.entity.mob.player.event.LogoutEvent;
+import com.astraeus.net.packet.out.LogoutPlayerPacket;
 
 @SubscribesTo(LogoutEvent.class)
 public final class LogoutEventConsumer implements EventSubscriber<LogoutEvent> {

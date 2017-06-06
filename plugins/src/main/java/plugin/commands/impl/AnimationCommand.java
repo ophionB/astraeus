@@ -1,10 +1,11 @@
 package plugin.commands.impl;
 
-import astraeus.game.event.SubscribesTo;
-import astraeus.game.event.impl.CommandEvent;
-import astraeus.game.model.Animation;
-import astraeus.game.model.entity.mob.player.Player;
-import astraeus.game.model.entity.mob.player.PlayerRights;
+import com.astraeus.game.event.SubscribesTo;
+import com.astraeus.game.event.impl.CommandEvent;
+import com.astraeus.game.world.entity.mob.Animation;
+import com.astraeus.game.world.entity.mob.player.Player;
+import com.astraeus.game.world.entity.mob.player.PlayerRights;
+
 import plugin.commands.Command;
 import plugin.commands.CommandParser;
 

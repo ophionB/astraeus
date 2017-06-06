@@ -1,10 +1,11 @@
 package plugin.click.npc;
 
-import astraeus.game.event.EventContext;
-import astraeus.game.event.EventSubscriber;
-import astraeus.game.event.SubscribesTo;
-import astraeus.game.event.impl.NpcFirstClickEvent;
-import astraeus.game.model.entity.mob.player.Player;
+import com.astraeus.game.event.EventContext;
+import com.astraeus.game.event.EventSubscriber;
+import com.astraeus.game.event.SubscribesTo;
+import com.astraeus.game.event.impl.NpcFirstClickEvent;
+import com.astraeus.game.world.entity.mob.player.Player;
+
 import plugin.dialog.AppearanceDialogue;
 import plugin.dialog.BankerDialogue;
 import plugin.dialog.DefaultDialogue;

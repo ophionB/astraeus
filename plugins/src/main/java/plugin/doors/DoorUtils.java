@@ -4,14 +4,13 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import com.astraeus.game.world.Direction;
+import com.astraeus.game.world.Position;
+import com.astraeus.game.world.entity.mob.player.Player;
+import com.astraeus.game.world.entity.object.GameObject;
+import com.astraeus.net.packet.out.AddObjectPacket;
+import com.astraeus.net.packet.out.RemoveRegionalObjectPacket;
 import com.google.common.collect.ImmutableSet;
-
-import astraeus.game.model.Direction;
-import astraeus.game.model.Position;
-import astraeus.game.model.entity.mob.player.Player;
-import astraeus.game.model.entity.object.GameObject;
-import astraeus.net.packet.out.AddObjectPacket;
-import astraeus.net.packet.out.RemoveRegionalObjectPacket;
 
 /**
  * The class that contains static-utility methods for doors.

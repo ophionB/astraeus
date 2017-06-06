@@ -1,8 +1,8 @@
 package plugin.dialog;
 
-import astraeus.game.model.widget.dialog.Dialogue;
-import astraeus.game.model.widget.dialog.DialogueFactory;
-import astraeus.game.model.widget.dialog.Expression;
+import com.astraeus.game.world.entity.mob.player.widget.dialog.Dialogue;
+import com.astraeus.game.world.entity.mob.player.widget.dialog.DialogueFactory;
+import com.astraeus.game.world.entity.mob.player.widget.dialog.Expression;
 
 public final class BankerDialogue extends Dialogue {
 

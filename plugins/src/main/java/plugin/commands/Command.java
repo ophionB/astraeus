@@ -1,10 +1,10 @@
 package plugin.commands;
 
-import astraeus.game.event.EventContext;
-import astraeus.game.event.EventSubscriber;
-import astraeus.game.event.impl.CommandEvent;
-import astraeus.game.model.entity.mob.player.Player;
-import astraeus.game.model.entity.mob.player.PlayerRights;
+import com.astraeus.game.event.EventContext;
+import com.astraeus.game.event.EventSubscriber;
+import com.astraeus.game.event.impl.CommandEvent;
+import com.astraeus.game.world.entity.mob.player.Player;
+import com.astraeus.game.world.entity.mob.player.PlayerRights;
 
 public abstract class Command implements EventSubscriber<CommandEvent> {
 	
